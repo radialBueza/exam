@@ -10,9 +10,22 @@ class DepartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->is('api/*')) {
+            if (empty($request->search)) {
+                return Department::oldest()->get();
+
+            }
+
+            return Department::oldest()->where('name', 'like', '%' . $request->search . '%')->get();
+
+        }
+
+        return view('original/department/deparment',
+        [
+            'datas' => Department::oldest()->get()
+        ]);
     }
 
     /**
