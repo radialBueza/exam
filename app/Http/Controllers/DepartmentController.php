@@ -67,15 +67,15 @@ class DepartmentController extends Controller
             'name' => [Rule::unique('departments')->ignore($department), 'min:4', 'max:20', ]
         ]);
 
-        $department->name=$request->name;
+        // $department->name=$request->name;
 
-        $department->save();
+        // $department->save();
 
         return response()->json([
             'success' => true,
-            'data' => Department::oldest()->get(),
-            // 'data' => 'test',
-        ], 201);
+            // 'data' => Department::oldest()->get(),
+            // // 'data' => 'test',
+        ], 200);
     }
 
     /**

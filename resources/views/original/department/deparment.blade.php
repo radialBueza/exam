@@ -128,9 +128,6 @@
             const index = (el) => el.id == id
             this.toEdit = this.depts.findIndex(index)
             this.openEdit = true
-            console.log(this.depts)
-            console.log(this.toEdit)
-            console.log(this.openEdit)
             return
         }
     }">
@@ -564,28 +561,30 @@
                     }
 
                     this.showForm = false;
-                    {{-- const data = {
-                        name: this.name
-                    } --}}
 
                     const inputForm = new FormData(form)
                     const input = new URLSearchParams(inputForm)
 
-                    const res = await fetch(url, {
-                        method: 'POST',
+                    console.log(depts)
+
+                    const res = await fetch(url + '/' + depts[toEdit].id, {
+                        method: 'PUT',
                         headers: {
                             'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
-                            {{-- 'Content-Type': 'application/json', --}}
                             'Accept': 'application/json'
                         },
                         body: input
                     })
 
-                    if (res.status == 201) {
+                    if (res.status == 200) {
                         this.confirm = true
+
                         const data = await res.json()
-                        this.depts = data.data
-                        sort()
+                        {{-- this.depts = data.data
+                        sort() --}}
+                        {{-- depts[toEdit].name = this.name.replace(/\s+/g, ' ').trim().toLowerCase() --}}
+                        console.log(depts)
+                        console.log(data.success)
                         return
                     }
 
@@ -597,6 +596,7 @@
 
                         return
                     }
+
                 },
 
                 again() {
