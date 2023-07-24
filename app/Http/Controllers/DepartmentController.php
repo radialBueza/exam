@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DepartmentController extends Controller
 {
@@ -62,6 +63,19 @@ class DepartmentController extends Controller
     public function update(Request $request, Department $department)
     {
         //
+        $validated = $request->validate([
+            'name' => [Rule::unique('departments')->ignore($department), 'min:4', 'max:20', ]
+        ]);
+
+        $department->name=$request->name;
+
+        $department->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => Department::oldest()->get(),
+            // 'data' => 'test',
+        ], 201);
     }
 
     /**
