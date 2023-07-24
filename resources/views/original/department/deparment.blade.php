@@ -693,7 +693,7 @@
                             <p class="text-xl font-medium text-green-800">Successfully created</p>
                             <div class="flex justify-between gap-2">
                                 <button @click="again()" class="flex-1 bg-green-500 focus:ring-green-700 inline-flex items-center px-4 py-2 border-transparent rounded-md font-semibold text-xs text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Add</button>
-                                <button @click="openAdd = false" class="flex-1 bg-red-500 focus:ring-red-700 inline-flex items-center px-4 py-2 border-transparent rounded-md font-semibold text-xs text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Close</button>
+                                <button @click="openEdit = false" class="flex-1 bg-red-500 focus:ring-red-700 inline-flex items-center px-4 py-2 border-transparent rounded-md font-semibold text-xs text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Close</button>
                             </div>
                         </div>
                     </template>
