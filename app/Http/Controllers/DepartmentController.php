@@ -29,19 +29,22 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
+        ]);
+
+        // neww
+        Department::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'data' => Department::oldest()->get(),
+            // 'data' => 'test',
+        ], 201);
     }
 
     /**
@@ -52,13 +55,6 @@ class DepartmentController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Department $department)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -73,6 +69,21 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+
+        return response()->json([
+            'success' => true
+        ], 200);
+    }
+
+    // Destory multiple items
+
+    public function destroyAll(Request $request)
+    {
+        Department::destroy($request->items);
+
+        return response()->json([
+            'success' => true
+        ], 200);
     }
 }
