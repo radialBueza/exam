@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
-// use Illuminate\Validation\Rule;
-use App\Http\Requests\Store;
-use App\Http\Requests\Update;
+use App\Http\Requests\DepartmentRequest;
 use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
@@ -35,7 +33,7 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Store $request)
+    public function store(DepartmentRequest $request)
     {
         // $validated = $request->validate([
         //     'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
@@ -66,7 +64,7 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Update $request, Department $department)
+    public function update(DepartmentRequest $request, Department $department)
     {
         //
         // $validated = $request->validate([

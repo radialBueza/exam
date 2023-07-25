@@ -5,21 +5,19 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
-class Store extends FormRequest
+
+class DepartmentRequest extends FormRequest
 {
     // Lower strings
 
     protected function prepareForValidation(): void
     {
-        // $this->merge([
-        //     'name' => Str::lower($this->name)
-        // ]);
-        if ($this->has('name')) {
-            $this->merge([
-                'name' => Str::lower($this->name)
-            ]);
-        }
+        $this->merge([
+            'name' => Str::lower($this->name)
+        ]);
+
     }
     /**
      * Determine if the user is authorized to make this request.
@@ -36,9 +34,18 @@ class Store extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isMethod('post')) {
+            return [
+                'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
+            ];
+        }
+        // return [
+        //     'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
+        // ];
         return [
-            'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
+            'name' => [Rule::unique('departments')->ignore($this->department), 'min:4', 'max:20', ]
         ];
+
     }
 
 
