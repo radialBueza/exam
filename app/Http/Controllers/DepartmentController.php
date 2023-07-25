@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+// use Illuminate\Validation\Rule;
+use App\Http\Requests\Store;
+use App\Http\Requests\Update;
+use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
@@ -19,11 +22,11 @@ class DepartmentController extends Controller
 
             }
 
-            return Department::oldest()->where('name', 'like', '%' . $request->search . '%')->get();
+            return Department::oldest()->where('name', 'like', '%' . Str::lower($request->search) . '%')->get();
 
         }
 
-        return view('original/department/deparment',
+        return view('department.index',
         [
             'datas' => Department::oldest()->get()
         ]);
@@ -32,14 +35,14 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Store $request)
     {
-        $validated = $request->validate([
-            'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
-        ]);
+        // $validated = $request->validate([
+        //     'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
+        // ]);
 
         // neww
-        Department::create($validated);
+        Department::create($request->validated());
 
         return response()->json([
             'success' => true,
@@ -53,27 +56,30 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        //
+        return view('department.show',
+        [
+            'data' => $department
+        ]);
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Department $department)
+    public function update(Update $request, Department $department)
     {
         //
-        $validated = $request->validate([
-            'name' => [Rule::unique('departments')->ignore($department), 'min:4', 'max:20', ]
-        ]);
+        // $validated = $request->validate([
+        //     'name' => [Rule::unique('departments')->ignore($department), 'min:4', 'max:20', ]
+        // ]);
 
-        // $department->name=$request->name;
+        $department->name=$request->name;
 
-        // $department->save();
+        $department->save();
 
         return response()->json([
             'success' => true,
-            // 'data' => Department::oldest()->get(),
+            'data' => Department::oldest()->get(),
             // // 'data' => 'test',
         ], 200);
     }

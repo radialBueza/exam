@@ -1,4 +1,4 @@
-<x-app-layout title="Department">
+<x-app-layout title="Departments">
     <x-slot name="header">
         <h1 class="font-semibold text-xl text-gray-800 leading-tight">
             Department
@@ -6,63 +6,39 @@
     </x-slot>
     <div class="py-12" x-data = "{
         {{-- retrieve data --}}
-        depts: {{ Js::from($datas)}},
+        datas: {{ Js::from($datas)}},
         url: new URL('{{route('departments.index')}}'),
-        searchTxt: '',
+        openAdd: false,
+        openDel: false,
+        openEdit: false,
+        toEdit: 0,
+        toDelete: { items: []},
         pageSize: 10,
         curPage: 1,
         sortCol: null,
         sortAsc: false,
-        openAdd: false,
-        openDel: false,
-        openEdit: false,
-        {{-- new --}}
-        toEdit: 0,
-        toDelete: { items: []},
         get entryStart() {
             return this.pageSize * this.curPage - 9
         },
         get entryEnd() {
-            if((this.curPage * this.pageSize) >= this.depts.length) return this.depts.length
+            if((this.curPage * this.pageSize) >= this.datas.length) return this.datas.length
             return this.curPage * this.pageSize
         },
-
-        {{-- search --}}
-        async search(e) {
-            this.depts = null
-            {{-- this.url.searchParams.set('search', this.searchTxt.replace(/\s+/g, ' ').trim().toLowerCase()) --}}
-            this.url.searchParams.set('search', this.searchTxt)
-
-
-            const res = await fetch(this.url)
-
-            const data = await res.json()
-
-            console.log(data.input)
-
-            return this.depts = data
-        },
-
-        {{-- move pages --}}
         nextPage() {
-            if((this.curPage * this.pageSize) < this.depts.length) this.curPage++
+            if((this.curPage * this.pageSize) < this.datas.length) this.curPage++
         },
-
         prevPage() {
             if( this.curPage > 1) this.curPage--;
         },
-        {{-- display pages in pagination --}}
-        get pagedDepts() {
-            if(this.depts) {
-                return this.depts.filter((row, index) => {
+        get pagedDatas() {
+            if(this.datas) {
+                return this.datas.filter((row, index) => {
                     let start = (this.curPage-1)*this.pageSize
                     let end = this.curPage*this.pageSize
                     if(index >= start && index < end) return true
                 })
             } else return [];
         },
-        {{-- sort --}}
-
         sort(col = '') {
             if (!col.length == 0) {
                 this.sortCol = col;
@@ -72,61 +48,17 @@
                 this.sortAsc = !this.sortAsc;
             }
 
-            this.depts.sort((a, b) => {
+            this.datas.sort((a, b) => {
               if(a[this.sortCol] < b[this.sortCol]) return this.sortAsc?1:-1;
               if(a[this.sortCol] > b[this.sortCol]) return this.sortAsc?-1:1;
               return 0;
             });
         },
 
-        {{-- add or remove items to be deleted --}}
-        addDelete(id) {
-            const exist = (ele) => ele == id
-            const result = this.toDelete.items.findIndex(exist)
-
-            {{-- value is not in toDelete --}}
-            if (result < 0) {
-                this.toDelete.items.push(id)
-                return
-            }
-
-            {{-- value is in toDelete --}}
-            this.toDelete.items.splice(result, 1)
-            return
-        },
-
-        selectAll() {
-            if(this.toDelete.items.length >= this.depts.length) {
-                this.toDelete.items = []
-                return
-            }
-            for (let dept of this.depts) {
-                this.toDelete.items.push(dept.id)
-            }
-        },
-
-        async destroy(id) {
-            const delUrl = this.url + '/' + id
-
-            const res = await fetch(delUrl, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
-                    'Accept': 'application/json'
-                }
-            })
-
-            const data = await res.json()
-
-            if (res.status == 200) {
-                this.depts = this.depts.filter(dept => dept.id != id)
-            }
-        },
-
-        {{-- new --}}
+        {{-- Open Edit Modal --}}
         edit(id) {
             const index = (el) => el.id == id
-            this.toEdit = this.depts.findIndex(index)
+            this.toEdit = this.datas.findIndex(index)
             this.openEdit = true
             return
         }
@@ -148,32 +80,101 @@
             </section>
 
             {{-- tables and search bar --}}
-            <section class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <section class="p-4 sm:p-9 bg-white shadow sm:rounded-lg">
                     <div class="max-x-xl">
                         {{-- search bar --}}
-                        <form action="" class="flex justify-center mb-8" @submit.prevent="search">
-                            <label for="search" class="sr-only">Search</label>
-                            <div class="flex border-0 rounded-full bg-gray-100 w-4/5 max-w-xl">
-                                <div class="relative w-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute w-7 h-7 z-10 p-1 inset-y-2 left-2">
-                                        <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
-                                    </svg>
-                                    <input type="search" name="search" id="search" placeholder="Search..." class="placeholder:italic placeholder:text-slate-400 text-slate-600 w-full bg-gray-100 border border-gray-200 rounded-l-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-red-600 focus:border-red-600" x-model="searchTxt">
+                        <div x-data="{
+                            searchTxt: '',
+                            async search() {
+                                this.datas = null
+                                this.url.searchParams.set('search', this.searchTxt)
+
+
+                                const res = await fetch(this.url)
+
+                                const result = await res.json()
+
+                                return this.datas = result
+                            },
+                        }">
+                            <form action="" class="flex justify-center mb-8" @submit.prevent="search">
+                                <label for="search" class="sr-only">Search</label>
+                                <div class="flex border-0 rounded-full bg-gray-100 w-4/5 max-w-xl">
+                                    <div class="relative w-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute w-7 h-7 z-10 p-1 inset-y-2 left-2">
+                                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                                        </svg>
+                                        <input type="search" name="search" id="search" placeholder="Search..." class="placeholder:italic placeholder:text-slate-400 text-slate-600 w-full bg-gray-100 border border-gray-200 rounded-l-full pl-10 pr-2 py-2 focus:ring-1 focus:ring-red-600 focus:border-red-600" x-model="searchTxt">
+                                    </div>
+                                    <button type="submit" name="submit" class="px-4 font-semibold text-xs shadow-sm rounded-r-full p-1 border hover:bg-red-600 hover:outline-1 hover:ring-1 hover:ring-red-600 hover:z-10 hover:text-white">Search</button>
                                 </div>
-                                <button type="submit" name="submit" class="px-4 font-semibold text-xs shadow-sm rounded-r-full p-1 border hover:bg-red-600 hover:outline-1 hover:ring-1 hover:ring-red-600 hover:z-10 hover:text-white">Search</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+
 
                         {{-- table --}}
 
-                        <div x-show="depts" class="overflow-x-auto pb-2">
-                            <template x-cloack x-if="depts">
-                                <div class="text-xs font-light text-slate-400 pl-4"> <span x-text="entryStart"></span> - <span x-text="entryEnd"></span> of <span x-text="depts.length"></span></div>
+                        <div
+                            x-data = "{
+
+                                {{-- add or remove items to be deleted --}}
+                                addDelete(id) {
+                                    const exist = (ele) => ele == id
+                                    const result = toDelete.items.findIndex(exist)
+
+                                    {{-- value is not in toDelete. add to delete --}}
+                                    if (result < 0) {
+                                        toDelete.items.push(id)
+
+                                        return
+                                    }
+
+                                    {{-- value is in toDelete. remove in delete --}}
+                                    toDelete.items.splice(result, 1)
+                                    return
+                                },
+
+                                {{-- Add all item to delete --}}
+                                selectAll() {
+                                    if(toDelete.items.length >= datas.length) {
+                                        toDelete.items = []
+                                        return
+                                    }
+                                    for (let data of datas) {
+                                        if (toDelete.items.includes(data.id)) {
+                                            continue;
+                                        }
+                                        toDelete.items.push(data.id)
+                                    }
+                                },
+
+                                {{-- delete one item --}}
+                                async destroy(id) {
+                                    const delUrl = url + '/' + id
+
+                                    const res = await fetch(delUrl, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
+                                            'Accept': 'application/json'
+                                        }
+                                    })
+
+
+                                    if (res.status == 200) {
+                                        datas = datas.filter(data => data.id != id)
+                                    }
+
+                                },
+                            }"
+                            x-show="datas" class="overflow-x-auto pb-2">
+                            <template x-cloack x-if="datas">
+                                <div class="text-xs font-light text-slate-400 pl-4"> <span x-text="entryStart"></span> - <span x-text="entryEnd"></span> of <span x-text="datas.length"></span></div>
                             </template>
                             <table class="w-full table-auto text-sm text-left text-gray-500 mb-4">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                                     <tr class="border-b bg-gray-100">
-                                        <th scope="col" class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.length == depts?.length" @click="selectAll()"></th>
+                                        <th scope="col" class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.length == datas?.length" @click="selectAll()"></th>
                                         <th scope="col" class="px-6 py-3 hover:ring-1 hover:ring-gray-300 hover:bg-gray-300" @click="sort('name')">
                                             Name
                                             <template x-if="sortAsc">
@@ -204,15 +205,16 @@
                                     </tr>
                                 <thead>
                                 <tbody>
-                                    <template x-cloak x-for="dept in pagedDepts" :key="dept.id" >
+                                    <template x-cloak x-for="data in pagedDatas" :key="data.id" >
                                         <tr class="bg-white border-b">
-                                            <td class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.includes(dept.id)" @click="addDelete(dept.id)"></td>
-                                            <td x-text="dept.name" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize "></td>
-                                            <td x-text="(new Date(dept.created_at)).toLocaleString()" class="px-6 py-4"></td>
+                                            <td class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.includes(data.id)" @click="addDelete(data.id)"></td>
+                                            {{-- <td x-text="data.name" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize "></td> --}}
+                                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize hover:underline hover:text-gray-700"><a :href="`${url}/${data.id}`" x-text="data.name" ></a></td>
+                                            <td x-text="(new Date(data.created_at)).toLocaleString()" class="px-6 py-4"></td>
                                             <td class="px-6 py-4 flex justify-center items-center space-x-2">
                                                 <div class="inline-flex justify-start items-center gap-1">
-                                                    <button @click="edit(dept.id)" class=" flex-1 bg-green-500 focus:ring-green-700 inline-flex items-center px-4 py-2 border-transparent rounded-md font-semibold text-xs text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Edit</button>
-                                                    <button @click="destroy(dept.id)" class=" flex-1 bg-red-500 focus:ring-red-700 inline-flex items-center px-4 py-2 border-transparent rounded-md font-semibold text-xs text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Delete</button>
+                                                    <button @click="edit(data.id)" class=" flex-1 bg-green-500 focus:ring-green-700 inline-flex items-center px-4 py-2 border-transparent rounded-md font-semibold text-xs text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Edit</button>
+                                                    <button @click="destroy(data.id)" class=" flex-1 bg-red-500 focus:ring-red-700 inline-flex items-center px-4 py-2 border-transparent rounded-md font-semibold text-xs text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -236,7 +238,7 @@
 
 
                         {{-- loading image --}}
-                        <template x-cloak x-if="!depts">
+                        <template x-cloak x-if="!datas">
                             <div role="status" class="flex justify-center m-2">
                                 <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin  fill-red-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -305,17 +307,17 @@
 
                     if (res.status == 201) {
                         this.confirm = true
-                        const data = await res.json()
-                        this.depts = data.data
+                        const result = await res.json()
+                        this.datas = result.data
                         sort()
                         return
                     }
 
                     if (res.status == 422) {
                         this.showForm = true
-                        const data = await res.json()
+                        const result = await res.json()
 
-                        this.error.msg = data.errors.name[0]
+                        this.error.msg = result.errors.name[0]
 
                         return
                     }
@@ -372,8 +374,8 @@
                                 Add a department for the school.
                             </p>
 
-                            {{-- <form class="mt-5" id="addDept" @submit.prevent="await sendData()"> --}}
-                            <form class="mt-5" id="addDept" @submit.prevent="await sendData($el)">
+                            {{-- <form class="mt-5" id="adddata" @submit.prevent="await sendData()"> --}}
+                            <form class="mt-5" id="addData" @submit.prevent="await sendData($el)">
                                 <div>
                                     <label for="name" class="block text-sm text-gray-700 capitalize">Department name</label>
 
@@ -441,7 +443,7 @@
                     this.showForm = false
 
                     if (res.status == 200) {
-                        depts = depts.filter(dept => !toDelete.items.includes(dept.id))
+                        datas = datas.filter(data => !toDelete.items.includes(data.id))
 
                         this.confirm = true
                     }
@@ -565,9 +567,8 @@
                     const inputForm = new FormData(form)
                     const input = new URLSearchParams(inputForm)
 
-                    console.log(depts)
 
-                    const res = await fetch(url + '/' + depts[toEdit].id, {
+                    const res = await fetch(url + '/' + datas[toEdit].id, {
                         method: 'PUT',
                         headers: {
                             'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
@@ -579,20 +580,17 @@
                     if (res.status == 200) {
                         this.confirm = true
 
-                        const data = await res.json()
-                        {{-- this.depts = data.data
-                        sort() --}}
-                        {{-- depts[toEdit].name = this.name.replace(/\s+/g, ' ').trim().toLowerCase() --}}
-                        console.log(depts)
-                        console.log(data.success)
+                        const result = await res.json()
+                        datas = result.data
+                        sort()
                         return
                     }
 
                     if (res.status == 422) {
                         this.showForm = true
-                        const data = await res.json()
+                        const result = await res.json()
 
-                        this.error.msg = data.errors.name[0]
+                        this.error.msg = result.errors.name[0]
 
                         return
                     }
@@ -650,16 +648,15 @@
                                 Update a department of the school.
                             </p>
 
-                            {{-- <form class="mt-5" id="addDept" @submit.prevent="await sendData()"> --}}
-                            <form class="mt-5" id="addDept" @submit.prevent="await sendData($el)">
+                            <form class="mt-5" id="updateData" @submit.prevent="await sendData($el)">
                                 <div>
                                     <label for="name" class="block text-sm text-gray-700 capitalize">Department Name</label>
 
-                                    <input id="name" name="name" placeholder="Enter Depatment Name . . . " type="text" :value="depts[toEdit].name" class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md capitalize"
+                                    <input id="name" name="name" placeholder="Enter Depatment Name . . . " type="text" :value="datas[toEdit].name" class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md capitalize"
                                         @keyup="validate" :class="error.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
                                     >
 
-                                    <input id="id" name="id" type="hidden" :value="depts[toEdit].id" >
+                                    <input id="id" name="id" type="hidden" :value="datas[toEdit].id" >
 
                                     <div x-show="error.msg" x-text="error.msg" class="text-red-800 text-sm font-semibold my-2">
                                     </div>
