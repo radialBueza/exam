@@ -35,11 +35,7 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $request)
     {
-        // $validated = $request->validate([
-        //     'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
-        // ]);
 
-        // neww
         Department::create($request->validated());
 
         return response()->json([
@@ -66,12 +62,8 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $request, Department $department)
     {
-        //
-        // $validated = $request->validate([
-        //     'name' => [Rule::unique('departments')->ignore($department), 'min:4', 'max:20', ]
-        // ]);
 
-        $department->name=$request->name;
+        $department->name = $request->name;
 
         $department->save();
 

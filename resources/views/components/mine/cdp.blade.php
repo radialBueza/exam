@@ -1,0 +1,13 @@
+@props(['pdfUrl'])
+
+<div class="flex justify-between">
+    <div class="inline-flex justify-start items-center gap-1">
+        <x-mine.button open="openAdd" class="bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Add</x-mine.button>
+        <x-mine.button open="openDel" class="bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Delete</x-mine.button>
+    </div>
+    <div class="inline-flex justify-start items-center gap-1">
+        <x-mine.link-button href="{{$pdfUrl}}" class="bg-sky-600 focus:ring-sky-600 hover:bg-sky-500 focus:bg-sky-500 active:bg-sky-700">
+            PDF
+        </x-mine.link-button>
+    </div>
+</div>
