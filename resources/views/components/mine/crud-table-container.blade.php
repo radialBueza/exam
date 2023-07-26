@@ -9,18 +9,18 @@
     openEdit: false,
     toEdit: 0,
     toDelete: { items: []},
-    pageSize: 10,
-    curPage: 1,
+    {{-- pageSize: 10,
+    curPage: 1, --}}
     sortCol: null,
     sortAsc: false,
-    get entryStart() {
+    {{-- get entryStart() {
         return this.pageSize * this.curPage - 9
     },
     get entryEnd() {
         if((this.curPage * this.pageSize) >= this.datas.length) return this.datas.length
         return this.curPage * this.pageSize
-    },
-    nextPage() {
+    }, --}}
+    {{-- nextPage() {
         if((this.curPage * this.pageSize) < this.datas.length) this.curPage++
     },
     prevPage() {
@@ -34,7 +34,7 @@
                 if(index >= start && index < end) return true
             })
         } else return [];
-    },
+    }, --}}
     sort(col = '') {
         if (!col.length == 0) {
             this.sortCol = col;
