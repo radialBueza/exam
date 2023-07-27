@@ -32,6 +32,7 @@
         const index = (el) => el.id == id
         this.toEdit = this.datas.findIndex(index)
         this.openEdit = true
+        console.log(this.toEdit)
         return
     }
 }">

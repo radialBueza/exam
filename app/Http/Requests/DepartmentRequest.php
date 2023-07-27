@@ -10,12 +10,14 @@ use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
+
+    // protected $stopOnFirstFailure = true;
     // Lower strings
 
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'name' => Str::lower($this->name)
+            'name' => Str::lower($this->name),
         ]);
 
     }
@@ -36,7 +38,7 @@ class DepartmentRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', ]
+                'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', 'required'],
             ];
         }
         // return [
