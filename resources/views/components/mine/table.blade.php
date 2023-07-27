@@ -81,32 +81,7 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr class="border-b bg-gray-100">
                     <th scope="col" class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.length == datas?.length" @click="selectAll()"></th>
-                    <th scope="col" class="px-6 py-3 hover:ring-1 hover:ring-gray-300 hover:bg-gray-300" @click="sort('name')">
-                        Name
-                        <template x-if="sortAsc">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />
-                            </svg>
-                        </template>
-                        <template x-if="!sortAsc">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3" />
-                            </svg>
-                        </template>
-                    </th>
-                    <th scope="col" class="px-6 py-3 hover:ring-1 hover:ring-gray-300 hover:bg-gray-300" @click="sort('created_at')">
-                        Created
-                        <template x-if="sortAsc">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />
-                            </svg>
-                        </template>
-                        <template x-if="!sortAsc">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3" />
-                            </svg>
-                        </template>
-                    </th>
+                    {{$thead}}
                     <th scope="col" class="px-6 py-3"></th>
                 </tr>
             <thead>
@@ -114,8 +89,7 @@
                 <template x-cloak x-for="data in pagedDatas" :key="data.id" >
                     <tr class="bg-white border-b">
                         <td class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.includes(data.id)" @click="addDelete(data.id)"></td>
-                        {{-- <td x-text="data.name" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize "></td> --}}
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap capitalize hover:underline hover:text-gray-700"><a :href="`${url}/${data.id}`" x-text="data.name" ></a></td>
+                        {{$slot}}
                         <td x-text="(new Date(data.created_at)).toLocaleString()" class="px-6 py-4"></td>
                         <td class="px-6 py-4 flex justify-center items-center space-x-2">
                             <div class="inline-flex justify-start items-center gap-1">
