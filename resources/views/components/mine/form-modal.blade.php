@@ -1,4 +1,8 @@
 @aware(['title', 'subtitle', 'form', 'inputs', 'open'])
+
+@php
+    $keys = array_keys($inputs)
+@endphp
 <div x-data="{
 
     showForm: true,
@@ -6,9 +10,12 @@
     inputs: {{Js::from($inputs)}},
     error: {},
     init() {
-        @foreach($inputs as $keys => $values)
+        {{-- @foreach($inputs as $keys => $values)
         this.error.{{$keys}} = { msg: ''}
 
+        @endforeach --}}
+        @foreach($keys as $value)
+            this.error.{{$value}} = { msg: ''}
         @endforeach
 
     },
@@ -48,12 +55,17 @@
 
         }
 
-        @foreach($inputs as $keys => $values)
+        {{-- @foreach($inputs as $keys => $values)
 
         if(this.error.{{$keys}}.msg) {
             return
         }
 
+        @endforeach --}}
+        @foreach($keys as $value)
+            if(this.error.{{$value}}.msg) {
+                return
+            }
         @endforeach
 
         this.showForm = false;
@@ -87,18 +99,24 @@
     },
     again() {
         this.showForm = true
-        @foreach($inputs as $keys => $values)
+        {{-- @foreach($inputs as $keys => $values)
         this.error.{{$keys}}.msg = ''
+        @endforeach --}}
+        @foreach($keys as $value)
+        this.error.{{$value}}.msg = ''
         @endforeach
         console.log(this.error)
         this.confirm = false
     },
 
-}"x-init="$watch('openAdd', (value) => {
+}"x-init="$watch('{{$open}}', (value) => {
     if (value == true) {
         showForm = true
-        @foreach($inputs as $keys => $values)
+        {{-- @foreach($inputs as $keys => $values)
         error.{{$keys}}.msg = ''
+        @endforeach --}}
+        @foreach($keys as $value)
+        error.{{$value}}.msg = ''
         @endforeach
         $refs.{{$form}}.reset()
         confirm = false
@@ -108,7 +126,7 @@
         <div>
             <div class="flex items-center justify-between space-x-4">
                 <h3 class="text-xl font-medium text-gray-800 ">{{ucwords($title)}}</h3>
-                <button @click="openAdd = false" class="text-gray-600 focus:outline-none hover:text-gray-700">
+                <button @click="{{$open}} = false" class="text-gray-600 focus:outline-none hover:text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
