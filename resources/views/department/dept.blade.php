@@ -652,7 +652,7 @@
                                 <div>
                                     <label for="name" class="block text-sm text-gray-700 capitalize">Department Name</label>
 
-                                    <input id="name" name="name" placeholder="Enter Depatment Name . . . " type="text" :value="datas[toEdit].name" class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md capitalize"
+                                    <input id="name" name="name" placeholder="Enter Depatment Name . . . " type="text" :value="'asdasd'" class="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md capitalize"
                                         @keyup="validate" :class="error.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
                                     >
 

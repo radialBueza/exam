@@ -31,23 +31,26 @@
                 <x-mine.loading condition="!datas"/>
             </x-mine.card-container>
         </x-mine.bg-container>
-        {{-- Pop up to add data --}}
+        {{-- add data --}}
         <x-mine.modal open="openAdd">
             <x-mine.form-modal title="add department" subtitle="Add a department for the school." form="addDept" :inputs="[
-                'name' => [
-                    'length' => true,
-                    'required' => true
-                ]
+                'name' => ['length', 'required']
             ]">
                 <x-mine.text-input title="department name"/>
-                <x-slot name="button">
-                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                        Add Department
-                    </x-mine.button>
-                </x-slot>
             </x-mine.form-modal>
         </x-mine.modal>
+        {{-- Delete many --}}
         <x-mine.modal open="openDel">
+            <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
         </x-mine.modal>
+        {{-- update --}}
+        <x-mine.modal open="openEdit">
+            <x-mine.form-modal title="update department" subtitle="Update a department of the school." form="updateDept" :inputs="[
+                'name' => ['length', 'required']
+            ]">
+                <x-mine.text-input title="department name" value="datas[toEdit].name" class="capitalize"/>
+            </x-mine.form-modal>
+        </x-mine.modal>
+
     </x-mine.crud-table-container>
 </x-app-layout>
