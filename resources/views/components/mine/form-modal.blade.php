@@ -1,4 +1,12 @@
-@aware(['title', 'subtitle', 'form', 'inputs', 'open'])
+@aware([
+    'title',
+    'subtitle',
+    'form',
+    'inputs',
+    'open',
+    'method' => 'POST',
+    'url',
+    'resCode' => '200'])
 
 @php
     $keys = array_keys($inputs)
@@ -9,10 +17,7 @@
     inputs: {{Js::from($inputs)}},
     error: {},
     init() {
-        {{-- @foreach($inputs as $keys => $values)
-        this.error.{{$keys}} = { msg: ''}
 
-        @endforeach --}}
         @foreach($keys as $value)
             this.error.{{$value}} = { msg: ''}
         @endforeach
@@ -65,15 +70,15 @@
         this.showForm = false;
         const inputForm = new FormData(form)
         const input = new URLSearchParams(inputForm)
-        const res = await fetch(url, {
-            method: 'POST',
+        const res = await fetch('{{$url}}', {
+            method: '{{$method}}',
             headers: {
                 'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
                 'Accept': 'application/json'
             },
             body: input
         })
-        if (res.status == 201) {
+        if (res.status == {{$resCode}}) {
             this.success = true
             const result = await res.json()
             datas = result.data

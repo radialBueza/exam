@@ -33,9 +33,8 @@
         </x-mine.bg-container>
         {{-- add data --}}
         <x-mine.modal open="openAdd">
-            <x-mine.form-modal title="add department" subtitle="Add a department for the school." form="addDept" :inputs="[
-                'name' => ['length', 'required']
-            ]">
+            <x-mine.form-modal title="add department" subtitle="Add a department for the school." form="addDept"
+            :inputs="['name' => ['length', 'required']]" resCode="201">
                 <x-mine.text-input title="department name"/>
             </x-mine.form-modal>
         </x-mine.modal>
@@ -47,7 +46,7 @@
         <x-mine.modal open="openEdit">
             <x-mine.form-modal title="update department" subtitle="Update a department of the school." form="updateDept" :inputs="[
                 'name' => ['length', 'required']
-            ]">
+            ]" method="PUT" url="`{{route('departments.index')}}/${datas[toEdit].id}`">
                 <x-mine.text-input title="department name" value="datas[toEdit].name" class="capitalize"/>
             </x-mine.form-modal>
         </x-mine.modal>
