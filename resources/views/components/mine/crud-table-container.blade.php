@@ -2,7 +2,10 @@
 
 <div x-data="{
     {{-- retrieve data --}}
-    datas: {{ Js::from($datas)}},
+    datas: {{$datas}},
+    init() {
+        console.log(this.datas)
+    },
     url: new URL('{{$url}}'),
     openAdd: false,
     openDel: false,

@@ -6,7 +6,8 @@
     'open',
     'method' => 'POST',
     'url',
-    'resCode' => '200'])
+    'resCode' => '200',
+    ])
 
 @php
     $keys = array_keys($inputs)
@@ -70,7 +71,7 @@
         this.showForm = false;
         const inputForm = new FormData(form)
         const input = new URLSearchParams(inputForm)
-        const res = await fetch('{{$url}}', {
+        const res = await fetch(`{{$url}}`, {
             method: '{{$method}}',
             headers: {
                 'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,

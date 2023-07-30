@@ -26,7 +26,7 @@ class DepartmentController extends Controller
 
         return view('department.index',
         [
-            'datas' => Department::oldest()->get()
+            'datas' => Department::oldest()->get()->toJson()
         ]);
     }
 
@@ -50,9 +50,12 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
+
         return view('department.show',
         [
-            'data' => $department
+            'name' => $department->name,
+            'admin' => $department->user()->get(),
+            'datas' => $department->gradeLevel()->get()->toJson()
         ]);
     }
 
@@ -70,7 +73,6 @@ class DepartmentController extends Controller
         return response()->json([
             'success' => true,
             'data' => Department::oldest()->get(),
-            // // 'data' => 'test',
         ], 200);
     }
 

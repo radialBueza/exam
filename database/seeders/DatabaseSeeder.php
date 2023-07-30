@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Department;
+use App\Models\GradeLevel;
 use App\Models\Section;
 use App\Models\User;
 
@@ -27,7 +28,23 @@ class DatabaseSeeder extends Seeder
             ['name' => 'preschool']
         );
 
+        GradeLevel::create([
+            'department_id' => 1,
+            'name' => 'Grade 7'
+        ]);
+
+        GradeLevel::create([
+            'department_id' => 1,
+            'name' => 'Grade 8'
+        ]);
+
+        GradeLevel::create([
+            'department_id' => 1,
+            'name' => 'Grade 9'
+        ]);
+
         Section::create([
+            'grade_level_id' => 1,
             'name' => 'dalton'
         ]);
 

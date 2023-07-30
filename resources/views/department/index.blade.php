@@ -5,15 +5,12 @@
         </h1>
     </x-slot>
     {{-- alpine dive to get data and for other components to works --}}
-    <x-mine.crud-table-container :$datas url="{{route('departments.index')}}">
+
         {{-- main content --}}
-        <x-mine.bg-container>
-            {{-- add and delete --}}
+    <x-mine.bg-container>
+        <x-mine.crud-table-container :$datas url="{{route('departments.index')}}">
             <x-mine.card-container>
                 <x-mine.cdp pdfUrl=" "/>
-            </x-mine.card-container>
-            {{-- table and search bar --}}
-            <x-mine.card-container>
                 <x-mine.search/>
                 <x-mine.table>
                     <x-slot name="thead">
@@ -30,26 +27,44 @@
                 </x-mine.table>
                 <x-mine.loading condition="!datas"/>
             </x-mine.card-container>
-        </x-mine.bg-container>
+            <x-mine.modal open="openAdd">
+                <x-mine.form-modal title="add department" subtitle="Add a department for the school." form="addDept"
+                :inputs="['name' => ['length', 'required']]" resCode="201">
+                    <x-mine.text-input title="department name"/>
+                </x-mine.form-modal>
+            </x-mine.modal>
+            <x-mine.modal open="openDel">
+                <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
+            </x-mine.modal>
+            <x-mine.modal open="openEdit">
+                <x-mine.form-modal title="update department" subtitle="Update a department of the school." form="updateDept" :inputs="[
+                    'name' => ['length', 'required']
+                ]" method="PUT" url="{{route('departments.index')}}/${datas[toEdit].id}">
+                    <x-mine.text-input title="department name" value="datas[toEdit].name" class="capitalize"/>
+                </x-mine.form-modal>
+            </x-mine.modal>
+        </x-mine.crud-table-container>
+    </x-mine.bg-container>
         {{-- add data --}}
-        <x-mine.modal open="openAdd">
+        {{-- <x-mine.modal open="openAdd">
             <x-mine.form-modal title="add department" subtitle="Add a department for the school." form="addDept"
             :inputs="['name' => ['length', 'required']]" resCode="201">
                 <x-mine.text-input title="department name"/>
             </x-mine.form-modal>
-        </x-mine.modal>
+        </x-mine.modal> --}}
         {{-- Delete many --}}
-        <x-mine.modal open="openDel">
+        {{-- <x-mine.modal open="openDel">
             <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
-        </x-mine.modal>
+        </x-mine.modal> --}}
         {{-- update --}}
-        <x-mine.modal open="openEdit">
+        {{-- <x-mine.modal open="openEdit">
             <x-mine.form-modal title="update department" subtitle="Update a department of the school." form="updateDept" :inputs="[
                 'name' => ['length', 'required']
             ]" method="PUT" url="`{{route('departments.index')}}/${datas[toEdit].id}`">
                 <x-mine.text-input title="department name" value="datas[toEdit].name" class="capitalize"/>
             </x-mine.form-modal>
-        </x-mine.modal>
+        </x-mine.modal> --}}
 
-    </x-mine.crud-table-container>
 </x-app-layout>
+
+

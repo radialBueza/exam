@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Department extends Model
+class GradeLevel extends Model
 {
     use HasFactory;
 
@@ -14,14 +15,13 @@ class Department extends Model
         'name',
     ];
 
-    public function gradeLevel(): HasMany
+    public function section(): HasMany
     {
-        return $this->hasMany(GradeLevel::class);
+        return $this->hasMany(Section::class);
     }
 
-    public function user(): HasMany
+    public function department(): BelongsTo
     {
-        return $this->HasMany(User::class);
+        return $this->belongsTo(Department::class);
     }
-
 }

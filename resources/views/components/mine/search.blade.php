@@ -12,7 +12,7 @@
         return this.datas = result
     },
 }">
-    <form action="" class="flex justify-center mb-8" @submit.prevent="search">
+    <form action="" class="flex justify-center my-6" @submit.prevent="search">
         <label for="search" class="sr-only">Search</label>
         <div class="flex border-0 rounded-full bg-gray-100 w-4/5 max-w-xl">
             <div class="relative w-full">

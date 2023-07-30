@@ -12,9 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table)
+        Schema::create('grade_levels', function (Blueprint $table)
         {
             $table->id();
+            $table->foreignId('department_id')->constrained();
             $table->string('name');
             $table->timestamps();
         });
@@ -26,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('grade_levels');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

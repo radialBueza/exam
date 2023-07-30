@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -19,8 +20,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('account_type', ['admin', 'teacher', 'student'])->nullable();
-            $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('section_id')->nullable()->constrained()->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate();
+            $table->foreignId('grade_level_id')->nullable()->constrained()->cascadeOnUpdate();
+            $table->foreignId('section_id')->nullable()->constrained()->cascadeOnUpdate();
             $table->string('guardian')->nullable();
             $table->string('guardian_num')->nullable();
             $table->rememberToken();
@@ -33,6 +35,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('users');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 };
