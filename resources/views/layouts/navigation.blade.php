@@ -15,10 +15,13 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-nav-link>
-                    <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.all')">
+                    <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')">
                         Department
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')">
+                        Grade Level
+                    </x-nav-link>
+                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Section
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -29,11 +32,7 @@
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Students
-                    </x-nav-link>
-
-                    <div class="dropdown">
-
-                    </div>
+                    </x-nav-link> --}}
                 </div>
             </div>
 
@@ -89,10 +88,13 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 Dashboard
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.all')">
+            <x-responsive-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')">
                 Department
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')">
+                Grade Level
+            </x-responsive-nav-link>
+            {{-- <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 Section
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -103,7 +105,7 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 Student
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
         </div>
 
         <!-- Responsive Settings Options -->

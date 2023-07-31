@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\GradeLevelController;
 
 
 /*
@@ -34,6 +35,13 @@ Route::middleware('auth')->group(function () {
         ])->names(
         [
             'index' => 'departments.all'
+        ]);
+    Route::resource('gradeLevels', GradeLevelController::class)->only(
+        [
+            'index', 'show'
+        ])->names(
+        [
+            'index' => 'gradeLevels.all'
         ]);
 });
 

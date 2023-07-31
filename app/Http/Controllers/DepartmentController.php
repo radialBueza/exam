@@ -19,8 +19,8 @@ class DepartmentController extends Controller
                 return Department::oldest()->get();
 
             }
-
-            return Department::oldest()->where('name', 'like', '%' . Str::lower($request->search) . '%')->get();
+            $search = Str::lower($request->search);
+            return Department::oldest()->where('name', 'like', "%{$search}%")->get();
 
         }
 
@@ -41,7 +41,6 @@ class DepartmentController extends Controller
         return response()->json([
             'success' => true,
             'data' => Department::oldest()->get(),
-            // 'data' => 'test',
         ], 201);
     }
 
@@ -53,7 +52,7 @@ class DepartmentController extends Controller
 
         return view('department.show',
         [
-            'name' => $department->name,
+            'info' => $department,
             'admin' => $department->user()->get(),
             'datas' => $department->gradeLevel()->get()->toJson()
         ]);
@@ -83,9 +82,7 @@ class DepartmentController extends Controller
     {
         $department->delete();
 
-        return response()->json([
-            'success' => true
-        ], 200);
+        return response(200);
     }
 
     // Destory multiple items
@@ -94,8 +91,6 @@ class DepartmentController extends Controller
     {
         Department::destroy($request->items);
 
-        return response()->json([
-            'success' => true
-        ], 200);
+        return response(200);
     }
 }

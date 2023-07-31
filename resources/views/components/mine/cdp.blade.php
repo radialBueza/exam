@@ -7,7 +7,7 @@
     </div>
     <div class="inline-flex justify-start items-center gap-2">
         <x-mine.link-button href="{{$pdfUrl}}" class="border-transparent bg-sky-600 focus:ring-sky-600 hover:bg-sky-500 focus:bg-sky-500 active:bg-sky-700">
-            PDF
+            Print/PDF
         </x-mine.link-button>
     </div>
 </div>

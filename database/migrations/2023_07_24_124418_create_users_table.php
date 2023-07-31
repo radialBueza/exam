@@ -20,9 +20,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('account_type', ['admin', 'teacher', 'student'])->nullable();
-            $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate();
-            $table->foreignId('grade_level_id')->nullable()->constrained()->cascadeOnUpdate();
-            $table->foreignId('section_id')->nullable()->constrained()->cascadeOnUpdate();
+            $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('grade_level_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('section_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('guardian')->nullable();
             $table->string('guardian_num')->nullable();
             $table->rememberToken();

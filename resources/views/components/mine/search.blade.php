@@ -1,13 +1,16 @@
 <div x-data="{
     searchTxt: '',
     async search() {
-        this.datas = null
-        this.url.searchParams.set('search', this.searchTxt)
-
+        datas = null
+        url.searchParams.set('search', this.searchTxt)
 
         const res = await fetch(this.url)
 
+        console.log(res)
+
         const result = await res.json()
+
+        console.log(result)
 
         return this.datas = result
     },

@@ -13,6 +13,7 @@ class GradeLevel extends Model
 
     protected $fillable = [
         'name',
+        'department_id'
     ];
 
     public function section(): HasMany

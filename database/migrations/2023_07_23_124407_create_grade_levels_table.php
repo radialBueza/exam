@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('grade_levels', function (Blueprint $table)
         {
             $table->id();
-            $table->foreignId('department_id')->constrained();
-            $table->string('name');
+            $table->foreignId('department_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

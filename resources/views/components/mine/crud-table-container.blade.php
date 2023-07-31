@@ -1,16 +1,14 @@
-@props(['datas', 'url'])
+@props(['datas', 'url', 'index'])
 
 <div x-data="{
     {{-- retrieve data --}}
     datas: {{$datas}},
-    init() {
-        console.log(this.datas)
-    },
     url: new URL('{{$url}}'),
+    index: new URL('{{$index}}'),
     openAdd: false,
     openDel: false,
     openEdit: false,
-    toEdit: 0,
+    toEdit: [],
     toDelete: { items: []},
     sortCol: null,
     sortAsc: false,
@@ -32,8 +30,9 @@
 
     {{-- Open Edit Modal --}}
     edit(id) {
-        const index = (el) => el.id == id
-        this.toEdit = this.datas.findIndex(index)
+        const getIndex = (el) => el.id == id
+        let index = this.datas.findIndex(getIndex)
+        this.toEdit = this.datas[index]
         this.openEdit = true
         return
     }

@@ -7,19 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-
-class DepartmentRequest extends FormRequest
+class GradeLevelRequest extends FormRequest
 {
-
-    // protected $stopOnFirstFailure = true;
-    // Lower strings
-
     protected function prepareForValidation(): void
     {
         $this->merge([
+            'department_id' => (int)$this->department_id,
             'name' => Str::lower($this->name),
+            'show' => filter_var($this->show, FILTER_VALIDATE_BOOLEAN)
         ]);
-
     }
     /**
      * Determine if the user is authorized to make this request.
@@ -38,14 +34,14 @@ class DepartmentRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'name' => ['unique:App\Models\Department,name', 'min:4', 'max:20', 'required'],
+                'department_id' => ['required', 'exists:departments,id'],
+                'name' => ['unique:App\Models\GradeLevel,name', 'min:4', 'max:20', 'required']
             ];
         }
 
         return [
-            'name' => [Rule::unique('departments')->ignore($this->department), 'min:4', 'max:20', ]
+            'department_id' => ['required', 'exists:departments,id'],
+            'name' => [Rule::unique('grade_levels')->ignore($this->gradeLevel), 'min:4', 'max:20', ]
         ];
     }
-
-
 }

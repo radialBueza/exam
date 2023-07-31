@@ -6,7 +6,7 @@
     'open',
     'method' => 'POST',
     'url',
-    'resCode' => '200',
+    'resCode' => '201',
     ])
 
 @php
@@ -18,37 +18,36 @@
     inputs: {{Js::from($inputs)}},
     error: {},
     init() {
-
         @foreach($keys as $value)
             this.error.{{$value}} = { msg: ''}
         @endforeach
-
     },
     length(value, name) {
         if(value.length < 4) {
             this.error[name].msg = `The ${name} field must be longer than 4 characters`
 
-            return
+            return true
         }
         if(value.length > 20) {
             this.error[name].msg = `The ${name} field must not be longer than 20 characters`
 
-            return
+            return true
         }
         this.error[name].msg = ''
 
-        return
+        return false
     },
+
     validate(e) {
         let name = e.target.getAttribute('name')
 
         if(this.inputs[name].includes('length')) {
-            this.length(e.target.value, name)
+            let hasError = this.length(e.target.value, name)
+            if(hasError) {
+                return
+            }
         }
-
     },
-
-
 
     async sendData(form) {
         const inputs = $refs.{{$form}}.getElementsByTagName('input')
@@ -60,7 +59,6 @@
                 this.error[name].msg = `The ${name} field is required`
             }
         }
-
 
         @foreach($keys as $value)
             if(this.error.{{$value}}.msg) {
@@ -79,20 +77,27 @@
             },
             body: input
         })
-        if (res.status == {{$resCode}}) {
-            this.success = true
+
+        @if($method == 'POST')
+        if(res.status == 201)
+        @else
+        if(res.status == 200)
+        @endif
+        {
             const result = await res.json()
+            this.success = result.success
             datas = result.data
+            console.log(result.test)
             sort()
             return
         }
         if (res.status == 422) {
-            this.showForm = true
             const result = await res.json()
 
             for(let error in result.errors) {
                 this.error[error].msg = result.errors[error][0]
             }
+            this.showForm = true
             return
         }
     },
@@ -111,6 +116,8 @@
         @foreach($keys as $value)
         error.{{$value}}.msg = ''
         @endforeach
+    }else {
+        toEdit = []
     }
 })">
     <template x-cloak x-if="showForm">
@@ -146,7 +153,12 @@
     <x-mine.loading condition="!showForm&&!success"/>
 
     <x-mine.success>
-        <x-mine.button do="again()" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Add</x-mine.button>
-        <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
+        @if ($method == "POST")
+            <x-mine.button do="again()" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Add</x-mine.button>
+            <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
+        @else
+            <x-mine.button do="again()" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Edit</x-mine.button>
+            <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
+        @endif
     </x-mine.success>
 </div>

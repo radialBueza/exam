@@ -30,17 +30,17 @@ class DatabaseSeeder extends Seeder
 
         GradeLevel::create([
             'department_id' => 1,
-            'name' => 'Grade 7'
+            'name' => 'grade 7'
         ]);
 
         GradeLevel::create([
             'department_id' => 1,
-            'name' => 'Grade 8'
+            'name' => 'grade 8'
         ]);
 
         GradeLevel::create([
             'department_id' => 1,
-            'name' => 'Grade 9'
+            'name' => 'grade 9'
         ]);
 
         Section::create([
