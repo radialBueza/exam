@@ -8,8 +8,6 @@ use Illuminate\Support\Str;
 use App\Http\Requests\GradeLevelRequest;
 use App\Http\Resources\GradeLevelResource;
 use App\Models\Department;
-use Illuminate\Database\Query\Builder;
-// use Illuminate\Database\Eloquent\Builder;
 
 class GradeLevelController extends Controller
 {
@@ -42,7 +40,6 @@ class GradeLevelController extends Controller
     public function store(GradeLevelRequest $request)
     {
         GradeLevel::create($request->validated());
-        // $value = $request->validated();
 
         $id = $request->department_id;
 
@@ -56,7 +53,6 @@ class GradeLevelController extends Controller
         return response()->json([
             'success' => true,
             'data' => GradeLevelResource::collection(GradeLevel::oldest()->get()),
-            'test' => $request->path()
         ], 201);
     }
 
@@ -66,6 +62,12 @@ class GradeLevelController extends Controller
     public function show(GradeLevel $gradeLevel)
     {
         //
+        return view('gradeLevel.show',
+        [
+            'info' => $gradeLevel,
+            'parent' => $gradeLevel->department()->get(),
+            'datas' => $gradeLevel->section()->get()->toJson()
+        ]);
     }
 
 

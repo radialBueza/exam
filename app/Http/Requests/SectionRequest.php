@@ -3,18 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class GradeLevelRequest extends FormRequest
+class SectionRequest extends FormRequest
 {
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'department_id' => (int)$this->department_id,
+            'grade_level_id' => (int)$this->grade_level_id,
             'name' => Str::lower($this->name),
-            // 'show' => filter_var($this->show, FILTER_VALIDATE_BOOLEAN)
         ]);
 
         if (isset($this->show)) {
@@ -23,6 +22,7 @@ class GradeLevelRequest extends FormRequest
             ]);
         }
     }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -40,14 +40,14 @@ class GradeLevelRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'department_id' => ['required', 'exists:departments,id'],
-                'name' => ['unique:App\Models\GradeLevel,name', 'min:4', 'max:20', 'required']
+                'grade_level_id' => ['required', 'exists:grade_levels,id'],
+                'name' => ['unique:App\Models\Section,name', 'min:4', 'max:20', 'required']
             ];
         }
 
         return [
-            'department_id' => ['required', 'exists:departments,id'],
-            'name' => [Rule::unique('grade_levels')->ignore($this->gradeLevel), 'min:4', 'max:20', ]
+            'grade_level_id' => ['required', 'exists:departments,id'],
+            'name' => [Rule::unique('sections')->ignore($this->section), 'min:4', 'max:20', ]
         ];
     }
 }

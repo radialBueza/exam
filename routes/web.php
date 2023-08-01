@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\GradeLevelController;
+use App\Http\Controllers\SectionController;
 
 
 /*
@@ -42,6 +43,14 @@ Route::middleware('auth')->group(function () {
         ])->names(
         [
             'index' => 'gradeLevels.all'
+        ]);
+
+    Route::resource('sections', SectionController::class)->only(
+        [
+            'index', 'show'
+        ])->names(
+        [
+            'index' => 'sections.all'
         ]);
 });
 

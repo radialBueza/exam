@@ -1,6 +1,6 @@
 <x-app-layout title="Department | {{$info->name}}">
     <x-slot name="header">
-        <h1 class="font-semibold text-xl text-gray-800 leading-tight capitalize">
+        <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
             Department
         </h1>
     </x-slot>
@@ -9,7 +9,7 @@
             <x-mine.bg-container>
                 <x-mine.card-container class="mb-6">
                     <div>
-                        <h2 class="font-semibold text-lg text-gray-800 leading-tight capitalize">
+                        <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
                             {{$info->name}}
                         </h2>
                         <p class="font-light text-xs"><span class="font-medium">Administrator:</span>

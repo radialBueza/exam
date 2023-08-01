@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\GradeLevelController;
+use App\Http\Controllers\SectionController;
 
 
 /*
@@ -22,11 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function (){
-    // Route::get('/departments', [DepartmentController::class, 'index'])->name('dept');
+    // Department Route
     Route::apiResource('departments', DepartmentController::class)->except(['show']);
     Route::delete('/departments', [DepartmentController::class, 'destroyAll'])->name('departments.destroyAll');
-    //
+    // Grade Level Route
     Route::apiResource('gradeLevels', GradeLevelController::class)->except(['show']);
-    Route::delete('/gradeLevels', [GradeLevelController::class, 'destroyAll'])->name('gradeLevel.destroyAll');
+    Route::delete('/gradeLevels', [GradeLevelController::class, 'destroyAll'])->name('gradeLevels.destroyAll');
+
+    // Section Route
+    Route::apiResource('sections', SectionController::class)->except(['show']);
+    Route::delete('/sections', [SectionController::class, 'destroyAll'])->name('sections.destroyAll');
 
 });

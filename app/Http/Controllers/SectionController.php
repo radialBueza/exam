@@ -4,31 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Http\Requests\SectionRequest;
+use App\Http\Resources\SectionResource;
+use App\Models\GradeLevel;
 
 class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        if ($request->is('api/*')) {
+            if (empty($request->search)) {
+                return SectionResource::collection(Section::oldest()->get());
+            }
+            $search = Str::lower($request->search);
+            $gradeLevelId = GradeLevel::select('id')->where('name', 'like', "%{$search}%")->get();
+            return SectionResource::collection(Section::oldest()->where('name', 'like', "%{$search}%")->orWhereIn('grade_level_id', $gradeLevelId)->get());
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        }
+
+        return view('section.index',
+        [
+            'datas' => SectionResource::collection(Section::oldest()->get())->toJson(),
+            'options' => GradeLevel::all()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SectionRequest $request)
     {
-        //
+        Section::create($request->validated());
+
+        $id = $request->grade_level_id;
+
+        if ($request->show) {
+            return response()->json([
+                'success' => true,
+                'data' => Section::oldest()->where('grade_level_id', $id)->get(),
+            ], 201);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => SectionResource::collection(Section::oldest()->get()),
+        ], 201);
     }
 
     /**
@@ -36,23 +60,37 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Section $section)
-    {
-        //
+        return view('department.show',
+        [
+            'info' => $section,
+            'parent' => $section->gradeLevel()->get(),
+            'advisor' => $section->user()->where('account_type', 'teacher')->orWhere('account_type', 'admin')->get(),
+            'datas' => $section->user()->where('account_type', 'student')->get()->toJson()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Section $section)
+    public function update(SectionRequest $request, Section $section)
     {
-        //
+        $section->name = $request->name;
+        $section->grade_level_id = $request->grade_level_id;
+
+        $section->save();
+
+        $id = $request->grade_level_id;
+
+        if ($request->show) {
+            return response()->json([
+                'success' => true,
+                'data' => Section::oldest()->where('grade_level_id', $id)->get(),
+            ], 200);
+        }
+        return response()->json([
+            'success' => true,
+            'data' => SectionResource::collection(Section::oldest()->get()),
+        ], 200);
     }
 
     /**
@@ -60,6 +98,15 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        $section->delete();
+
+        return response(200);
+    }
+
+    public function destroyAll(Request $request)
+    {
+        Section::destroy($request->items);
+
+        return response(200);
     }
 }

@@ -87,7 +87,6 @@
             const result = await res.json()
             this.success = result.success
             datas = result.data
-            console.log(result.test)
             sort()
             return
         }

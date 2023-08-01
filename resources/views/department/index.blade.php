@@ -1,6 +1,6 @@
 <x-app-layout title="Departments">
     <x-slot name="header">
-        <h1 class="font-semibold text-xl text-gray-800 leading-tight capitalize">
+        <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
             Department
         </h1>
     </x-slot>
