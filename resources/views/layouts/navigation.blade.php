@@ -12,10 +12,10 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-6 sm:-my-px sm:ml-8 md:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="px-1 pt-1">
                         Dashboard
                     </x-nav-link>
-                    <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')">
+                    {{-- <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')">
                         Department
                     </x-nav-link>
                     <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')">
@@ -23,32 +23,23 @@
                     </x-nav-link>
                     <x-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')">
                         Section
-                    </x-nav-link>
-                    {{-- <div
-                        x-data="{
-                            open: false
-                        }"
-                        class="relative"
-                    >
-                        <button @click="open = !open" class="'inline-flex h-full items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out'">
-                            Structure
-                        </button>
-
-                        <div
-                            x-show="open"
-                            class="absolute bg-white border px-2 pt-1 flex flex-col rounded-b"
-                        >
-                            <a class="infline-flex items-center border-b-2 border-transparent text-sm font-medium leading-5 pr-3 py-3 pl-2 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                Department
-                            </a>
-                            <a class="infline-flex items-center border-b-2 pr-3 py-3 pl-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                Grade Level
-                            </a>
-                            <a class="infline-flex items-center border-b-2 pr-3 py-3 pl-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                                Section
-                            </a>
-                        </div>
-                    </div> --}}
+                    </x-nav-link> --}}
+                    <x-mine.dropdown-pc>
+                        <x-slot name="button">
+                            <x-mine.nav-dropdown-pc :active="request()->routeIs('departments.*') || request()->routeIs('gradeLevels.*') || request()->routeIs('sections.*')">
+                                Structure
+                            </x-mine.nav-dropdown-pc>
+                        </x-slot>
+                        <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pr-3 py-3 pl-2">
+                            Department
+                        </x-nav-link>
+                        <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pr-3 py-3 pl-2">
+                            Grade Level
+                        </x-nav-link>
+                        <x-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')" class="pr-3 py-3 pl-2">
+                            Section
+                        </x-nav-link>
+                    </x-mine.dropdown-pc>
                 </div>
             </div>
 
@@ -101,30 +92,25 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="pl-3">
                 Dashboard
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')">
-                Department
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')">
-                Grade Level
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')">
-                Section
-            </x-responsive-nav-link>
-            {{-- <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                Section
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                Subjects
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                Teachers
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                Student
-            </x-responsive-nav-link> --}}
+            <x-mine.dropdown-mob>
+                <x-slot name="button">
+                    <x-mine.nav-dropdown-mobile>
+                        Structure
+                    </x-mine.nav-dropdown-mobile>
+                </x-slot>
+                <x-responsive-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pl-5">
+                    Department
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pl-5">
+                    Grade Level
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')" class="pl-5">
+                    Section
+                </x-responsive-nav-link>
+            </x-mine.dropdown-mob>
         </div>
 
         <!-- Responsive Settings Options -->
