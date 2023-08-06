@@ -24,20 +24,43 @@
                 </x-mine.table>
                 <x-mine.loading condition="!datas"/>
             </x-mine.card-container>
+            @php
+                $title="Add Department";
+                $subtitle="add a department for the school.";
+                $form ="addDept";
+                $input = ['name' => ['length', 'required']];
+            @endphp
             <x-mine.modal open="openAdd">
-                <x-mine.form-modal title="add department" subtitle="Add a department for the school." form="addDept"
-                :inputs="['name' => ['length', 'required']]">
+                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
+                :inputs="$input">
                     <x-mine.text-input title="department name"/>
+                    <x-slot name="buttons">
+                        <x-mine.submit-button class="justify-end">
+                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                {{$title}}
+                            </x-mine.button>
+                        </x-mine.submit-button>
+                    </x-slot>
                 </x-mine.form-modal>
             </x-mine.modal>
             <x-mine.modal open="openDel">
                 <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
             </x-mine.modal>
+            @php
+                $title="Update Department";
+                $subtitle="Update a department of the school.";
+                $form="updateDept";
+            @endphp
             <x-mine.modal open="openEdit">
-                <x-mine.form-modal title="update department" subtitle="Update a department of the school." form="updateDept" :inputs="[
-                    'name' => ['length', 'required']
-                ]" method="PUT" resCode="200" url="{{route('departments.index')}}/toEdit.id}">
+                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$input" method="PUT" resCode="200" url="{{route('departments.index')}}/${toEdit.id}">
                     <x-mine.text-input title="department name" class="capitalize"/>
+                    <x-slot name="buttons">
+                        <x-mine.submit-button class="justify-end">
+                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                {{$title}}
+                            </x-mine.button>
+                        </x-mine.submit-button>
+                    </x-slot>
                 </x-mine.form-modal>
             </x-mine.modal>
         </x-mine.crud-table-container>

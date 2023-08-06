@@ -1,3 +1,5 @@
+{{-- Will contain the students and teacher in the section --}}
+
 <x-app-layout title="Grade Level | {{$info->name}}">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
@@ -9,15 +11,15 @@
             <x-mine.bg-container>
                 <x-mine.card-container class="mb-6">
                     <div>
-                        <p class="text-xs font-thin text-slate-400 capitalize">{{$parent[0]->name}}/</p>
+                        <p class="text-xs font-thin text-slate-400 capitalize">{{$parent->name}}/</p>
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
                             {{$info->name}}
                         </h2>
-                        <p class="font-light text-xs"><span class="font-medium">Administrator:</span>
-                        @if (empty($advisor[0]))
+                        <p class="font-light text-xs"><span class="font-medium">Advisor:</span>
+                        @if (empty($advisor))
                             {{'N/A'}}
                         @else
-                            {{$advisor[0]->name}}
+                            {{$advisor->name}}
                         @endif
                         </p>
                     </div>
@@ -51,6 +53,13 @@
                     <x-mine.text-input title="grade level name"/>
                     <input type="hidden" name="department_id" id="department_id" value="{{$info->id}}">
                     <input type="hidden" name="show" id="show" value="true">
+                    <x-slot name="buttons">
+                        <x-mine.submit-button class="justify-end">
+                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                {{$title}}
+                            </x-mine.button>
+                        </x-mine.submit-button>
+                    </x-slot>
                 </x-mine.form-modal>
             </x-mine.modal>
             <x-mine.modal open="openDel">
@@ -65,6 +74,13 @@
                     <x-mine.text-input title="grade level name" value="datas[toEdit].name" class="capitalize"/>
                     <input type="hidden" name="department_id" id="department_id" value="{{$info->id}}">
                     <input type="hidden" name="show" id="show" value="true">
+                    <x-slot name="buttons">
+                        <x-mine.submit-button class="justify-end">
+                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                {{$title}}
+                            </x-mine.button>
+                        </x-mine.submit-button>
+                    </x-slot>
                 </x-mine.form-modal>
             </x-mine.modal>
         </x-mine.crud-table-container>

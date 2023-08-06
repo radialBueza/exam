@@ -15,15 +15,6 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="px-1 pt-1">
                         Dashboard
                     </x-nav-link>
-                    {{-- <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')">
-                        Department
-                    </x-nav-link>
-                    <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')">
-                        Grade Level
-                    </x-nav-link>
-                    <x-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')">
-                        Section
-                    </x-nav-link> --}}
                     <x-mine.dropdown-pc>
                         <x-slot name="button">
                             <x-mine.nav-dropdown-pc :active="request()->routeIs('departments.*') || request()->routeIs('gradeLevels.*') || request()->routeIs('sections.*')">
@@ -40,6 +31,13 @@
                             Section
                         </x-nav-link>
                     </x-mine.dropdown-pc>
+                    <x-nav-link :href="route('subjects.all')" :active="request()->routeIs('subjects.*')" class="px-1 pt-1">
+                        Subjects
+                    </x-nav-link>
+                    <x-nav-link :href="route('users.all')" :active="request()->routeIs('users.*')" class="px-1 pt-1">
+                        Users
+                    </x-nav-link>
+
                 </div>
             </div>
 

@@ -15,11 +15,10 @@ class SectionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $gradeLevel = GradeLevel::find($this->grade_level_id);
         return [
             'id' => $this->id,
-            'grade_level_id' => $gradeLevel->id,
-            'grade_level_name' => $gradeLevel->name,
+            'grade_level_id' => $this->gradeLevel->id,
+            'grade_level_name' => $this->gradeLevel->name,
             'name' => $this->name,
             'created_at' => $this->created_at,
         ];

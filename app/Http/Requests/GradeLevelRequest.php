@@ -41,13 +41,13 @@ class GradeLevelRequest extends FormRequest
         if ($this->isMethod('post')) {
             return [
                 'department_id' => ['required', 'exists:departments,id'],
-                'name' => ['unique:App\Models\GradeLevel,name', 'min:4', 'max:20', 'required']
+                'name' => ['unique:App\Models\GradeLevel,name', 'min:4', 'max:35', 'required']
             ];
         }
 
         return [
             'department_id' => ['required', 'exists:departments,id'],
-            'name' => [Rule::unique('grade_levels')->ignore($this->gradeLevel), 'min:4', 'max:20', ]
+            'name' => [Rule::unique('grade_levels')->ignore($this->gradeLevel), 'min:4', 'max:35', 'required']
         ];
     }
 }

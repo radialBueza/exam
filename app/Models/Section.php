@@ -21,7 +21,7 @@ class Section extends Model
         return $this->belongsTo(GradeLevel::class);
     }
 
-    public function user(): HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }

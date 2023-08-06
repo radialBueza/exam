@@ -15,7 +15,7 @@ class Department extends Model
         'name',
     ];
 
-    public function gradeLevel(): HasMany
+    public function gradeLevels(): HasMany
     {
         return $this->hasMany(GradeLevel::class);
     }

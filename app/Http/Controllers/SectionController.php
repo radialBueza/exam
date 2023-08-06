@@ -60,12 +60,12 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        return view('department.show',
+        return view('section.show',
         [
             'info' => $section,
-            'parent' => $section->gradeLevel()->get(),
-            'advisor' => $section->user()->where('account_type', 'teacher')->orWhere('account_type', 'admin')->get(),
-            'datas' => $section->user()->where('account_type', 'student')->get()->toJson()
+            'parent' => $section->gradeLevel,
+            'advisor' => $section->users()->where('account_type', 'teacher')->orWhere('account_type', 'admin')->first(),
+            'datas' => $section->users()->where('account_type', 'student')->get()->toJson()
         ]);
     }
 

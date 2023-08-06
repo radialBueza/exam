@@ -3,17 +3,12 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-
-class DepartmentRequest extends FormRequest
+class SubjectRequest extends FormRequest
 {
-
-    // protected $stopOnFirstFailure = true;
-    // Lower strings
-
     protected function prepareForValidation(): void
     {
         $this->merge([
@@ -21,6 +16,7 @@ class DepartmentRequest extends FormRequest
         ]);
 
     }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -38,14 +34,12 @@ class DepartmentRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'name' => ['unique:App\Models\Department,name', 'min:4', 'max:35', 'required'],
+                'name' => ['unique:App\Models\Subject,name', 'min:4', 'max:35', 'required'],
             ];
         }
 
         return [
-            'name' => [Rule::unique('departments')->ignore($this->department), 'min:4', 'max:35', 'required']
+            'name' => [Rule::unique('subjects')->ignore($this->subject), 'min:4', 'max:35', 'required']
         ];
     }
-
-
 }

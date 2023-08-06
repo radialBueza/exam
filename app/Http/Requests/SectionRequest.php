@@ -41,13 +41,13 @@ class SectionRequest extends FormRequest
         if ($this->isMethod('post')) {
             return [
                 'grade_level_id' => ['required', 'exists:grade_levels,id'],
-                'name' => ['unique:App\Models\Section,name', 'min:4', 'max:20', 'required']
+                'name' => ['unique:App\Models\Section,name', 'min:4', 'max:35', 'required']
             ];
         }
 
         return [
             'grade_level_id' => ['required', 'exists:departments,id'],
-            'name' => [Rule::unique('sections')->ignore($this->section), 'min:4', 'max:20', ]
+            'name' => [Rule::unique('sections')->ignore($this->section), 'min:4', 'max:35', 'required']
         ];
     }
 }

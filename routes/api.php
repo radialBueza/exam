@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -33,5 +35,13 @@ Route::middleware('auth:sanctum')->group(function (){
     // Section Route
     Route::apiResource('sections', SectionController::class)->except(['show']);
     Route::delete('/sections', [SectionController::class, 'destroyAll'])->name('sections.destroyAll');
+
+    // Subject Route
+    Route::apiResource('subjects', SubjectController::class)->except(['show']);
+    Route::delete('/subjects', [SubjectController::class, 'destroyAll'])->name('subjects.destroyAll');
+
+    // User
+    Route::apiResource('users', UserController::class)->except(['show']);
+    Route::delete('/users', [UserController::class, 'destroyAll'])->name('users.destroyAll');
 
 });

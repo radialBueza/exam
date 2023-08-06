@@ -28,27 +28,52 @@
                 </x-mine.table>
                 <x-mine.loading condition="!datas"/>
             </x-mine.card-container>
-            <x-mine.modal open="openAdd">
-                <x-mine.form-modal title="add grade level" subtitle="Add a grade level for the school." form="addGradeLevel"
-                :inputs="[
+            @php
+                $title="add grade level";
+                $subtitle="Add a grade level for the school.";
+                $form ="addGradeLevel";
+                $inputs = [
                         'name' => ['required', 'length'],
                         'department_id' => ['required']
-                    ]">
+                    ];
+            @endphp
+            <x-mine.modal open="openAdd">
+                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
+                :inputs="$inputs">
                     <x-mine.text-input title="grade level name"/>
                     <x-mine.select-input name="department_id" title="Department" :$options/>
-
+                    <x-slot name="buttons">
+                        <x-mine.submit-button class="justify-end">
+                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                {{$title}}
+                            </x-mine.button>
+                        </x-mine.submit-button>
+                    </x-slot>
                 </x-mine.form-modal>
             </x-mine.modal>
             <x-mine.modal open="openDel">
                 <x-mine.delete-modal delUrl="{{route('gradeLevels.destroyAll')}}"/>
             </x-mine.modal>
+            @php
+                $title="update grade level";
+                $subtitle="Update a grade level of the school.";
+                $form ="updateGradeLevel";
+                $inputs = [
+                        'name' => ['required', 'length'],
+                        'department_id' => ['required']
+                    ];
+            @endphp
             <x-mine.modal open="openEdit">
-                <x-mine.form-modal title="update grade level" subtitle="Update a grade level of the school." form="updateGradeLevel" :inputs="[
-                    'name' => ['length', 'required'],
-                    'department_id' => ['required']
-                ]" method="PUT" url="{{route('gradeLevels.index')}}/${toEdit.id}">
+                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" method="PUT" url="{{route('gradeLevels.index')}}/${toEdit.id}">
                     <x-mine.text-input title="grade level name" value="datas[toEdit].name" class="capitalize"/>
                     <x-mine.select-input name="department_id" title="Department" :$options :selected="true" />
+                    <x-slot name="buttons">
+                        <x-mine.submit-button class="justify-end">
+                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                {{$title}}
+                            </x-mine.button>
+                        </x-mine.submit-button>
+                    </x-slot>
                 </x-mine.form-modal>
             </x-mine.modal>
         </x-mine.crud-table-container>

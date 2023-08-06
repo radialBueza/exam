@@ -15,11 +15,10 @@ class GradeLevelResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $dept = Department::find($this->department_id);
         return [
             'id' => $this->id,
-            'department_id' => $dept->id,
-            'department_name' => $dept->name,
+            'department_id' => $this->department->id,
+            'department_name' => $this->department->name,
             'name' => $this->name,
             'created_at' => $this->created_at,
         ];

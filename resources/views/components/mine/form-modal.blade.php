@@ -28,8 +28,8 @@
 
             return true
         }
-        if(value.length > 20) {
-            this.error[name].msg = `The ${name} field must not be longer than 20 characters`
+        if(value.length > 35) {
+            this.error[name].msg = `The ${name} field must not be longer than 35 characters`
 
             return true
         }
@@ -115,9 +115,11 @@
         @foreach($keys as $value)
         error.{{$value}}.msg = ''
         @endforeach
-    }else {
-        toEdit = []
-    }
+    }@if($method != "POST")
+        else {
+            toEdit = []
+        }
+    @endif
 })">
     <template x-cloak x-if="showForm">
         <div x-init="$watch('showForm', (value) => {
@@ -136,16 +138,17 @@
             <p class="mt-2 text-sm text-gray-500 ">
                 {{ucfirst($subtitle)}}
             </p>
-            <form class="mt-5" x-ref="{{$form}}" id="{{$form}}" @submit.prevent="await sendData($el)"
+            <form class="mt-5" x-ref="{{$form}}" @submit.prevent="await sendData($el)"
             >
                 <div class="space-y-4">
                     {{$slot}}
                 </div>
-                <div class="flex justify-end mt-6">
+                {{-- <div class="flex justify-end mt-6">
                     <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
                         {{$title}}
                     </x-mine.button>
-                </div>
+                </div> --}}
+                    {{$buttons}}
             </form>
         </div>
     </template>

@@ -3,33 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
-use App\Http\Requests\StoreSubjectRequest;
-use App\Http\Requests\UpdateSubjectRequest;
+use App\Http\Requests\SubjectRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        if ($request->is('api/*')) {
+            if (empty($request->search)) {
+                return Subject::oldest()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+            }
+            $search = Str::lower($request->search);
+            return Subject::oldest()->where('name', 'like', "%{$search}%")->get();
+
+        }
+
+        return view('subject.index',
+        [
+            'datas' => Subject::oldest()->get()->toJson()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubjectRequest $request)
+    public function store(SubjectRequest $request)
     {
-        //
+        Subject::create($request->validated());
+
+        return response()->json([
+            'success' => true,
+            'data' => Subject::oldest()->get(),
+        ], 201);
     }
 
     /**
@@ -41,19 +52,18 @@ class SubjectController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Subject $subject)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubjectRequest $request, Subject $subject)
+    public function update(SubjectRequest $request, Subject $subject)
     {
-        //
+        $subject->name = $request->name;
+
+        $subject->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => Subject::oldest()->get(),
+        ], 200);
     }
 
     /**
@@ -61,6 +71,15 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+
+        return response(200);
+    }
+
+    public function destroyAll(Request $request)
+    {
+        Subject::destroy($request->items);
+
+        return response(200);
     }
 }

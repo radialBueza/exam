@@ -53,8 +53,8 @@ class DepartmentController extends Controller
         return view('department.show',
         [
             'info' => $department,
-            'admin' => $department->user()->get(),
-            'datas' => $department->gradeLevel()->get()->toJson()
+            'admin' => $department->user,
+            'datas' => $department->gradeLevels->toJson()
         ]);
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class GradeLevel extends Model
 {
@@ -16,7 +17,7 @@ class GradeLevel extends Model
         'department_id'
     ];
 
-    public function section(): HasMany
+    public function sections(): HasMany
     {
         return $this->hasMany(Section::class);
     }
@@ -24,5 +25,10 @@ class GradeLevel extends Model
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
     }
 }

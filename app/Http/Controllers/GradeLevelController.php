@@ -65,8 +65,8 @@ class GradeLevelController extends Controller
         return view('gradeLevel.show',
         [
             'info' => $gradeLevel,
-            'parent' => $gradeLevel->department()->get(),
-            'datas' => $gradeLevel->section()->get()->toJson()
+            'parent' => $gradeLevel->department,
+            'datas' => $gradeLevel->sections->toJson()
         ]);
     }
 
