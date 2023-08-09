@@ -1,7 +1,7 @@
 <x-app-layout title="Grade Level | {{$info->name}}">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Grade Level
+            Grade Level | {{$info->name}}
         </h1>
     </x-slot>
     <x-mine.bg-container>
@@ -38,18 +38,14 @@
                 $title="add section";
                 $subtitle="Add a section for the school.";
                 $form ="addSection";
-                $inputs = [
-                    'name' => ['length', 'required'],
-                    'grade_level_id' => ['required'],
-                    'show' => ['required']
-                ];
+                $inputs = ['name', 'grade_level_id', 'show'];
             @endphp
             <x-mine.modal open="openAdd">
                 <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
                 :inputs="$inputs">
                     <x-mine.text-input title="grade level name"/>
-                    <input type="hidden" name="grade_level_id" id="grade_level_id" value="{{$info->id}}">
-                    <input type="hidden" name="show" id="show" value="true">
+                    <input type="hidden" name="{{$inputs[1]}}" id="{{$inputs[1]}}" value="{{$info->id}}">
+                    <input type="hidden" name="{{$inputs[2]}}" id="{{$inputs[2]}}" value="true">
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">
                             <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
@@ -60,23 +56,18 @@
                 </x-mine.form-modal>
             </x-mine.modal>
             <x-mine.modal open="openDel">
-                <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
+                <x-mine.delete-modal delUrl="{{route('sections.destroyAll')}}"/>
             </x-mine.modal>
             @php
                 $title="update section";
                 $subtitle="update a section for the school.";
                 $form ="updateSection";
-                $inputs = [
-                    'name' => ['length', 'required'],
-                    'grade_level_id' => ['required'],
-                    'show' => ['required']
-                ];
             @endphp
             <x-mine.modal open="openEdit">
                 <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" method="PUT" url="{{route('departments.index')}}/${toEdit.id}">
                     <x-mine.text-input title="grade level name" value="datas[toEdit].name" class="capitalize"/>
-                    <input type="hidden" name="grade_level_id" id="grade_level_id" value="{{$info->id}}">
-                    <input type="hidden" name="show" id="show" value="true">
+                    <input type="hidden" name="{{$inputs[1]}}" id="{{$inputs[1]}}" value="{{$info->id}}">
+                    <input type="hidden" name="{{$inputs[2]}}" id="{{$inputs[2]}}" value="true">
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">
                             <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">

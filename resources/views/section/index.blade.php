@@ -1,7 +1,7 @@
-<x-app-layout title="Section">
+<x-app-layout title="Sections">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Section
+            Sections
         </h1>
     </x-slot>
     <x-mine.bg-container>
@@ -32,16 +32,13 @@
                 $title="add section";
                 $subtitle="Add a section for the school.";
                 $form ="addSection";
-                $inputs = [
-                        'name' => ['required', 'length'],
-                        'grade_level_id' => ['required']
-                    ];
+                $inputs = ['name', 'grade_level_id'];
             @endphp
             <x-mine.modal open="openAdd">
                 <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
                 :inputs="$inputs">
                     <x-mine.text-input title="Section name"/>
-                    <x-mine.select-input name="grade_level_id" title="Grade Level" :$options/>
+                    <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options/>
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">
                             <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
@@ -58,15 +55,11 @@
                 $title="update section";
                 $subtitle="update a section for the school.";
                 $form ="updateSection";
-                $inputs = [
-                    'name' => ['length', 'required'],
-                    'grade_level_id' => ['required'],
-                ];
             @endphp
             <x-mine.modal open="openEdit">
                 <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" method="PUT" url="{{route('sections.index')}}/${toEdit.id}">
-                    <x-mine.text-input title="section name" value="datas[toEdit].name" class="capitalize"/>
-                    <x-mine.select-input name="grade_level_id" title="Grade Level" :$options :selected="true" />
+                    <x-mine.text-input title="section name" value="toEdit.name" class="capitalize"/>
+                    <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options selected="toEdit.grade_level_id" />
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">
                             <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">

@@ -1,11 +1,11 @@
-<x-app-layout title="Administrators">
+<x-app-layout title="Account">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Administrators
+            Account
         </h1>
     </x-slot>
     <x-mine.bg-container>
-        <x-mine.crud-table-container :$datas url="{{route('admins.index')}}" index="{{route('admins.all')}}">
+        <x-mine.crud-table-container :$datas url="{{route('users.index')}}" index="{{route('users.all')}}">
             <x-mine.card-container>
                 <x-mine.cdp pdfUrl=" "/>
                 <x-mine.search/>
@@ -24,13 +24,11 @@
                 </x-mine.table>
                 <x-mine.loading condition="!datas"/>
             </x-mine.card-container>
-            <x-mine.modal open="openAdd">
+            {{-- <x-mine.modal open="openAdd">
                 <x-mine.form-modal title="Create Admin Account" subtitle="Add a admin account for the school." form="addAdmin"
                 :inputs="[
                     'name' => ['length', 'required'],
                     'department_id' => ['required'],
-                    // 'section_id' => [''],
-                    // 'subject_id' => ['']
                 ]">
                     <x-mine.text-input title="department name"/>
                     <x-mine.select-input name="department_id" title="Department" :$options/>
@@ -47,7 +45,7 @@
                 ]" method="PUT" resCode="200" url="{{route('departments.index')}}/toEdit.id}">
                     <x-mine.text-input title="department name" class="capitalize"/>
                 </x-mine.form-modal>
-            </x-mine.modal>
+            </x-mine.modal> --}}
         </x-mine.crud-table-container>
     </x-mine.bg-container>
 </x-app-layout>

@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use App\Http\Requests\SectionRequest;
 use App\Http\Resources\SectionResource;
 use App\Models\GradeLevel;
+// use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class SectionController extends Controller
 {
@@ -64,7 +66,9 @@ class SectionController extends Controller
         [
             'info' => $section,
             'parent' => $section->gradeLevel,
-            'advisor' => $section->users()->where('account_type', 'teacher')->orWhere('account_type', 'admin')->first(),
+            'advisor' => $section->users()->where('section_id', $section->id)->where(function(Builder $query){
+                $query->where('account_type', 'admin')->orWhere('account_type', 'teacher');
+            })->first(),
             'datas' => $section->users()->where('account_type', 'student')->get()->toJson()
         ]);
     }

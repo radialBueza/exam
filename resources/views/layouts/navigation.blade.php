@@ -22,20 +22,20 @@
                             </x-mine.nav-dropdown-pc>
                         </x-slot>
                         <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pr-3 py-3 pl-2">
-                            Department
+                            Departments
                         </x-nav-link>
                         <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pr-3 py-3 pl-2">
-                            Grade Level
+                            Grade Levels
                         </x-nav-link>
                         <x-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')" class="pr-3 py-3 pl-2">
-                            Section
+                            Sections
                         </x-nav-link>
                     </x-mine.dropdown-pc>
                     <x-nav-link :href="route('subjects.all')" :active="request()->routeIs('subjects.*')" class="px-1 pt-1">
                         Subjects
                     </x-nav-link>
                     <x-nav-link :href="route('users.all')" :active="request()->routeIs('users.*')" class="px-1 pt-1">
-                        Users
+                        Accounts
                     </x-nav-link>
 
                 </div>

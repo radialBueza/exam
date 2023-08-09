@@ -2,70 +2,26 @@
     'title',
     'subtitle',
     'form',
-    'inputs',
+    'inputs' => ['name'],
     'open',
     'method' => 'POST',
     'url',
     'resCode' => '201',
     ])
 
-@php
-    $keys = array_keys($inputs)
-@endphp
 <div x-data="{
     showForm: true,
     success: false,
-    inputs: {{Js::from($inputs)}},
     error: {},
     init() {
-        @foreach($keys as $value)
-            this.error.{{$value}} = { msg: ''}
+
+        @foreach($inputs as $input)
+            this.error.{{$input}} = { msg: ''}
         @endforeach
     },
-    length(value, name) {
-        if(value.length < 4) {
-            this.error[name].msg = `The ${name} field must be longer than 4 characters`
 
-            return true
-        }
-        if(value.length > 35) {
-            this.error[name].msg = `The ${name} field must not be longer than 35 characters`
-
-            return true
-        }
-        this.error[name].msg = ''
-
-        return false
-    },
-
-    validate(e) {
-        let name = e.target.getAttribute('name')
-
-        if(this.inputs[name].includes('length')) {
-            let hasError = this.length(e.target.value, name)
-            if(hasError) {
-                return
-            }
-        }
-    },
 
     async sendData(form) {
-        const inputs = $refs.{{$form}}.getElementsByTagName('input')
-
-        for(let input of inputs) {
-            let name = input.getAttribute('name')
-
-            if(this.inputs[name].includes('required') && input.value < 1) {
-                this.error[name].msg = `The ${name} field is required`
-            }
-        }
-
-        @foreach($keys as $value)
-            if(this.error.{{$value}}.msg) {
-                return
-            }
-        @endforeach
-
         this.showForm = false;
         const inputForm = new FormData(form)
         const input = new URLSearchParams(inputForm)
@@ -102,8 +58,9 @@
     },
     again() {
         this.showForm = true
-        @foreach($keys as $value)
-        this.error.{{$value}}.msg = ''
+
+        @foreach($inputs as $input)
+            this.error.{{$input}} = { msg: ''}
         @endforeach
         this.success = false
     },
@@ -112,8 +69,8 @@
     if (value == true) {
         showForm = true
         success = false
-        @foreach($keys as $value)
-        error.{{$value}}.msg = ''
+        @foreach($inputs as $input)
+            error.{{$input}} = { msg: ''}
         @endforeach
     }@if($method != "POST")
         else {
@@ -143,12 +100,7 @@
                 <div class="space-y-4">
                     {{$slot}}
                 </div>
-                {{-- <div class="flex justify-end mt-6">
-                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                        {{$title}}
-                    </x-mine.button>
-                </div> --}}
-                    {{$buttons}}
+                {{$buttons}}
             </form>
         </div>
     </template>

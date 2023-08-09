@@ -16,17 +16,17 @@ class UserController extends Controller
     {
         if ($request->is('api/*')) {
             if (empty($request->search)) {
-                return User::oldest()->where('account_type', 'admin')->get();
+                return User::oldest()->get();
 
             }
             $search = Str::lower($request->search);
-            return User::oldest()->where('name', 'like', "%{$search}%")->where('account_type', 'admin')->get();
+            return User::oldest()->where('name', 'like', "%{$search}%")->get();
 
         }
 
-        return view('user.admin.index',
+        return view('user.index',
         [
-            'datas' => User::oldest()->where('account_type', 'admin')->get()->toJson(),
+            'datas' => User::oldest()->get()->toJson(),
             'options' => Department::all()
         ]);
     }

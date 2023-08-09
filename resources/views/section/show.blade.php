@@ -1,9 +1,9 @@
 {{-- Will contain the students and teacher in the section --}}
 
-<x-app-layout title="Grade Level | {{$info->name}}">
+<x-app-layout title="Section | {{$info->name}}">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Grade Level
+            Section | {{$info->name}}
         </h1>
     </x-slot>
     <x-mine.bg-container>
@@ -16,11 +16,11 @@
                             {{$info->name}}
                         </h2>
                         <p class="font-light text-xs"><span class="font-medium">Advisor:</span>
-                        @if (empty($advisor))
-                            {{'N/A'}}
-                        @else
+                        @isset($advisor)
                             {{$advisor->name}}
-                        @endif
+                        @else
+                            {{'N/A'}}
+                        @endisset
                         </p>
                     </div>
                 </x-mine.card-container>
@@ -43,7 +43,7 @@
                     <x-mine.loading condition="!datas"/>
                 </x-mine.card-container>
             </x-mine.bg-container>
-            <x-mine.modal open="openAdd">
+            {{-- <x-mine.modal open="openAdd">
                 <x-mine.form-modal title="add grade level" subtitle="Add a grade level for the school." form="addGradeLevel"
                 :inputs="[
                     'name' => ['length', 'required'],
@@ -82,7 +82,7 @@
                         </x-mine.submit-button>
                     </x-slot>
                 </x-mine.form-modal>
-            </x-mine.modal>
+            </x-mine.modal> --}}
         </x-mine.crud-table-container>
     </x-mine.bg-container>
 </x-app-layout>

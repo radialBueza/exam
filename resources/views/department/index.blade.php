@@ -1,7 +1,7 @@
 <x-app-layout title="Departments">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Department
+            Departments
         </h1>
     </x-slot>
     <x-mine.bg-container>
@@ -28,11 +28,10 @@
                 $title="Add Department";
                 $subtitle="add a department for the school.";
                 $form ="addDept";
-                $input = ['name' => ['length', 'required']];
             @endphp
             <x-mine.modal open="openAdd">
                 <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
-                :inputs="$input">
+                >
                     <x-mine.text-input title="department name"/>
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">
@@ -52,7 +51,7 @@
                 $form="updateDept";
             @endphp
             <x-mine.modal open="openEdit">
-                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$input" method="PUT" resCode="200" url="{{route('departments.index')}}/${toEdit.id}">
+                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" method="PUT" resCode="200" url="{{route('departments.index')}}/${toEdit.id}">
                     <x-mine.text-input title="department name" class="capitalize"/>
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">

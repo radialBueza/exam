@@ -20,6 +20,7 @@
         if (res.status == 200) {
             datas = datas.filter(data => !toDelete.items.includes(data.id))
             this.success = true
+            toDelete.items = []
         }
     },
 }" x-init="$watch('{{$open}}', (value) => {
