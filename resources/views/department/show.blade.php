@@ -12,7 +12,7 @@
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
                             {{$info->name}}
                         </h2>
-                        <p class="font-light text-xs"><span class="font-medium">Administrator:</span>
+                        <p class="font-light text-xs capitalize"><span class="font-medium">Administrator:</span>
                         @if (empty($admin))
                             {{'N/A'}}
                         @else

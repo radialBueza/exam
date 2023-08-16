@@ -1,7 +1,7 @@
 @props(['condition', 'isModal' => false])
 
 @php
-$classes = $isModal ? 'absolute inset-0 bg-gray-100/75 flex items-center justify-center' : 'flex justify-center m-2'
+$classes = $isModal ? 'absolute inset-0 z-50 bg-gray-100/75 flex items-center justify-center' : 'flex justify-center m-2'
 @endphp
 
 <template x-cloak x-if="{{$condition}}">

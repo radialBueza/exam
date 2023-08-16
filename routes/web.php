@@ -63,4 +63,9 @@ Route::middleware('auth')->group(function () {
     ]);
 });
 
+Route::get('/mail', function(){
+    $password = Illuminate\Support\Str::random();
+
+    return new App\Mail\AccountCreated($password);
+});
 require __DIR__.'/auth.php';

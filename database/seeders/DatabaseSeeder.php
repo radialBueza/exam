@@ -46,9 +46,34 @@ class DatabaseSeeder extends Seeder
             'name' => 'grade 9'
         ]);
 
+        GradeLevel::create([
+            'department_id' => 2,
+            'name' => 'grade 1'
+        ]);
+
+        GradeLevel::create([
+            'department_id' => 3,
+            'name' => 'pre-school'
+        ]);
+
         Section::create([
             'grade_level_id' => 1,
             'name' => 'dalton'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 1,
+            'name' => 'einstein'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 4,
+            'name' => 'hope'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 5,
+            'name' => 'kindess'
         ]);
 
         Subject::create([
@@ -87,7 +112,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1967', '9', '17'),
             'account_type' => 'admin',
-            'department_id' => 2
+            'department_id' => 2,
+            'section_id' => 3
+
         ]);
 
         User::create([
@@ -96,11 +123,13 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1968', '5', '17'),
             'account_type' => 'admin',
-            'department_id' => 3
+            'department_id' => 3,
+            'section_id' => 4
+
         ]);
 
         User::create([
-            'name' => 'Renin Josehp',
+            'name' => 'renin joseph',
             'email' => 'mail2@gmail.com',
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1996', '4', '3'),
