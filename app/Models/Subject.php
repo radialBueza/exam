@@ -12,4 +12,8 @@ class Subject extends Model
     protected $fillable = [
         'name',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime:M/d/Y g:i:s A',
+    ];
 }

@@ -16,6 +16,10 @@ class Section extends Model
         'grade_level_id'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:M/d/Y g:i:s A',
+    ];
+
     public function gradeLevel(): BelongsTo
     {
         return $this->belongsTo(GradeLevel::class);

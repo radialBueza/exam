@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Department;
 
 class GradeLevelResource extends JsonResource
 {
@@ -20,7 +19,7 @@ class GradeLevelResource extends JsonResource
             'department_id' => $this->department->id,
             'department_name' => $this->department->name,
             'name' => $this->name,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('M/d/Y g:i:s A'),
         ];
     }
 }

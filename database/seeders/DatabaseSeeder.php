@@ -11,6 +11,7 @@ use App\Models\Section;
 use App\Models\User;
 use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 
 class DatabaseSeeder extends Seeder
@@ -71,26 +72,29 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Radial Moses',
+            'name' => 'radial moses',
             'email' => 'bueza90@gmail.com',
             'password' => Hash::make('password'),
+            'birthday' => Carbon::create('1997', '12', '12'),
             'account_type' => 'admin',
             'department_id' => 1,
             'section_id' => 1
         ]);
 
         User::create([
-            'name' => 'Anna Marie',
+            'name' => 'anna marie',
             'email' => 'mail@gmail.com',
             'password' => Hash::make('password'),
+            'birthday' => Carbon::create('1967', '9', '17'),
             'account_type' => 'admin',
             'department_id' => 2
         ]);
 
         User::create([
-            'name' => 'Leomer',
+            'name' => 'leomer bueza',
             'email' => 'mail1@gmail.com',
             'password' => Hash::make('password'),
+            'birthday' => Carbon::create('1968', '5', '17'),
             'account_type' => 'admin',
             'department_id' => 3
         ]);
@@ -99,6 +103,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Renin Josehp',
             'email' => 'mail2@gmail.com',
             'password' => Hash::make('password'),
+            'birthday' => Carbon::create('1996', '4', '3'),
             'account_type' => 'teacher',
         ]);
     }

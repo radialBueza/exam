@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -34,12 +35,15 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'birthday' => ['required', 'date:m/d/Y']
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => Str::lower($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'account_type' => 'student',
+            'birthday' => $request->birthday
         ]);
 
         event(new Registered($user));

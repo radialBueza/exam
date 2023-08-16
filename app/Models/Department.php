@@ -15,6 +15,10 @@ class Department extends Model
         'name',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:M/d/Y g:i:s A',
+    ];
+
     public function gradeLevels(): HasMany
     {
         return $this->hasMany(GradeLevel::class);

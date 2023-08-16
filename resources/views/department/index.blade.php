@@ -51,8 +51,8 @@
                 $form="updateDept";
             @endphp
             <x-mine.modal open="openEdit">
-                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" method="PUT" resCode="200" url="{{route('departments.index')}}/${toEdit.id}">
-                    <x-mine.text-input title="department name" class="capitalize"/>
+                <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" method="PUT" url="{{route('departments.index')}}/${toEdit.id}">
+                    <x-mine.text-input title="department name" class="capitalize" value="toEdit.name"/>
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">
                             <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">

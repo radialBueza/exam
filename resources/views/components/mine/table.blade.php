@@ -90,7 +90,7 @@
                 <tr class="bg-white border-b">
                     <td class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.includes(data.id)" @click="addDelete(data.id)"></td>
                     {{$slot}}
-                    <td x-text="(new Date(data.created_at)).toLocaleString()" class="px-6 py-4"></td>
+                    <td x-text="data.created_at" class="px-6 py-4"></td>
                     <td class="px-6 py-4 flex justify-center items-center space-x-2">
                         <div class="inline-flex justify-start items-center gap-2">
                             <x-mine.button do="edit(data.id)" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Edit</x-mine.button>

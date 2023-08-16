@@ -17,6 +17,10 @@ class GradeLevel extends Model
         'department_id'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:M/d/Y g:i:s A',
+    ];
+
     public function sections(): HasMany
     {
         return $this->hasMany(Section::class);
@@ -27,8 +31,4 @@ class GradeLevel extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class);
-    }
 }

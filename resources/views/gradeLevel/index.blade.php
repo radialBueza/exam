@@ -58,7 +58,7 @@
             @endphp
             <x-mine.modal open="openEdit">
                 <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" method="PUT" url="{{route('gradeLevels.index')}}/${toEdit.id}">
-                    <x-mine.text-input title="grade level name" value="datas[toEdit].name" class="capitalize"/>
+                    <x-mine.text-input title="grade level name" value="toEdit.name" class="capitalize"/>
                     <x-mine.select-input name="{{$inputs[1]}}" title="Department" :$options selected="toEdit.department_id" />
                     <x-slot name="buttons">
                         <x-mine.submit-button class="justify-end">

@@ -34,6 +34,7 @@
         let index = this.datas.findIndex(getIndex)
         this.toEdit = this.datas[index]
         this.openEdit = true
+        console.log(this.toEdit.account_type)
         return
     }
 }">

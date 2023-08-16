@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Department;
+use App\Models\Section;
+use App\Http\Requests\UserRequest;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,16 +31,34 @@ class UserController extends Controller
         return view('user.index',
         [
             'datas' => User::oldest()->get()->toJson(),
-            'options' => Department::all()
+            'options' => Department::all(),
+            'sections' => Section::all()
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $password = Str::random();
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($password),
+            'birthday' => $request->birthday,
+            'account_type' => $request->account_type,
+            'department_id' => $request->department_id,
+            'section_id' => $request->section_id
+        ]);
+
+        event(new Registered($user));
+
+        return response()->json([
+            'success' => true,
+            'data' => User::oldest()->get(),
+            'test' => $password
+        ], 201);
     }
 
     /**

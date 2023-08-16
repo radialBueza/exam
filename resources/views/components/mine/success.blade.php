@@ -1,4 +1,4 @@
-@aware(['condition' => 'success ', 'open'])
+@aware(['condition' => 'success'])
 
 <template x-cloak x-if="{{$condition}}">
     <div role="success" class="flex flex-col justify-center items-center gap-2 m-2">

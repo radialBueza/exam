@@ -27,8 +27,7 @@ class User extends Authenticatable
         'account_type',
         'department_id',
         'section_id',
-        'guardian',
-        'guardian_num'
+        'birthday',
     ];
 
     /**
@@ -48,6 +47,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:M/d/Y g:i:s A',
         'password' => 'hashed',
     ];
 
@@ -59,10 +59,5 @@ class User extends Authenticatable
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
-    }
-
-    public function gradeLevels():BelongsToMany
-    {
-        return $this->belongsToMany(GradeLevel::class);
     }
 }

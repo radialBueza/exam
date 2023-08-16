@@ -6,23 +6,19 @@
     'open',
     'method' => 'POST',
     'url',
-    'resCode' => '201',
     ])
 
 <div x-data="{
-    showForm: true,
+    showLoad: false,
     success: false,
     error: {},
     init() {
-
         @foreach($inputs as $input)
             this.error.{{$input}} = { msg: ''}
         @endforeach
     },
-
-
     async sendData(form) {
-        this.showForm = false;
+        this.showLoad = true
         const inputForm = new FormData(form)
         const input = new URLSearchParams(inputForm)
         const res = await fetch(`{{$url}}`, {
@@ -33,7 +29,6 @@
             },
             body: input
         })
-
         @if($method == 'POST')
         if(res.status == 201)
         @else
@@ -42,6 +37,7 @@
         {
             const result = await res.json()
             this.success = result.success
+            this.showLoad = false
             datas = result.data
             sort()
             return
@@ -52,13 +48,12 @@
             for(let error in result.errors) {
                 this.error[error].msg = result.errors[error][0]
             }
-            this.showForm = true
+            this.showLoad = false
             return
         }
     },
     again() {
-        this.showForm = true
-
+        this.showLoad = false
         @foreach($inputs as $input)
             this.error.{{$input}} = { msg: ''}
         @endforeach
@@ -67,23 +62,21 @@
 
 }"x-init="$watch('{{$open}}', (value) => {
     if (value == true) {
-        showForm = true
+        showLoad = false
         success = false
         @foreach($inputs as $input)
             error.{{$input}} = { msg: ''}
         @endforeach
+        @if($method == "POST") $refs.{{$form}}.reset() @endif
     }@if($method != "POST")
         else {
             toEdit = []
         }
     @endif
 })">
-    <template x-cloak x-if="showForm">
-        <div x-init="$watch('showForm', (value) => {
-            if (value == true) {
-                $refs.{{$form}}.reset()
-            }
-        })">
+    <template x-cloak x-if="!success">
+
+        <div>
             <div class="flex items-center justify-between space-x-4">
                 <h3 class="text-xl font-medium text-gray-800 ">{{ucwords($title)}}</h3>
                 <button @click="{{$open}} = false" class="text-gray-600 focus:outline-none hover:text-gray-700">
@@ -104,7 +97,7 @@
             </form>
         </div>
     </template>
-    <x-mine.loading condition="!showForm&&!success"/>
+    <x-mine.loading condition="showLoad" :isModal="true"/>
 
     <x-mine.success>
         @if ($method == "POST")

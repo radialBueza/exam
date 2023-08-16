@@ -20,7 +20,7 @@ class SectionResource extends JsonResource
             'grade_level_id' => $this->gradeLevel->id,
             'grade_level_name' => $this->gradeLevel->name,
             'name' => $this->name,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('M/d/Y g:i:s A'),
         ];
     }
 }
