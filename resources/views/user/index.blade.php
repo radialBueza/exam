@@ -100,7 +100,7 @@
                             <x-mine.select-input name="{{$inputs[4]}}" title="Department" :$options selected="toDate.department_id"/>
                         </template>
                         <template x-if="isAdmin || isAdvisor">
-                            <x-mine.select-input name="{{$inputs[5]}}" title="Section" :options="$sections" selected="toDate.section_id/>
+                            <x-mine.select-input name="{{$inputs[5]}}" title="Section" :options="$sections" selected="toDate.section_id"/>
                         </template>
                     </div>
                     <x-slot name="buttons">

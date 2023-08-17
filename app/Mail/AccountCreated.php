@@ -19,6 +19,7 @@ class AccountCreated extends Mailable implements ShouldQueue
      */
     public function __construct(
         public $password
+        // include name of recipient in message
     )
     {
 
@@ -30,8 +31,8 @@ class AccountCreated extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('smms@mail.com', 'St. Martin Montessoir School, Inc.'),
-            subject: 'Account Created',
+            // from: new Address('smms@mail.com', 'St. Martin Montessoir School, Inc.'),
+            subject: 'Your Password',
         );
     }
 

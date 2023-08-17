@@ -10,6 +10,8 @@ use App\Models\Section;
 use App\Http\Requests\UserRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountCreated;
 
 class UserController extends Controller
 {
@@ -52,43 +54,53 @@ class UserController extends Controller
             'section_id' => $request->section_id
         ]);
 
+        // Add name of user to email
+        Mail::to($user)->send(new AccountCreated($password));
+
         event(new Registered($user));
 
         return response()->json([
             'success' => true,
             'data' => User::oldest()->get(),
-            'test' => $password
         ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->birthday = $request->birthday;
+        $user->account_type = $request->account_type;
+        $user->department_id = $request->department_id;
+        $user->section_id = $request-> section_id;
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => User::oldest()->get()->toJson(),
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $id)
     {
         //
     }

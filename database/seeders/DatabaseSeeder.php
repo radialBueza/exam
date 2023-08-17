@@ -99,6 +99,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'radial moses',
             'email' => 'bueza90@gmail.com',
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1997', '12', '12'),
             'account_type' => 'admin',
@@ -109,6 +110,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'anna marie',
             'email' => 'mail@gmail.com',
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1967', '9', '17'),
             'account_type' => 'admin',
@@ -120,6 +122,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'leomer bueza',
             'email' => 'mail1@gmail.com',
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1968', '5', '17'),
             'account_type' => 'admin',
@@ -131,6 +134,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'renin joseph',
             'email' => 'mail2@gmail.com',
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1996', '4', '3'),
             'account_type' => 'teacher',
