@@ -18,8 +18,8 @@ class EmailVerificationNotificationController extends Controller
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 
-        // $request->user()->sendEmailVerificationNotification();
-        $request->user()->notify(new \App\Notifications\VerifyEmailQueued);
+        $request->user()->sendEmailVerificationNotification();
+        // $request->user()->notify(new \App\Notifications\VerifyEmailQueued);
 
         return back()->with('status', 'verification-link-sent');
     }

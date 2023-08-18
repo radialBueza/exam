@@ -54,8 +54,13 @@ class UserController extends Controller
             'section_id' => $request->section_id
         ]);
 
+        // $user->merge([
+        //     'name' => ucwords($user->name)
+        // ]);
+        $user->name = ucwords($user->name);
+
         // Add name of user to email
-        Mail::to($user)->send(new AccountCreated($password));
+        Mail::to($user)->send(new AccountCreated($password, $request->name));
 
         event(new Registered($user));
 
@@ -68,7 +73,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $id)
+    public function show(User $user)
     {
 
     }
@@ -93,15 +98,24 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => User::oldest()->get()->toJson(),
+            'data' => User::oldest()->get(),
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response(200);
+    }
+
+    public function destroyAll(Request $request)
+    {
+        User::destroy($request->items);
+
+        return response(200);
     }
 }

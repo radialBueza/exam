@@ -19,6 +19,9 @@
                         <x-slot name="button">
                             <x-mine.nav-dropdown-pc :active="request()->routeIs('departments.*') || request()->routeIs('gradeLevels.*') || request()->routeIs('sections.*')">
                                 Structure
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="ml-2 w-4 h-4">
+                                        <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd" />
+                                    </svg>
                             </x-mine.nav-dropdown-pc>
                         </x-slot>
                         <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pr-3 py-3 pl-2">
@@ -97,6 +100,9 @@
                 <x-slot name="button">
                     <x-mine.nav-dropdown-mobile>
                         Structure
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block ml-1 w-4 h-4">
+                            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd" />
+                        </svg>
                     </x-mine.nav-dropdown-mobile>
                 </x-slot>
                 <x-responsive-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pl-5">

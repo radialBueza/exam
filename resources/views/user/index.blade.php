@@ -97,10 +97,10 @@
                     }" class="space-y-4">
                         <x-mine.react-select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType($el)" selected="toEdit.account_type"/>
                         <template x-if="isAdmin">
-                            <x-mine.select-input name="{{$inputs[4]}}" title="Department" :$options selected="toDate.department_id"/>
+                            <x-mine.select-input name="{{$inputs[4]}}" title="Department" :$options selected="toEdit.department_id"/>
                         </template>
                         <template x-if="isAdmin || isAdvisor">
-                            <x-mine.select-input name="{{$inputs[5]}}" title="Section" :options="$sections" selected="toDate.section_id"/>
+                            <x-mine.select-input name="{{$inputs[5]}}" title="Section" :options="$sections" selected="toEdit.section_id"/>
                         </template>
                     </div>
                     <x-slot name="buttons">

@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class UserRequest extends FormRequest
 {
@@ -60,8 +59,12 @@ class UserRequest extends FormRequest
         }
 
         return [
-            //
-
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
+            'birthday' => ['required', 'date:m/d/Y'],
+            'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
+            'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
+            'section_id' => ['required_if:account_type,admin,advisor', 'exists:sections,id']
         ];
     }
 }

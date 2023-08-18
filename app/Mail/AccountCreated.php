@@ -18,8 +18,8 @@ class AccountCreated extends Mailable implements ShouldQueue
      * Create a new message instance.
      */
     public function __construct(
-        public $password
-        // include name of recipient in message
+        public $password,
+        public $name
     )
     {
 
