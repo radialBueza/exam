@@ -10,7 +10,7 @@
     openEdit: false,
     toEdit: [],
     toDelete: { items: []},
-    sortCol: null,
+    {{-- sortCol: null,
     sortAsc: false,
     sort(col = '') {
         if (!col.length == 0) {
@@ -26,7 +26,7 @@
           if(a[this.sortCol] > b[this.sortCol]) return this.sortAsc?-1:1;
           return 0;
         });
-    },
+    }, --}}
 
     {{-- Open Edit Modal --}}
     edit(id) {
@@ -38,5 +38,7 @@
         return
     }
 }">
-    {{$slot}}
+    <x-mine.sort-table>
+        {{$slot}}
+    </x-mine.sort-table>
 </div>
