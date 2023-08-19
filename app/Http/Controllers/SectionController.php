@@ -14,20 +14,23 @@ use Illuminate\Database\Eloquent\Builder;
 class SectionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Search API
      */
     public function index(Request $request)
     {
-        if ($request->is('api/*')) {
-            if (empty($request->search)) {
-                return SectionResource::collection(Section::oldest()->get());
-            }
-            $search = Str::lower($request->search);
-            $gradeLevelId = GradeLevel::select('id')->where('name', 'like', "%{$search}%")->get();
-            return SectionResource::collection(Section::oldest()->where('name', 'like', "%{$search}%")->orWhereIn('grade_level_id', $gradeLevelId)->get());
-
+        if (empty($request->search)) {
+            return SectionResource::collection(Section::oldest()->get());
         }
+        $search = Str::lower($request->search);
+        $gradeLevelId = GradeLevel::select('id')->where('name', 'like', "%{$search}%")->get();
+        return SectionResource::collection(Section::oldest()->where('name', 'like', "%{$search}%")->orWhereIn('grade_level_id', $gradeLevelId)->get());
+    }
 
+    /**
+     * Display a listing of the resource.
+     */
+    public function all()
+    {
         return view('section.index',
         [
             'datas' => SectionResource::collection(Section::oldest()->get())->toJson(),
@@ -42,15 +45,6 @@ class SectionController extends Controller
     {
         Section::create($request->validated());
 
-        $id = $request->grade_level_id;
-
-        if ($request->show) {
-            return response()->json([
-                'success' => true,
-                'data' => Section::oldest()->where('grade_level_id', $id)->get(),
-            ], 201);
-        }
-
         return response()->json([
             'success' => true,
             'data' => SectionResource::collection(Section::oldest()->get()),
@@ -58,20 +52,33 @@ class SectionController extends Controller
     }
 
     /**
+     * Search Children API
+     */
+    public function show(Section $section, Request $request)
+    {
+        if (empty($request->search)) {
+            return $section->users()->where('account_type', 'student')->get();
+
+        }
+        $search = Str::lower($request->search);
+        return $section->users()->where('name', 'like', "%{$search}%")->where('account_type', 'student')->get();
+    }
+
+    /**
      * Display the specified resource.
      */
-    public function show(Section $section)
+    public function see(Section $section)
     {
         return view('section.show',
         [
             'info' => $section,
             'parent' => $section->gradeLevel,
-            'advisor' => $section->users()->where('section_id', $section->id)->where(function(Builder $query){
-                $query->where('account_type', 'admin')->orWhere('account_type', 'teacher');
-            })->first(),
+            'advisor' => $section->users()->where('account_type', 'admin')->orWhere('account_type', 'advisor')->first(),
             'datas' => $section->users()->where('account_type', 'student')->get()->toJson()
         ]);
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -83,14 +90,6 @@ class SectionController extends Controller
 
         $section->save();
 
-        $id = $request->grade_level_id;
-
-        if ($request->show) {
-            return response()->json([
-                'success' => true,
-                'data' => Section::oldest()->where('grade_level_id', $id)->get(),
-            ], 200);
-        }
         return response()->json([
             'success' => true,
             'data' => SectionResource::collection(Section::oldest()->get()),

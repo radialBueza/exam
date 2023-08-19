@@ -7,7 +7,7 @@ use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
-
+use App\Models\Department;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,22 +26,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function (){
     // Department Route
-    Route::apiResource('departments', DepartmentController::class)->except(['show']);
+    Route::apiResource('departments', DepartmentController::class);
     Route::delete('/departments', [DepartmentController::class, 'destroyAll'])->name('departments.destroyAll');
+    Route::post('/departments/{department}', [DepartmentController::class, 'createFor'])->name('departments.createFor');
+    Route::put('/departments/{department}/{gradeLevel}', [DepartmentController::class, 'updateFor']);
+
     // Grade Level Route
-    Route::apiResource('gradeLevels', GradeLevelController::class)->except(['show']);
+    Route::apiResource('gradeLevels', GradeLevelController::class);
     Route::delete('/gradeLevels', [GradeLevelController::class, 'destroyAll'])->name('gradeLevels.destroyAll');
+    Route::post('/gradeLevels/{gradeLevel}', [GradeLevelController::class, 'createFor'])->name('gradeLevels.createFor');
+    Route::put('/gradeLevels/{gradeLevel}/{section}', [GradeLevelController::class, 'updateFor']);
 
     // Section Route
-    Route::apiResource('sections', SectionController::class)->except(['show']);
+    Route::apiResource('sections', SectionController::class);
     Route::delete('/sections', [SectionController::class, 'destroyAll'])->name('sections.destroyAll');
 
     // Subject Route
-    Route::apiResource('subjects', SubjectController::class)->except(['show']);
+    Route::apiResource('subjects', SubjectController::class);
     Route::delete('/subjects', [SubjectController::class, 'destroyAll'])->name('subjects.destroyAll');
 
     // User
-    Route::apiResource('users', UserController::class)->except(['show']);
+    Route::apiResource('users', UserController::class);
     Route::delete('/users', [UserController::class, 'destroyAll'])->name('users.destroyAll');
 
 });

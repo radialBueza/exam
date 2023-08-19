@@ -68,11 +68,7 @@
             error.{{$input}} = { msg: ''}
         @endforeach
         @if($method == "POST") $refs.{{$form}}.reset() @endif
-    }@if($method != "POST")
-        else {
-            toEdit = []
-        }
-    @endif
+    }
 })">
     <template x-cloak x-if="!success">
 

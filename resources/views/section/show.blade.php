@@ -6,8 +6,7 @@
             Section | {{$info->name}}
         </h1>
     </x-slot>
-    <x-mine.bg-container>
-        <x-mine.crud-table-container :$datas url="{{route('sections.index')}}" index="{{route('sections.all')}}">
+        <x-mine.datas :$datas index="{{route('users.all')}}">
             <x-mine.bg-container>
                 <x-mine.card-container class="mb-6">
                     <div>
@@ -25,64 +24,26 @@
                     </div>
                 </x-mine.card-container>
                 <x-mine.card-container>
-                    <x-mine.cdp pdfUrl=" "/>
-                    <x-mine.search/>
+                    <x-mine.search url="{{route('sections.show', $info->id)}}"/>
                     <x-mine.table>
-                        <x-slot name="thead">
-                            <x-mine.th-cell col="name">
-                                name
-                            </x-mine.th-cell>
-                            <x-mine.th-cell col="created_at">
-                                created
-                            </x-mine.th-cell>
-                        </x-slot>
-                        <x-mine.td-cell-primary>
-                            <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
-                        </x-mine.td-cell-primary>
+                        <x-mine.clean-table>
+                            <x-slot name="thead">
+                                <th scope="col" class="px-6 py-3"></th>
+                                <x-mine.th-cell col="name">
+                                    name
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="created_at">
+                                    registered on
+                                </x-mine.th-cell>
+                            </x-slot>
+                            <th scope="col" class="px-6 py-3"></th>
+
+                            <x-mine.td-cell-primary>
+                                <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
+                            </x-mine.td-cell-primary>
+                        </x-mine.clean-table>
                     </x-mine.table>
-                    <x-mine.loading condition="!datas"/>
                 </x-mine.card-container>
             </x-mine.bg-container>
-            {{-- <x-mine.modal open="openAdd">
-                <x-mine.form-modal title="add grade level" subtitle="Add a grade level for the school." form="addGradeLevel"
-                :inputs="[
-                    'name' => ['length', 'required'],
-                    'department_id' => ['required'],
-                    'show' => ['required']
-                ]">
-                    <x-mine.text-input title="grade level name"/>
-                    <input type="hidden" name="department_id" id="department_id" value="{{$info->id}}">
-                    <input type="hidden" name="show" id="show" value="true">
-                    <x-slot name="buttons">
-                        <x-mine.submit-button class="justify-end">
-                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                {{$title}}
-                            </x-mine.button>
-                        </x-mine.submit-button>
-                    </x-slot>
-                </x-mine.form-modal>
-            </x-mine.modal>
-            <x-mine.modal open="openDel">
-                <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
-            </x-mine.modal>
-            <x-mine.modal open="openEdit">
-                <x-mine.form-modal title="update grade level" subtitle="Update a department of the school." form="updateDept" :inputs="[
-                    'name' => ['length', 'required'],
-                    'department_id' => ['required'],
-                    'show' => ['required']
-                ]" method="PUT" url="{{route('departments.index')}}/${toEdit.id}">
-                    <x-mine.text-input title="grade level name" value="datas[toEdit].name" class="capitalize"/>
-                    <input type="hidden" name="department_id" id="department_id" value="{{$info->id}}">
-                    <input type="hidden" name="show" id="show" value="true">
-                    <x-slot name="buttons">
-                        <x-mine.submit-button class="justify-end">
-                            <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                {{$title}}
-                            </x-mine.button>
-                        </x-mine.submit-button>
-                    </x-slot>
-                </x-mine.form-modal>
-            </x-mine.modal> --}}
-        </x-mine.crud-table-container>
-    </x-mine.bg-container>
+        </x-mine.datas>
 </x-app-layout>

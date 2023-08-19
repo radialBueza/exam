@@ -1,16 +1,13 @@
-@props(['datas', 'url', 'index'])
+{{-- @props(['datas', 'url', 'index']) --}}
+@props(['datas', 'index'])
+
 
 <div x-data="{
     {{-- retrieve data --}}
     datas: {{$datas}},
-    url: new URL('{{$url}}'),
+    {{-- url: new URL('{{$url}}'), --}}
     index: new URL('{{$index}}'),
-    openAdd: false,
-    openDel: false,
-    openEdit: false,
-    toEdit: [],
-    toDelete: { items: []},
-    {{-- sortCol: null,
+    sortCol: null,
     sortAsc: false,
     sort(col = '') {
         if (!col.length == 0) {
@@ -26,19 +23,9 @@
           if(a[this.sortCol] > b[this.sortCol]) return this.sortAsc?-1:1;
           return 0;
         });
-    }, --}}
+    },
 
     {{-- Open Edit Modal --}}
-    edit(id) {
-        const getIndex = (el) => el.id == id
-        let index = this.datas.findIndex(getIndex)
-        this.toEdit = this.datas[index]
-        this.openEdit = true
-        console.log(this.toEdit.account_type)
-        return
-    }
 }">
-    <x-mine.sort-table>
-        {{$slot}}
-    </x-mine.sort-table>
+    {{$slot}}
 </div>

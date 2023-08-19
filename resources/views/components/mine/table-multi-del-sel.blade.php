@@ -1,3 +1,4 @@
+@props(['url'])
 <div x-data="{
     {{-- add or remove items to be deleted --}}
 
@@ -33,7 +34,7 @@
 
     {{-- delete one item --}}
     async destroy(id) {
-        const delUrl = url + '/' + id
+        const delUrl = '{{$url}}' + '/' + id
 
         const res = await fetch(delUrl, {
             method: 'DELETE',

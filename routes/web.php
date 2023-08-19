@@ -32,35 +32,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('departments', DepartmentController::class)->only([
-        'index', 'show'
-    ])->names([
-        'index' => 'departments.all'
-    ]);
+    // departments
+    Route::get('/departments', [DepartmentController::class, 'all'])->name('departments.all');
+    Route::get('/departments/{department}', [DepartmentController::class, 'see']);
 
-    Route::resource('gradeLevels', GradeLevelController::class)->only([
-        'index', 'show'
-    ])->names([
-        'index' => 'gradeLevels.all'
-    ]);
+    // grade levels
+    Route::get('/gradeLevels', [GradeLevelController::class, 'all'])->name('gradeLevels.all');
+    Route::get('/gradeLevels/{gradeLevel}', [GradeLevelController::class, 'see']);
 
-    Route::resource('sections', SectionController::class)->only([
-        'index', 'show'
-    ])->names([
-        'index' => 'sections.all'
-    ]);
+    // sections
+    Route::get('/sections', [SectionController::class, 'all'])->name('sections.all');
+    Route::get('/sections/{section}', [SectionController::class, 'see']);
 
-    Route::resource('subjects', SubjectController::class)->only([
-        'index', 'show'
-    ])->names([
-        'index' => 'subjects.all'
-    ]);
+    // subjects
+    Route::get('/subjects', [SubjectController::class, 'all'])->name('subjects.all');
+    Route::get('/subjects/{subject}', [SubjectController::class, 'see']);
 
-    Route::resource('users', UserController::class)->only([
-        'index', 'show'
-    ])->names([
-        'index' => 'users.all'
-    ]);
+    // resource
+    Route::get('/users', [UserController::class, 'all'])->name('users.all');
+    Route::get('/users/{user}', [UserController::class, 'see']);
 });
 
 Route::get('/mail', function(){

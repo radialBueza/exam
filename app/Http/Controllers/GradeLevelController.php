@@ -8,24 +8,29 @@ use Illuminate\Support\Str;
 use App\Http\Requests\GradeLevelRequest;
 use App\Http\Resources\GradeLevelResource;
 use App\Models\Department;
+use App\Http\Requests\GradeLevelChild;
+use App\Models\Section;
 
 class GradeLevelController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Search API
      */
     public function index(Request $request)
     {
-        if ($request->is('api/*')) {
-            if (empty($request->search)) {
-                return GradeLevelResource::collection(GradeLevel::oldest()->get());
-            }
-            $search = Str::lower($request->search);
-            $deptId = Department::select('id')->where('name', 'like', "%{$search}%")->get();
-            return GradeLevelResource::collection(GradeLevel::oldest()->where('name', 'like', "%{$search}%")->orWhereIn('department_id', $deptId)->get());
-
+        if (empty($request->search)) {
+            return GradeLevelResource::collection(GradeLevel::oldest()->get());
         }
+        $search = Str::lower($request->search);
+        $deptId = Department::select('id')->where('name', 'like', "%{$search}%")->get();
+        return GradeLevelResource::collection(GradeLevel::oldest()->where('name', 'like', "%{$search}%")->orWhereIn('department_id', $deptId)->get());
+    }
 
+     /**
+     * Display a listing of the resource.
+     */
+    public function all()
+    {
         return view('gradeLevel.index',
         [
             'datas' => GradeLevelResource::collection(GradeLevel::oldest()->get())->toJson(),
@@ -41,15 +46,6 @@ class GradeLevelController extends Controller
     {
         GradeLevel::create($request->validated());
 
-        $id = $request->department_id;
-
-        if ($request->show) {
-            return response()->json([
-                'success' => true,
-                'data' => GradeLevel::oldest()->where('department_id', $id)->get(),
-            ], 201);
-        }
-
         return response()->json([
             'success' => true,
             'data' => GradeLevelResource::collection(GradeLevel::oldest()->get()),
@@ -57,11 +53,24 @@ class GradeLevelController extends Controller
     }
 
     /**
+     * Search Children API
+     */
+    public function show(GradeLevel $gradeLevel, Request $request)
+    {
+        if (empty($request->search)) {
+            return $gradeLevel->sections;
+
+        }
+        $search = Str::lower($request->search);
+        return $gradeLevel->sections()->where('name', 'like', "%{$search}%")->get();
+
+    }
+
+    /**
      * Display the specified resource.
      */
-    public function show(GradeLevel $gradeLevel)
+    public function see(GradeLevel $gradeLevel)
     {
-        //
         return view('gradeLevel.show',
         [
             'info' => $gradeLevel,
@@ -69,6 +78,35 @@ class GradeLevelController extends Controller
             'datas' => $gradeLevel->sections->toJson()
         ]);
     }
+
+    /**
+     *  Create children of specific resource API
+     */
+
+     public function createFor(GradeLevel $gradeLevel, GradeLevelChild $request)
+     {
+         $gradeLevel->sections()->create($request->validated());
+
+         return response()->json([
+             'success' => true,
+             'data' => $gradeLevel->sections,
+         ], 201);
+     }
+
+     /**
+      *  Update children of specific resource API
+      */
+
+      public function updateFor(GradeLevel $gradeLevel, GradeLevelChild $request, Section $section)
+      {
+         $section->name = $request->name;
+         $section->save();
+
+         return response()->json([
+             'success' => true,
+             'data' => $gradeLevel->sections,
+         ], 200);
+      }
 
 
     /**
@@ -81,14 +119,6 @@ class GradeLevelController extends Controller
 
         $gradeLevel->save();
 
-        $id = $request->department_id;
-
-        if ($request->show) {
-            return response()->json([
-                'success' => true,
-                'data' => GradeLevel::oldest()->where('department_id', $id)->get(),
-            ], 200);
-        }
         return response()->json([
             'success' => true,
             'data' => GradeLevelResource::collection(GradeLevel::oldest()->get()),

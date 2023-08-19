@@ -20,21 +20,23 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->is('api/*')) {
-            if (empty($request->search)) {
-                return User::oldest()->get();
-
-            }
-            $search = Str::lower($request->search);
-            return User::oldest()->where('name', 'like', "%{$search}%")->get();
-
+        if (empty($request->search)) {
+            return User::oldest()->get();
         }
+        $search = Str::lower($request->search);
+        return User::oldest()->where('name', 'like', "%{$search}%")->get();
+    }
 
+    /**
+     * Display a listing of the resource.
+     */
+    public function all()
+    {
         return view('user.index',
         [
             'datas' => User::oldest()->get()->toJson(),
             'options' => Department::all(),
-            'sections' => Section::all()
+            'sections' => Section::orderBy('grade_level_id', 'asc')->get()
         ]);
     }
 
@@ -54,9 +56,7 @@ class UserController extends Controller
             'section_id' => $request->section_id
         ]);
 
-        // $user->merge([
-        //     'name' => ucwords($user->name)
-        // ]);
+        // capitalize name
         $user->name = ucwords($user->name);
 
         // Add name of user to email
@@ -71,9 +71,14 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Search for children API
      */
     public function show(User $user)
+    {
+
+    }
+
+    public function see(Department $department)
     {
 
     }

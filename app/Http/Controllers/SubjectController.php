@@ -10,20 +10,22 @@ use Illuminate\Support\Str;
 class SubjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Search API
      */
     public function index(Request $request)
     {
-        if ($request->is('api/*')) {
-            if (empty($request->search)) {
-                return Subject::oldest()->get();
-
-            }
-            $search = Str::lower($request->search);
-            return Subject::oldest()->where('name', 'like', "%{$search}%")->get();
-
+        if (empty($request->search)) {
+            return Subject::oldest()->get();
         }
+        $search = Str::lower($request->search);
+        return Subject::oldest()->where('name', 'like', "%{$search}%")->get();
+    }
 
+    /**
+     * Display a listing of the resource.
+     */
+    public function all()
+    {
         return view('subject.index',
         [
             'datas' => Subject::oldest()->get()->toJson()
@@ -44,11 +46,19 @@ class SubjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     *  Search for children API
      */
-    public function show(Subject $subject)
+    public function show(Subject $subject, Request $request)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function see(Subject $subject)
+    {
+        return view('subject.show');
     }
 
     /**

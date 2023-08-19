@@ -1,8 +1,10 @@
+@props(['url'])
 <div x-data="{
+    url: new URL('{{$url}}'),
     searchTxt: '',
     async search() {
         datas = null
-        url.searchParams.set('search', this.searchTxt)
+        this.url.searchParams.set('search', this.searchTxt)
 
         const res = await fetch(this.url)
 
@@ -12,7 +14,7 @@
 
         console.log(result)
 
-        return this.datas = result
+        return datas = result
     },
 }">
     <form action="" class="flex justify-center my-6" @submit.prevent="search">

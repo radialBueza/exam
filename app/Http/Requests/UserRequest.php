@@ -54,7 +54,7 @@ class UserRequest extends FormRequest
                 'birthday' => ['required', 'date:m/d/Y'],
                 'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
                 'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
-                'section_id' => ['required_if:account_type,admin,advisor', 'exists:sections,id']
+                'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id']
             ];
         }
 
@@ -64,7 +64,7 @@ class UserRequest extends FormRequest
             'birthday' => ['required', 'date:m/d/Y'],
             'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
             'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
-            'section_id' => ['required_if:account_type,admin,advisor', 'exists:sections,id']
+            'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id']
         ];
     }
 }
