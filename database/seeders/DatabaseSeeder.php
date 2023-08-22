@@ -10,8 +10,8 @@ use App\Models\GradeLevel;
 use App\Models\Section;
 use App\Models\User;
 use App\Models\Subject;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Models\Exam;
 
 
 class DatabaseSeeder extends Seeder
@@ -138,6 +138,18 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1996', '4', '3'),
             'account_type' => 'teacher',
+        ]);
+
+        Exam::create([
+            'user_id' => 1,
+            'subject_id' => 1,
+            'grade_level_id' => 1,
+            'name' => 'Exam 1',
+            'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            'instruction' => 'Multiple Choice',
+            'num_of_questions' => 2,
+            'is_active' => true,
+            'time_limit' => 30
         ]);
     }
 }

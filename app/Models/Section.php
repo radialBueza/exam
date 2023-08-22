@@ -17,7 +17,7 @@ class Section extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime:M/d/Y g:i:s A',
+        'created_at' => 'datetime:M/d/Y',
     ];
 
     public function gradeLevel(): BelongsTo

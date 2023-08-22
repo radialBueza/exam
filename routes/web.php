@@ -7,6 +7,7 @@ use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExamController;
 
 
 /*
@@ -48,9 +49,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/subjects', [SubjectController::class, 'all'])->name('subjects.all');
     Route::get('/subjects/{subject}', [SubjectController::class, 'see']);
 
-    // resource
+    // users
     Route::get('/users', [UserController::class, 'all'])->name('users.all');
     Route::get('/users/{user}', [UserController::class, 'see']);
+
+    //exam
+    Route::get('/exams', [ExamController::class, 'all'])->name('exams.all');
+    Route::get('/exams/{exam}', [ExamController::class, 'see']);
 });
 
 Route::get('/mail', function(){

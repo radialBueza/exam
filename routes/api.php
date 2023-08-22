@@ -7,8 +7,7 @@ use App\Http\Controllers\GradeLevelController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
-use App\Models\Department;
-
+use App\Http\Controllers\ExamController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,5 +47,11 @@ Route::middleware('auth:sanctum')->group(function (){
     // User
     Route::apiResource('users', UserController::class);
     Route::delete('/users', [UserController::class, 'destroyAll'])->name('users.destroyAll');
+
+    // Exam
+    Route::apiResource('exams', ExamController::class);
+    Route::delete('/exams', [ExamController::class, 'destroyAll'])->name('exams.destroyAll');
+    Route::post('/exams/{exam}', [ExamController::class, 'createFor'])->name('exams.createFor');
+    Route::put('/exams/{exam}/{question}', [ExamController::class, 'updateFor']);
 
 });

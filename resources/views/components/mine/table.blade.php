@@ -26,6 +26,6 @@
             })
         } else return [];
     },
-}" x-show="datas" class="overflow-x-auto pb-2">
+}">
     {{$slot}}
 </div>

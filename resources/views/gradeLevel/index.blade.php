@@ -22,7 +22,7 @@
                                             department
                                         </x-mine.th-cell>
                                         <x-mine.th-cell col="created_at">
-                                            created
+                                            created on
                                         </x-mine.th-cell>
                                         <th scope="col" class="px-6 py-3"></th>
                                     </x-slot>

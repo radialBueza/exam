@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Exam;
 use Illuminate\Http\Request;
+use App\Http\Resources\ExamResource;
 
 class ExamController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Search API
      */
     public function index()
     {
@@ -16,11 +17,14 @@ class ExamController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
-    public function create()
+    public function all()
     {
-        //
+        return view('exam.index',
+        [
+            'datas' => ExamResource::collection(Exam::oldest()->get())->toJson()
+        ]);
     }
 
     /**
@@ -33,6 +37,17 @@ class ExamController extends Controller
 
     /**
      * Display the specified resource.
+     */
+    public function see(Exam $department)
+    {
+        return view('department.show',
+        [
+
+        ]);
+    }
+
+    /**
+     * Search for children API
      */
     public function show(Exam $exam)
     {

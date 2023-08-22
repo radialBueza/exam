@@ -1,5 +1,25 @@
-@props(['open'])
+@props(['open', 'maxWidth' => 'default'])
 
+
+@php
+    switch ($maxWidth) {
+        case 'default':
+            $maxWidth = 'max-w-xl';
+            break;
+
+        case '2xl':
+            $maxWidth = 'max-w-2xl';
+            break;
+
+        case '2xl':
+            $maxWidth = 'max-w-3xl';
+            break;
+
+        case '4xl':
+            $maxWidth = 'max-w-3xl';
+            break;
+    }
+@endphp
 <div
     x-cloak x-show="{{$open}}"
     x-transition:enter="transition ease-out duration-300 transform"
@@ -18,7 +38,7 @@
                 x-transition:leave="transition ease-in duration-200 transform"
                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                class="inline-block w-full max-w-xl p-6 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl"
+                class="inline-block w-full {{$maxWidth}} p-6 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl"
             >
                 {{$slot}}
 

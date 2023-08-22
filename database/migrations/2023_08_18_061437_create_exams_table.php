@@ -18,11 +18,10 @@ return new class extends Migration
             $table->foreignId('grade_level_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->text('description');
-            $table->text('instructions');
-            $table->integer('num_of_question');
-            $table->date('start');
-            $table->date('end');
-            $table->time('time_limit')->nullable();
+            $table->text('instruction');
+            $table->integer('num_of_questions');
+            $table->boolean('is_active');
+            $table->integer('time_limit');
             $table->timestamps();
         });
     }

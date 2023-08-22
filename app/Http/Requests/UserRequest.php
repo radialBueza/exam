@@ -51,7 +51,7 @@ class UserRequest extends FormRequest
             return [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:App\Models\User,email'],
-                'birthday' => ['required', 'date:m/d/Y'],
+                'birthday' => ['required', 'date', 'date_format:Y-m-d'],
                 'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
                 'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
                 'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id']
@@ -61,10 +61,17 @@ class UserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
-            'birthday' => ['required', 'date:m/d/Y'],
+            'birthday' => ['required', 'date', 'date_format:Y-m-d'],
             'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
             'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
             'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id']
         ];
     }
+
+    public function messages(): array
+{
+    return [
+        'birthday.date_format' => 'The birthday field must match the format dd/mm/yyyy.',
+    ];
+}
 }

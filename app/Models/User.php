@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -46,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'created_at' => 'datetime:M/d/Y g:i:s A',
+        'created_at' => 'datetime:M/d/Y',
         'password' => 'hashed',
     ];
 
@@ -58,6 +59,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
+    }
+
+    // To see teachers, admin, advisor created exam
+    public function exams(): HasMany
+    {
+        return $this->hasMany(Exam::class);
     }
 
 }
