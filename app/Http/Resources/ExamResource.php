@@ -24,7 +24,6 @@ class ExamResource extends JsonResource
             'grade_level_name' => $this->gradeLevel->name,
             'name' => $this->name,
             'description' => $this->description,
-            'instruction' => $this->instruction,
             'num_of_questions' => $this->num_of_questions,
             'is_active' => $this->is_active,
             'time_limit' => $this->time_limit,

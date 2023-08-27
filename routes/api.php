@@ -8,6 +8,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QuestionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -54,4 +55,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::post('/exams/{exam}', [ExamController::class, 'createFor'])->name('exams.createFor');
     Route::put('/exams/{exam}/{question}', [ExamController::class, 'updateFor']);
 
+    // Question
+    Route::apiResource('questions', QuestionController::class);
+    Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
 });

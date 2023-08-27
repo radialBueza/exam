@@ -1,4 +1,4 @@
-@props(['do' => ''])
+@props(['do' => '', 'attr'])
 
 <button @if (!empty($do))
    @click="{{$do}}"

@@ -1,5 +1,3 @@
-{{-- Will contain the students and teacher in the section --}}
-
 <x-app-layout title="Section | {{$info->name}}">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
@@ -8,7 +6,7 @@
     </x-slot>
         <x-mine.datas :$datas index="{{route('users.all')}}">
             <x-mine.bg-container>
-                <x-mine.card-container class="mb-6">
+                <x-mine.card-container class="mb-4 sm:mb-6">
                     <div>
                         <p class="text-xs font-thin text-slate-400 capitalize">{{$parent->name}}/</p>
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">

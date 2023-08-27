@@ -7,7 +7,7 @@
         <x-mine.datas :$datas index="{{route('gradeLevels.all')}}">
             <x-mine.crud>
                 <x-mine.bg-container>
-                    <x-mine.card-container class="mb-6">
+                    <x-mine.card-container class="mb-4 sm:mb-6">
                         <div>
                             <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
                                 {{$info->name}}
@@ -47,7 +47,6 @@
                                 </x-mine.clean-table>
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
-                        <x-mine.loading condition="!datas"/>
                     </x-mine.card-container>
                 </x-mine.bg-container>
                 @php
@@ -59,7 +58,7 @@
                 <x-mine.modal open="openAdd">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
                     :inputs="$inputs" url="{{route('departments.createFor', $info->id)}}">
-                        <x-mine.text-input title="grade level name"/>
+                        <x-mine.input title="grade level name"/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">
                                 <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
@@ -79,7 +78,7 @@
                 @endphp
                 <x-mine.modal open="openEdit">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" method="PUT" url="{{route('departments.createFor', $info->id)}}/${toEdit.id}">
-                        <x-mine.text-input title="grade level name" value="toEdit.name" class="capitalize"/>
+                        <x-mine.input title="grade level name" value="toEdit.name" class="capitalize"/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">
                                 <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">

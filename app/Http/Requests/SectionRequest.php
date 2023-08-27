@@ -15,12 +15,6 @@ class SectionRequest extends FormRequest
             'grade_level_id' => (int)$this->grade_level_id,
             'name' => Str::lower($this->name),
         ]);
-
-        if (isset($this->show)) {
-            $this->merge([
-                'show' => filter_var($this->show, FILTER_VALIDATE_BOOLEAN)
-            ]);
-        }
     }
 
     /**

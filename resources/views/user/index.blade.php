@@ -37,7 +37,6 @@
                                 </x-mine.clean-table>
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
-                        <x-mine.loading condition="!datas"/>
                     </x-mine.card-container>
                 </x-mine.bg-container>
 
@@ -46,18 +45,20 @@
                     $subtitle = "Create an account for a student, teacher, or admin.";
                     $form = "addUser";
                     $inputs = ['name', 'email', 'birthday', 'account_type', 'department_id', 'section_id'];
-                    $accountType = ['admin', 'advisor', 'teacher',  'student']
+                    // $accountType = ['admin', 'advisor', 'teacher',  'student']
                 @endphp
                 <x-mine.modal open="openAdd">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
                     :inputs="$inputs" url="{{route('users.store')}}">
-                        <x-mine.text-input title="Name"/>
-                        <x-mine.text-input name="{{$inputs[1]}}" title="email"/>
+                        <x-mine.input title="Name"/>
+                        <x-mine.input name="{{$inputs[1]}}" title="email"/>
                         <x-mine.date-input />
                         <div x-data="{
                             accountType: '',
                         }" class="space-y-4">
-                            <x-mine.react-select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/>
+                            {{-- <x-mine.react-select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/> --}}
+                            <x-mine.select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/>
+
                             <template x-if="accountType == 'admin'">
                                 <x-mine.select-input name="{{$inputs[4]}}" title="Department" :$options/>
                             </template>
@@ -84,8 +85,8 @@
                 @endphp
                 <x-mine.modal open="openEdit">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" method="PUT" url="{{route('users.index')}}/${toEdit.id}">
-                        <x-mine.text-input title="Name" class="capitalize" value="toEdit.name"/>
-                        <x-mine.text-input name="{{$inputs[1]}}" title="email" value="toEdit.email"/>
+                        <x-mine.input title="Name" class="capitalize" value="toEdit.name"/>
+                        <x-mine.input name="{{$inputs[1]}}" title="email" value="toEdit.email"/>
                         <x-mine.date-input :edit="true"/>
                         <div x-data="{
                             accountType: '',
@@ -94,7 +95,7 @@
                                 accountType = toEdit.account_type
                             }
                         })">
-                            <x-mine.react-select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType" selected="toEdit.account_type"/>
+                            <x-mine.select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType" selected="toEdit.account_type"/>
                             <template x-if="accountType == 'admin'">
                                 <x-mine.select-input name="{{$inputs[4]}}" title="Department" :$options selected="toEdit.department_id"/>
                             </template>

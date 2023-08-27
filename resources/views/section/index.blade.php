@@ -37,7 +37,6 @@
                                 </x-mine.clean-table>
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
-                        <x-mine.loading condition="!datas"/>
                     </x-mine.card-container>
                 </x-mine.bg-container>
 
@@ -50,7 +49,7 @@
                 <x-mine.modal open="openAdd">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
                     :inputs="$inputs" url="{{route('sections.store')}}">
-                        <x-mine.text-input title="Section name"/>
+                        <x-mine.input title="Section name"/>
                         <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">
@@ -71,7 +70,7 @@
                 @endphp
                 <x-mine.modal open="openEdit">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" method="PUT" url="{{route('sections.index')}}/${toEdit.id}">
-                        <x-mine.text-input title="section name" value="toEdit.name" class="capitalize"/>
+                        <x-mine.input title="section name" value="toEdit.name" class="capitalize"/>
                         <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options selected="toEdit.grade_level_id" />
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">

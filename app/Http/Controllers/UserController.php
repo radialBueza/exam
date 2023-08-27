@@ -16,7 +16,7 @@ use App\Mail\AccountCreated;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Search
      */
     public function index(Request $request)
     {
@@ -32,11 +32,33 @@ class UserController extends Controller
      */
     public function all()
     {
+        $accountType = collect([]);
+
+        $accountType->push((object)[
+            'id' => 'admin',
+            'name' => 'Admin'
+        ]);
+
+        $accountType->push((object)[
+            'id' => 'advisor',
+            'name' => 'advisor'
+        ]);
+
+        $accountType->push((object)[
+            'id' => 'teacher',
+            'name' => 'teacher'
+        ]);
+
+        $accountType->push((object)[
+            'id' => 'student',
+            'name' => 'Student'
+        ]);
         return view('user.index',
         [
             'datas' => User::oldest()->get()->toJson(),
             'options' => Department::all(),
-            'sections' => Section::orderBy('grade_level_id', 'asc')->get()
+            'sections' => Section::orderBy('grade_level_id', 'asc')->get(),
+            'accountType' => $accountType
         ]);
     }
 

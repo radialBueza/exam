@@ -46,6 +46,7 @@
 
         if (res.status == 200) {
             datas = datas.filter(data => data.id != id)
+
         }
     },
 }">

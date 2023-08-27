@@ -18,6 +18,7 @@
                                         <x-mine.th-cell col="name">
                                             name
                                         </x-mine.th-cell>
+
                                         <x-mine.th-cell col="grade_level_name">
                                             grade level
                                         </x-mine.th-cell>
@@ -28,7 +29,7 @@
                                             description
                                         </x-mine.th-cell>
                                         <x-mine.th-cell col="user_name">
-                                            Created By
+                                            author
                                         </x-mine.th-cell>
                                         <x-mine.th-cell col="created_at">
                                             created
@@ -42,27 +43,30 @@
                                     <x-mine.td-cell txt="data.grade_level_name"/>
                                     <x-mine.td-cell txt="data.subject_name"/>
                                     <x-mine.td-cell txt="data.description"/>
-                                    <x-mine.td-cell txt="data.user_name"/>
+                                        <x-mine.td-cell txt="data.user_name"/>
                                     <x-slot name="action">
                                         <x-mine.td-action/>
                                     </x-slot>
                                 </x-mine.clean-table>
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
-                        <x-mine.loading condition="!datas"/>
                     </x-mine.card-container>
                 </x-mine.bg-container>
-
                 @php
                     $title="Add Exam";
                     $subtitle="add a exam for the school.";
                     $form ="addExam";
+                    $inputs = ['name', 'subject_id', 'grade_level_id', 'description', 'num_of_questions', 'time_limit'];
                 @endphp
                 <x-mine.modal open="openAdd">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('exams.store')}}"
-                    >
-                        <x-mine.text-input title="exam name"/>
-                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                    :$inputs>
+                        <x-mine.input title="exam name"/>
+                        <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject"/>
+                        <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel"/>
+                        <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description"/>
+                        <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number"/>
+                        <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number"/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">
                                 <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
@@ -81,9 +85,14 @@
                     $form="updateExam";
                 @endphp
                 <x-mine.modal open="openEdit">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" method="PUT" url="{{route('exams.index')}}/${toEdit.id}">
-                        <x-mine.text-input title="exam name" class="capitalize" value="toEdit.name"/>
-                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" method="PUT" url="{{route('exams.index')}}/${toEdit.id}"
+                    :$inputs>
+                        <x-mine.input title="exam name" class="capitalize" value="toEdit.name"/>
+                        <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject" selected="toEdit.subject_id"/>
+                        <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel" selected="toEdit.grade_level_id"/>
+                        <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description" value="toEdit.description"/>
+                        <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number" value="toEdit.num_of_questions"/>
+                        <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number" value="toEdit.time_limit"/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">
                                 <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">

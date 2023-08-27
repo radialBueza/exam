@@ -56,6 +56,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //exam
     Route::get('/exams', [ExamController::class, 'all'])->name('exams.all');
     Route::get('/exams/{exam}', [ExamController::class, 'see']);
+
+    // question
+    Route::get('/questions', function () {
+        return;
+    })->name('questions.all');
+    Route::get('/questions/{question}', [ExamController::class, 'see']);
 });
 
 Route::get('/mail', function(){

@@ -6,6 +6,7 @@
     'open',
     'method' => 'POST',
     'url',
+    'withFile' => false
     ])
 
 <div x-data="{
@@ -20,21 +21,29 @@
     async sendData(form) {
         this.showLoad = true
         const inputForm = new FormData(form)
+        @if(!$withFile)
         const input = new URLSearchParams(inputForm)
+        @endif
+        console.log(inputForm.get('name'))
         const res = await fetch(`{{$url}}`, {
             method: '{{$method}}',
             headers: {
                 'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
                 'Accept': 'application/json'
             },
-            body: input
+            @if(!$withFile)
+                body: input
+            @else
+                body: inputForm
+            @endif
+
         })
-        @if($method == 'POST')
+        {{-- @if($method == 'POST')
         if(res.status == 201)
         @else
         if(res.status == 200)
-        @endif
-        {
+        @endif --}}
+        if(res.status == 201 || res.status == 200) {
             const result = await res.json()
             this.success = result.success
             this.showLoad = false
@@ -71,7 +80,6 @@
     }
 })">
     <template x-cloak x-if="!success">
-
         <div>
             <div class="flex items-center justify-between space-x-4">
                 <h3 class="text-xl font-medium text-gray-800 ">{{ucwords($title)}}</h3>

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Exam extends Model
 {
@@ -17,14 +18,13 @@ class Exam extends Model
         'name',
         'description',
         'instructions',
-        'num_of_question',
+        'num_of_questions',
         'is_active',
         'time_limit',
     ];
 
     protected $casts = [
         'created_at' => 'datetime:M/d/Y',
-        'time_limit' => 'datetime:H:i',
         'is_active' => 'boolean'
     ];
 
@@ -41,5 +41,10 @@ class Exam extends Model
     public function gradeLevel(): BelongsTo
     {
         return $this->belongsTo(GradeLevel::class);
+    }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class);
     }
 }

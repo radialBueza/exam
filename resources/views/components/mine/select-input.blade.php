@@ -1,4 +1,4 @@
-@props(['name', 'title', 'options', 'selected', 'nullable' => false])
+@props(['name', 'title', 'options', 'selected', 'nullable' => false, 'do'])
 
 
 <div>
@@ -6,7 +6,9 @@
     <select name="{{$name}}" id="{{$name}}"
         {{$attributes->merge(['class' => 'block w-full px-3 py-2 mt-2 text-gray-600 bg-white border border-gray-200 rounded-md capitalize'])}}
         :class="error.{{$name}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-        >
+        @isset($do)
+            x-model="{{$do}}"
+        @endisset>
         @if ($nullable)
             <option value="" class="text-gray-500">-- Pick {{$title}} --</option>
         @endif

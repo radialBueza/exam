@@ -21,6 +21,7 @@
                 </template>
             </tbody>
         </table>
+        <x-mine.loading condition="!datas"/>
     </div>
 
     <div class="flex justify-center items-center space-x-2">

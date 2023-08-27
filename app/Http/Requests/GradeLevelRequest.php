@@ -16,12 +16,6 @@ class GradeLevelRequest extends FormRequest
             'name' => Str::lower($this->name),
             // 'show' => filter_var($this->show, FILTER_VALIDATE_BOOLEAN)
         ]);
-
-        if (isset($this->show)) {
-            $this->merge([
-                'show' => filter_var($this->show, FILTER_VALIDATE_BOOLEAN)
-            ]);
-        }
     }
     /**
      * Determine if the user is authorized to make this request.

@@ -33,10 +33,8 @@
                                 </x-mine.clean-table>
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
-                        <x-mine.loading condition="!datas"/>
                     </x-mine.card-container>
                 </x-mine.bg-container>
-
                 @php
                     $title="Add Department";
                     $subtitle="add a department for the school.";
@@ -45,7 +43,7 @@
                 <x-mine.modal open="openAdd">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('departments.store')}}"
                     >
-                        <x-mine.text-input title="department name"/>
+                        <x-mine.input title="department name"/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">
                                 <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
@@ -65,7 +63,7 @@
                 @endphp
                 <x-mine.modal open="openEdit">
                     <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" method="PUT" url="{{route('departments.index')}}/${toEdit.id}">
-                        <x-mine.text-input title="department name" class="capitalize" value="toEdit.name"/>
+                        <x-mine.input title="department name" class="capitalize" value="toEdit.name"/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">
                                 <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">

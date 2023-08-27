@@ -6,7 +6,7 @@ class="relative"
 
     {{$button}}
 <div
-    x-show="open"
+    x-cloak x-show="open"
     @click.outside = "open = false"
     class="block bg-slate-50"
 >
