@@ -8,6 +8,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QuestionController;
 
 
 /*
@@ -61,7 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/questions', function () {
         return;
     })->name('questions.all');
-    Route::get('/questions/{question}', [ExamController::class, 'see']);
+    Route::get('/questions/{question}', [QuestionController::class, 'see']);
 });
 
 Route::get('/mail', function(){

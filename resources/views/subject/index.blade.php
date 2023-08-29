@@ -14,7 +14,7 @@
                             <x-mine.table-multi-del-sel url="{{route('subjects.index')}}">
                                 <x-mine.clean-table>
                                     <x-slot name="thead">
-                                        <th scope="col" class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.length == datas?.length" @click="selectAll()"></th>
+                                        <th scope="col" class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.length == datas?.length  && datas.length != 0" @click="selectAll()"></th>
                                         <x-mine.th-cell col="name">
                                             name
                                         </x-mine.th-cell>
@@ -61,7 +61,7 @@
                     $form ="addSubject";
                 @endphp
                 <x-mine.modal open="openEdit">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" method="PUT" url="{{route('subjects.index')}}/${toEdit.id}">
+                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('subjects.index')}}/${toEdit.id}">
                         <x-mine.input title="section name" value="toEdit.name" class="capitalize"/>
                         <x-slot name="buttons">
                             <x-mine.submit-button class="justify-end">

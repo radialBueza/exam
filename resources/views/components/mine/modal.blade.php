@@ -11,7 +11,7 @@
             $maxWidth = 'max-w-2xl';
             break;
 
-        case '2xl':
+        case '3xl':
             $maxWidth = 'max-w-3xl';
             break;
 

@@ -6,6 +6,7 @@ use App\Models\Exam;
 use App\Models\Subject;
 use App\Models\GradeLevel;
 use App\Models\User;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Resources\ExamResource;
 use App\Http\Requests\ExamRequest;
@@ -188,6 +189,62 @@ class ExamController extends Controller
          ], 201);
      }
 
+     /**
+     *  Update children of specific resource API
+     */
+
+     public function updateFor(Exam $exam, QuestionRequest $request, Question $question)
+     {
+        // dd($question);
+        $question->question = $request->question;
+        $question->a = $request->a;
+        $question->b = $request->b;
+        $question->c = $request->c;
+        $question->d = $request->d;
+
+        if ($request->hasFile('question_file')) {
+            $path = $request->question_file->store('questions', 'public');
+
+            // $data->replace(['question_file' => $path]);
+            $question->question_file = $path;
+        }
+
+        if ($request->hasFile('a_file')) {
+            $path = $request->a_file->store('answers', 'public');
+
+            // $data->replace(['a_file' => $path]);
+            $question->a_file = $path;
+        }
+
+        if ($request->hasFile('b_file')) {
+            $path = $request->b_file->store('answers', 'public');
+
+            // $data->replace(['b_file' => $path]);
+            $question->b_file = $path;
+        }
+
+        if ($request->hasFile('c_file')) {
+            $path = $request->c_file->store('answers', 'public');
+
+            // $data->replace(['c_file' => $path]);
+            $question->c_file = $path;
+        }
+
+        if ($request->hasFile('d_file')) {
+            $path = $request->d_file->store('answers', 'public');
+
+            // $data->replace(['d_file' => $path]);
+            $question->d_file = $path;
+        }
+
+        $question->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => $exam->questions,
+        ], 200);
+     }
+
 
     /**
      * Update the specified resource in storage.
@@ -229,6 +286,15 @@ class ExamController extends Controller
     public function destroyAll(Request $request)
     {
         Exam::destroy($request->items);
+
+        return response(200);
+    }
+
+    public function activate(Exam $exam)
+    {
+        $exam->is_active = !$exam->is_active;
+
+        $exam->save();
 
         return response(200);
     }

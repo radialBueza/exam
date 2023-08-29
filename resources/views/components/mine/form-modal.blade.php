@@ -4,11 +4,8 @@
     'form',
     'inputs' => ['name'],
     'open',
-    'method' => 'POST',
     'url',
-    'withFile' => false
-    ])
-
+])
 <div x-data="{
     showLoad: false,
     success: false,
@@ -21,28 +18,13 @@
     async sendData(form) {
         this.showLoad = true
         const inputForm = new FormData(form)
-        @if(!$withFile)
-        const input = new URLSearchParams(inputForm)
-        @endif
-        console.log(inputForm.get('name'))
         const res = await fetch(`{{$url}}`, {
-            method: '{{$method}}',
+            method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
                 'Accept': 'application/json'
             },
-            @if(!$withFile)
-                body: input
-            @else
-                body: inputForm
-            @endif
-
+            body: inputForm
         })
-        {{-- @if($method == 'POST')
-        if(res.status == 201)
-        @else
-        if(res.status == 200)
-        @endif --}}
         if(res.status == 201 || res.status == 200) {
             const result = await res.json()
             this.success = result.success
@@ -66,6 +48,9 @@
         @foreach($inputs as $input)
             this.error.{{$input}} = { msg: ''}
         @endforeach
+        {{-- Object.keys(this.error).forEach(key => {
+            this.error[key] = { msg: ''}
+        }) --}}
         this.success = false
     },
 
@@ -76,8 +61,20 @@
         @foreach($inputs as $input)
             error.{{$input}} = { msg: ''}
         @endforeach
-        @if($method == "POST") $refs.{{$form}}.reset() @endif
+        {{-- Object.keys(this.error).forEach(key => {
+            this.error[key] = { msg: ''}
+        }) --}}
+        @if($open == "openAdd")
+        $refs.{{$form}}.reset()
+        @endif
+    }else {
+
+    @if($open == "openEdit")
+
+        toEdit = {}
+    @endif
     }
+
 })">
     <template x-cloak x-if="!success">
         <div>
@@ -94,6 +91,10 @@
             </p>
             <form class="mt-5" x-ref="{{$form}}" @submit.prevent="await sendData($el)"
             >
+                @csrf
+                @if ($open == "openEdit")
+                    @method('PUT')
+                @endif
                 <div class="space-y-4">
                     {{$slot}}
                 </div>
@@ -104,7 +105,7 @@
     <x-mine.loading condition="showLoad" :isModal="true"/>
 
     <x-mine.success>
-        @if ($method == "POST")
+        @if ($open == "openAdd")
             <x-mine.button do="again()" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Add</x-mine.button>
             <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
         @else

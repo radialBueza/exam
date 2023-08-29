@@ -14,7 +14,12 @@
         @endif
         @foreach ($options as $option)
             <option value="{{$option->id}}" @isset($selected)
-                :selected="{{$option->id}} == {{$selected}}"
+                @if (gettype($option->id) == 'integer')
+                    :selected="{{$option->id}} == {{$selected}}"
+                @else
+                    :selected="'{{$option->id}}' == {{$selected}}"
+
+                @endif
             @endisset>{{$option->name}}</option>
         @endforeach
     </select>

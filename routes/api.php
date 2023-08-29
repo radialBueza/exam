@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('exams', ExamController::class);
     Route::delete('/exams', [ExamController::class, 'destroyAll'])->name('exams.destroyAll');
     Route::post('/exams/{exam}', [ExamController::class, 'createFor'])->name('exams.createFor');
+    Route::put('/exams/{exam}/activate', [ExamController::class, 'activate'])->name('exams.activate');
     Route::put('/exams/{exam}/{question}', [ExamController::class, 'updateFor']);
 
     // Question
