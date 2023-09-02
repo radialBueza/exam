@@ -43,7 +43,11 @@
                                     <x-mine.td-cell txt="data.grade_level_name"/>
                                     <x-mine.td-cell txt="data.subject_name"/>
                                     <x-mine.td-cell txt="data.description"/>
-                                        <x-mine.td-cell txt="data.user_name"/>
+                                    <x-mine.td-cell txt="data.user_name"/>
+                                    <x-mine.td-cell txt="data.created_at"/>
+
+                                {{-- <td scope="col" x-text="data.created_at" class="px-6 py-4"></td> --}}
+
                                     <x-slot name="action">
                                         <x-mine.td-action/>
                                     </x-slot>

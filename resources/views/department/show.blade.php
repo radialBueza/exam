@@ -41,6 +41,7 @@
                                     <x-mine.td-cell-primary>
                                         <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
                                     </x-mine.td-cell-primary>
+                                    <x-mine.td-cell txt="data.created_at"/>
                                     <x-slot name="action">
                                         <x-mine.td-action/>
                                     </x-slot>

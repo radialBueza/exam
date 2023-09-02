@@ -1,5 +1,5 @@
-<section {{$attributes->merge(['class'=> 'p-5 sm:p-9 bg-white shadow sm:rounded-lg'])}}>
-    <div class="max-x-xl">
+<section {{$attributes->merge(['class'=> 'p-5 sm:p-9 overflow-hidden bg-white shadow-md sm:rounded-lg'])}}>
+    {{-- <div class="max-w-xl"> --}}
         {{$slot}}
-    </div>
+    {{-- </div> --}}
 </section>

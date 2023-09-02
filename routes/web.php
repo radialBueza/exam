@@ -9,7 +9,8 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\QuestionController;
-
+use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\PickSection;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -63,6 +66,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return;
     })->name('questions.all');
     Route::get('/questions/{question}', [QuestionController::class, 'see']);
+
+    //get student's section
+    Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
+    Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection');
 });
 
 Route::get('/mail', function(){

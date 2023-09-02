@@ -13,7 +13,7 @@
                 <template x-cloak x-for="data in pagedDatas" :key="data.id" >
                     <tr class="bg-white border-b ">
                         {{$slot}}
-                        <td scope="col" x-text="data.created_at" class="px-6 py-4"></td>
+                        {{-- <td scope="col" x-text="data.created_at" class="px-6 py-4"></td> --}}
                         @isset($action)
                             {{$action}}
                         @endisset

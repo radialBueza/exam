@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
 
         GradeLevel::create([
             'department_id' => 3,
-            'name' => 'pre-school'
+            'name' => 'junior-casa 1'
         ]);
 
         Section::create([
@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'subject_id' => 2,
             'grade_level_id' => 4,
-            'name' => 'PagTatasa sa Unag Kwarter',
+            'name' => 'Pag Tatasa sa Unag Kwarter',
             'description' => 'Exam para sa 1st Kwarter ng Grade 10.',
             'num_of_questions' => 10,
             'time_limit' => 30

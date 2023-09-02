@@ -15,52 +15,59 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="px-1 pt-1">
                         Dashboard
                     </x-nav-link>
-                    <x-mine.dropdown-pc>
-                        <x-slot name="button">
-                            <x-mine.nav-dropdown-pc :active="request()->routeIs('departments.*') || request()->routeIs('gradeLevels.*') || request()->routeIs('sections.*')">
-                                Structure
-                                <div class="ml-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </x-mine.nav-dropdown-pc>
-                        </x-slot>
-                        <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pr-3 py-3 pl-2">
-                            Departments
+                    @if (auth()->user()->account_type == 'admin')
+                        <x-mine.dropdown-pc>
+                            <x-slot name="button">
+                                <x-mine.nav-dropdown-pc :active="request()->routeIs('departments.*') || request()->routeIs('gradeLevels.*') || request()->routeIs('sections.*')">
+                                    Structure
+                                    <div class="ml-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </x-mine.nav-dropdown-pc>
+                            </x-slot>
+                            <x-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pr-3 py-3 pl-2">
+                                Departments
+                            </x-nav-link>
+                            <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pr-3 py-3 pl-2">
+                                Grade Levels
+                            </x-nav-link>
+                            <x-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')" class="pr-3 py-3 pl-2">
+                                Sections
+                            </x-nav-link>
+                        </x-mine.dropdown-pc>
+                        <x-nav-link :href="route('subjects.all')" :active="request()->routeIs('subjects.*')" class="px-1 pt-1">
+                            Subjects
                         </x-nav-link>
-                        <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pr-3 py-3 pl-2">
-                            Grade Levels
-                        </x-nav-link>
-                        <x-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')" class="pr-3 py-3 pl-2">
-                            Sections
-                        </x-nav-link>
-                    </x-mine.dropdown-pc>
-                    <x-nav-link :href="route('subjects.all')" :active="request()->routeIs('subjects.*')" class="px-1 pt-1">
-                        Subjects
-                    </x-nav-link>
-                    <x-mine.dropdown-pc>
-                        <x-slot name="button">
-                            <x-mine.nav-dropdown-pc :active="request()->routeIs('exams.*')">
-                                Test
-                                <div class="ml-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </x-mine.nav-dropdown-pc>
-                        </x-slot>
-                        <x-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="pr-6 py-3 pl-4">
-                            Exams
-                        </x-nav-link>
-                        <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pr-6 py-3 pl-4">
-                            Results
-                        </x-nav-link>
-                    </x-mine.dropdown-pc>
-                    <x-nav-link :href="route('users.all')" :active="request()->routeIs('users.*')" class="px-1 pt-1">
-                        Accounts
-                    </x-nav-link>
+                    @endif
 
+                    @if (auth()->user()->account_type != 'student')
+                        <x-mine.dropdown-pc>
+                            <x-slot name="button">
+                                <x-mine.nav-dropdown-pc :active="request()->routeIs('exams.*')">
+                                    Test
+                                    <div class="ml-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </x-mine.nav-dropdown-pc>
+                            </x-slot>
+                            <x-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="pr-6 py-3 pl-4">
+                                Exams
+                            </x-nav-link>
+                            <x-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pr-6 py-3 pl-4">
+                                Results
+                            </x-nav-link>
+                        </x-mine.dropdown-pc>
+                    @endif
+
+                    @if (auth()->user()->account_type == 'admin')
+                        <x-nav-link :href="route('users.all')" :active="request()->routeIs('users.*')" class="px-1 pt-1">
+                            Accounts
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -116,51 +123,60 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="pl-3">
                 Dashboard
             </x-responsive-nav-link>
-            <x-mine.dropdown-mob>
-                <x-slot name="button">
-                    <x-mine.nav-dropdown-mobile :active="request()->routeIs('departments.*') || request()->routeIs('gradeLevels.*') || request()->routeIs('sections.*')">
-                        Structure
-                        <div class="ml-1 inline-block">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </x-mine.nav-dropdown-mobile>
-                </x-slot>
-                <x-responsive-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pl-5">
-                    Departments
+            @if (auth()->user()->account_type == 'admin')
+                <x-mine.dropdown-mob>
+                    <x-slot name="button">
+                        <x-mine.nav-dropdown-mobile :active="request()->routeIs('departments.*') || request()->routeIs('gradeLevels.*') || request()->routeIs('sections.*')">
+                            Structure
+                            <div class="ml-1 inline-block">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </x-mine.nav-dropdown-mobile>
+                    </x-slot>
+                    <x-responsive-nav-link :href="route('departments.all')" :active="request()->routeIs('departments.*')" class="pl-5">
+                        Departments
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pl-5">
+                        Grade Levels
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')" class="pl-5">
+                        Sections
+                    </x-responsive-nav-link>
+                </x-mine.dropdown-mob>
+                <x-responsive-nav-link :href="route('subjects.all')" :active="request()->routeIs('subjects.*')" class="pl-3">
+                    Subjects
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pl-5">
-                    Grade Levels
+            @endif
+            @if (auth()->user()->account_type != 'student')
+                <x-mine.dropdown-mob>
+                    <x-slot name="button">
+                        <x-mine.nav-dropdown-mobile>
+                            Test
+                            <div class="ml-1 inline-block">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </x-mine.nav-dropdown-mobile>
+                    </x-slot>
+                    <x-responsive-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="pl-5">
+                        Exams
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pl-5">
+                        Results
+                    </x-responsive-nav-link>
+                </x-mine.dropdown-mob>
+            @endif
+
+
+            @if (auth()->user()->account_type == 'admin')
+                <x-responsive-nav-link :href="route('users.all')" :active="request()->routeIs('users.*')" class="pl-3">
+                    Accounts
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('sections.all')" :active="request()->routeIs('sections.*')" class="pl-5">
-                    Sections
-                </x-responsive-nav-link>
-            </x-mine.dropdown-mob>
-            <x-responsive-nav-link :href="route('subjects.all')" :active="request()->routeIs('subjects.*')" class="pl-3">
-                Subjects
-            </x-responsive-nav-link>
-            <x-mine.dropdown-mob>
-                <x-slot name="button">
-                    <x-mine.nav-dropdown-mobile>
-                        Test
-                        <div class="ml-1 inline-block">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </x-mine.nav-dropdown-mobile>
-                </x-slot>
-                <x-responsive-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="pl-5">
-                    Exams
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pl-5">
-                    Results
-                </x-responsive-nav-link>
-            </x-mine.dropdown-mob>
-            <x-responsive-nav-link :href="route('users.all')" :active="request()->routeIs('users.*')" class="pl-3">
-                Accounts
-            </x-responsive-nav-link>
+            @endif
+
         </div>
 
         <!-- Responsive Settings Options -->

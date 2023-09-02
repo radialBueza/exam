@@ -71,6 +71,7 @@
               src: url({{ Vite::asset('resources/fonts/figtree/fonts/webfonts/Figtree-Black.woff2') }}) format('woff2');
             }
         </style>
+        <link rel="icon" type="image/x-icon" href="{{Vite::asset('resources/images/logo.png')}}">
         <!-- Fonts -->
         {{-- <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
