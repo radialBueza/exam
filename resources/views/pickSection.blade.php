@@ -112,9 +112,6 @@
                     case 1:
                         param = this.glvl
                         break;
-                    case 2:
-                        param = this.sect
-                        break;
                 }
                 console.log(param)
                 console.log(param.length)
@@ -133,27 +130,30 @@
                     this.currPage--
                     this.pages[this.currPage] = true
                 }
-            }
+            },
+            open: false
         }">
-
-        {{-- arrow-long-right
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-            <path fill-rule="evenodd" d="M16.72 7.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06l2.47-2.47H3a.75.75 0 010-1.5h16.19l-2.47-2.47a.75.75 0 010-1.06z" clip-rule="evenodd" />
-        </svg> --}}
-
-        {{-- arrow-long-left
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-            <path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z" clip-rule="evenodd" />
-        </svg> --}}
-            @error('section_id')
-            <div x-data="{
-                open: true,
-                }" x-show="open" x-init="setTimeout(() => open = false, 3000)" class="text-lg font-medium text-red-600 absolute top-0 px-1 py-2 flex justify-center bg-white border w-1/2 rounded-b-lg">{{$message}}</div>
-            @enderror
+            <div x-cloak x-show="open" x-transition.scale.origin.top class="text-lg font-medium text-red-600 absolute top-0 px-1 py-2 flex justify-center bg-white border w-1/2 rounded-b-lg">
+                Please pick a section.
+            </div>
             <div class="py-6 sm:py-12">
                 <x-mine.bg-container maxWidth="4xl">
                     <x-mine.card-container>
-                        <form action="{{route('setSection', auth()->user()->id)}}" method="POST" class="flex flex-col justify-between gap-4">
+                        <form action="{{route('setSection', auth()->user()->id)}}" method="POST" class="flex flex-col justify-between gap-4"
+                            @submit="(e) => {
+                                if(sect.length != 0) {
+                                    return true
+                                    console.log('hello')
+                                }else{
+                                    open = true
+                                    setTimeout(() => open = false, 3000)
+                                    e.preventDefault()
+                                    console.log('hi')
+                                }
+                                {{-- return false
+                                console.log('hi') --}}
+                            }"
+                            >
                             @csrf
                             @method('PUT')
                             <template x-cloak x-if="pages[0]">
