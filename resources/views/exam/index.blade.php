@@ -7,7 +7,7 @@
         <x-mine.datas :$datas index="{{route('exams.all')}}">
             <x-mine.crud>
                 <x-mine.bg-container>
-                    <x-mine.card-container>
+                    <x-mine.card-container class="p-5 sm:p-9">
                         <x-mine.cdp pdfUrl=" "/>
                         <x-mine.search url="{{route('exams.index')}}"/>
                         <x-mine.table>
@@ -55,57 +55,57 @@
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
                     </x-mine.card-container>
-                </x-mine.bg-container>
-                @php
+                    @php
                     $title="Add Exam";
                     $subtitle="add a exam for the school.";
                     $form ="addExam";
                     $inputs = ['name', 'subject_id', 'grade_level_id', 'description', 'num_of_questions', 'time_limit'];
-                @endphp
-                <x-mine.modal open="openAdd">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('exams.store')}}"
-                    :$inputs>
-                        <x-mine.input title="exam name"/>
-                        <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject"/>
-                        <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel"/>
-                        <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description"/>
-                        <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number"/>
-                        <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number"/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
-                <x-mine.modal open="openDel">
-                    <x-mine.delete-modal delUrl="{{route('exams.destroyAll')}}"/>
-                </x-mine.modal>
-                @php
-                    $title="Update Exam";
-                    $subtitle="Update a exam of the school.";
-                    $form="updateExam";
-                @endphp
-                <x-mine.modal open="openEdit">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('exams.index')}}/${toEdit.id}"
-                    :$inputs>
-                        <x-mine.input title="exam name" class="capitalize" value="toEdit.name"/>
-                        <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject" selected="toEdit.subject_id"/>
-                        <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel" selected="toEdit.grade_level_id"/>
-                        <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description" value="toEdit.description"/>
-                        <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number" value="toEdit.num_of_questions"/>
-                        <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number" value="toEdit.time_limit"/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
+                    @endphp
+                    <x-mine.modal open="openAdd">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('exams.store')}}"
+                        :$inputs>
+                            <x-mine.input title="exam name"/>
+                            <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject"/>
+                            <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel"/>
+                            <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description"/>
+                            <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number"/>
+                            <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number"/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
+                    <x-mine.modal open="openDel">
+                        <x-mine.delete-modal delUrl="{{route('exams.destroyAll')}}"/>
+                    </x-mine.modal>
+                    @php
+                        $title="Update Exam";
+                        $subtitle="Update a exam of the school.";
+                        $form="updateExam";
+                    @endphp
+                    <x-mine.modal open="openEdit">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('exams.index')}}/${toEdit.id}"
+                        :$inputs>
+                            <x-mine.input title="exam name" class="capitalize" value="toEdit.name"/>
+                            <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject" selected="toEdit.subject_id"/>
+                            <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel" selected="toEdit.grade_level_id"/>
+                            <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description" value="toEdit.description"/>
+                            <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number" value="toEdit.num_of_questions"/>
+                            <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number" value="toEdit.time_limit"/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
+                </x-mine.bg-container>
             </x-mine.crud>
         </x-mine.datas>
 </x-app-layout>

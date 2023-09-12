@@ -7,7 +7,7 @@
         <x-mine.datas :$datas index="{{route('departments.all')}}">
             <x-mine.crud>
                 <x-mine.bg-container>
-                    <x-mine.card-container>
+                    <x-mine.card-container class="p-5 sm:p-9">
                         <x-mine.cdp pdfUrl=" "/>
                         <x-mine.search url="{{route('departments.index')}}"/>
                         <x-mine.table>
@@ -36,45 +36,45 @@
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
                     </x-mine.card-container>
-                </x-mine.bg-container>
-                @php
+                    @php
                     $title="Add Department";
                     $subtitle="add a department for the school.";
                     $form ="addDept";
-                @endphp
-                <x-mine.modal open="openAdd">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('departments.store')}}"
-                    >
-                        <x-mine.input title="department name"/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
-                <x-mine.modal open="openDel">
-                    <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
-                </x-mine.modal>
-                @php
-                    $title="Update Department";
-                    $subtitle="Update a department of the school.";
-                    $form="updateDept";
-                @endphp
-                <x-mine.modal open="openEdit">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('departments.index')}}/${toEdit.id}">
-                        <x-mine.input title="department name" class="capitalize" value="toEdit.name"/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
+                    @endphp
+                    <x-mine.modal open="openAdd">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('departments.store')}}"
+                        >
+                            <x-mine.input title="department name"/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
+                    <x-mine.modal open="openDel">
+                        <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
+                    </x-mine.modal>
+                    @php
+                        $title="Update Department";
+                        $subtitle="Update a department of the school.";
+                        $form="updateDept";
+                    @endphp
+                    <x-mine.modal open="openEdit">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('departments.index')}}/${toEdit.id}">
+                            <x-mine.input title="department name" class="capitalize" value="toEdit.name"/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
+                </x-mine.bg-container>
             </x-mine.crud>
         </x-mine.datas>
 </x-app-layout>

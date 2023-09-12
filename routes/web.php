@@ -11,6 +11,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\PickSection;
+use App\Http\Controllers\TakeExam;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,32 +35,35 @@ Route::get('/', function () {
 Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    // departments
-    Route::get('/departments', [DepartmentController::class, 'all'])->name('departments.all');
-    Route::get('/departments/{department}', [DepartmentController::class, 'see']);
+    Route::middleware('can:admin')->group(function() {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        // departments
+        Route::get('/departments', [DepartmentController::class, 'all'])->name('departments.all');
+        Route::get('/departments/{department}', [DepartmentController::class, 'see']);
 
-    // grade levels
-    Route::get('/gradeLevels', [GradeLevelController::class, 'all'])->name('gradeLevels.all');
-    Route::get('/gradeLevels/{gradeLevel}', [GradeLevelController::class, 'see']);
+        // grade levels
+        Route::get('/gradeLevels', [GradeLevelController::class, 'all'])->name('gradeLevels.all');
+        Route::get('/gradeLevels/{gradeLevel}', [GradeLevelController::class, 'see']);
 
-    // sections
-    Route::get('/sections', [SectionController::class, 'all'])->name('sections.all');
-    Route::get('/sections/{section}', [SectionController::class, 'see']);
+        // sections
+        Route::get('/sections', [SectionController::class, 'all'])->name('sections.all');
+        Route::get('/sections/{section}', [SectionController::class, 'see']);
 
-    // subjects
-    Route::get('/subjects', [SubjectController::class, 'all'])->name('subjects.all');
-    Route::get('/subjects/{subject}', [SubjectController::class, 'see']);
+        // subjects
+        Route::get('/subjects', [SubjectController::class, 'all'])->name('subjects.all');
+        Route::get('/subjects/{subject}', [SubjectController::class, 'see']);
 
-    // users
-    Route::get('/users', [UserController::class, 'all'])->name('users.all');
-    Route::get('/users/{user}', [UserController::class, 'see']);
+        // users
+        Route::get('/users', [UserController::class, 'all'])->name('users.all');
+        Route::get('/users/{user}', [UserController::class, 'see']);
+    });
+
 
     //exam
-    Route::get('/exams', [ExamController::class, 'all'])->name('exams.all');
-    Route::get('/exams/{exam}', [ExamController::class, 'see']);
+    Route::get('/exams', [ExamController::class, 'all'])->name('exams.all')->middleware('can:viewAny-exam');
+    Route::get('/exams/{exam}', [ExamController::class, 'see'])->middleware('can:view-exam, exam');
 
     // question
     Route::get('/questions', function () {
@@ -67,10 +71,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('questions.all');
     Route::get('/questions/{question}', [QuestionController::class, 'see']);
 
-    //get student's section
-    Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
-    Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection');
+    Route::middleware('can:student')->group(function(){
+        //get student's section
+        Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
+        Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection');
+
+        // take exam
+        Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam');
+        // Route::post('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
+        Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
+
+    });
+
 });
+
 
 Route::get('/mail', function(){
     $password = Illuminate\Support\Str::random();

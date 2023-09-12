@@ -59,4 +59,11 @@ Route::middleware('auth:sanctum')->group(function (){
     // Question
     Route::apiResource('questions', QuestionController::class);
     Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
+
+    // take Exam
+    // Route::post('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
+    Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('apiGradeExam');
+
+
+
 });

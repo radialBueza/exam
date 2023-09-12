@@ -50,7 +50,7 @@
 @endswitch --}}
 
 {{-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8"> --}}
-{{-- <div {{$attributes->merge(['class' => 'mx-auto sm:px-6 lg:px-8 ' . $maxWidth])}}> --}}
-<div class="{{$maxWidth}} mx-auto sm:px-6 lg:px-8">
+<div {{$attributes->merge(['class' => 'mx-auto sm:px-6 lg:px-8 ' . $maxWidth])}}>
+{{-- <div class="{{$maxWidth}} mx-auto sm:px-6 lg:px-8"> --}}
     {{$slot}}
 </div>

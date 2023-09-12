@@ -6,7 +6,9 @@
     {{-- retrieve data --}}
     datas: {{$datas}},
     {{-- url: new URL('{{$url}}'), --}}
-    index: new URL('{{$index}}'),
+    @isset($index)
+        index: new URL('{{$index}}'),
+    @endisset
     sortCol: null,
     sortAsc: false,
     sort(col = '') {

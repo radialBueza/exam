@@ -7,7 +7,7 @@
         <x-mine.datas :$datas index="{{route('gradeLevels.all')}}">
             <x-mine.crud>
                 <x-mine.bg-container>
-                    <x-mine.card-container>
+                    <x-mine.card-container class="p-5 sm:p-9">
                         <x-mine.cdp pdfUrl=" "/>
                         <x-mine.search url="{{route('gradeLevels.index')}}"/>
                         <x-mine.table>
@@ -39,49 +39,48 @@
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
                     </x-mine.card-container>
+                    @php
+                        $title="add grade level";
+                        $subtitle="Add a grade level for the school.";
+                        $form ="addGradeLevel";
+                        $inputs = ['name', 'department_id'];
+                    @endphp
+                    <x-mine.modal open="openAdd">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
+                        :inputs="$inputs" url="{{route('gradeLevels.store')}}">
+                            <x-mine.input title="grade level name"/>
+                            <x-mine.select-input name="{{$inputs[1]}}" title="Department" :$options/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
+                    <x-mine.modal open="openDel">
+                        <x-mine.delete-modal delUrl="{{route('gradeLevels.destroyAll')}}"/>
+                    </x-mine.modal>
+                    @php
+                        $title="update grade level";
+                        $subtitle="Update a grade level of the school.";
+                        $form ="updateGradeLevel";
+                    @endphp
+                    <x-mine.modal open="openEdit">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" url="{{route('gradeLevels.index')}}/${toEdit.id}">
+                            <x-mine.input title="grade level name" value="toEdit.name" class="capitalize"/>
+                            <x-mine.select-input name="{{$inputs[1]}}" title="Department" :$options selected="toEdit.department_id" />
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
                 </x-mine.bg-container>
-
-                @php
-                    $title="add grade level";
-                    $subtitle="Add a grade level for the school.";
-                    $form ="addGradeLevel";
-                    $inputs = ['name', 'department_id'];
-                @endphp
-                <x-mine.modal open="openAdd">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
-                    :inputs="$inputs" url="{{route('gradeLevels.store')}}">
-                        <x-mine.input title="grade level name"/>
-                        <x-mine.select-input name="{{$inputs[1]}}" title="Department" :$options/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
-                <x-mine.modal open="openDel">
-                    <x-mine.delete-modal delUrl="{{route('gradeLevels.destroyAll')}}"/>
-                </x-mine.modal>
-                @php
-                    $title="update grade level";
-                    $subtitle="Update a grade level of the school.";
-                    $form ="updateGradeLevel";
-                @endphp
-                <x-mine.modal open="openEdit">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" url="{{route('gradeLevels.index')}}/${toEdit.id}">
-                        <x-mine.input title="grade level name" value="toEdit.name" class="capitalize"/>
-                        <x-mine.select-input name="{{$inputs[1]}}" title="Department" :$options selected="toEdit.department_id" />
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
             </x-mine.crud>
         </x-mine.datas>
 </x-app-layout>

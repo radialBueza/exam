@@ -2,7 +2,12 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Exam;
+use App\Models\User;
+use App\Policies\ExamPolicy;
+use App\Policies\QuestionPolicy;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Exam::class => ExamPolicy::class,
+        Question::class => QuestionPolicy::class
     ];
 
     /**
@@ -21,6 +27,26 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('admin', function(User $user) {
+            return $user->account_type == 'admin'
+                            ? Response::allow()
+                            : Response::denyAsNotFound();
+        });
+
+        // Gate::define('not-student', function(User $user) {
+        //     return $user->account_type != 'student';
+        // });
+
+        Gate::define('student', function(User $user) {
+            return $user->account_type == 'student'
+                            ? Response::allow()
+                            : Response::denyAsNotFound();
+        });
+
+        Gate::define('viewAny-exam', [ExamPolicy::class, 'viewAny']);
+
+        Gate::define('view-exam', [ExamPolicy::class, 'view']);
+
+        Gate::define('view-question', [QuestionPolicy::class, 'view']);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\ActiveExamResource;
+use App\Models\Department;
 
 class Dashboard extends Controller
 {
@@ -14,7 +15,11 @@ class Dashboard extends Controller
                 return redirect()->route('pickSection');
             }
 
-            return view('dashboard.student');
+
+            return view('dashboard.student',
+            [
+                'datas' => ActiveExamResource::collection(Auth::user()->section->gradeLevel->exams()->where('is_active', true)->get())->toJson(),
+            ]);
         }
 
         return view('dashboard.dashboard');

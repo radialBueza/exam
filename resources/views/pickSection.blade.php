@@ -80,7 +80,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <main class="min-h-screen bg-gray-100 flex items-center justify-center" x-data="{
+        <main class="min-h-screen bg-gray-100 flex flex-col justify-center" x-data="{
             departments: {{$departments}},
             gradeLevels: {{$gradeLevels}},
             sections: {{$sections}},
@@ -113,8 +113,6 @@
                         param = this.glvl
                         break;
                 }
-                console.log(param)
-                console.log(param.length)
 
                 if(this.currPage < this.pages.length-1 && param.length != 0) {
                     this.pages[this.currPage] = false
@@ -124,7 +122,6 @@
 
             },
             back() {
-                console.log(this.currPage > 0)
                 if(this.currPage > 0) {
                     this.pages[this.currPage] = false
                     this.currPage--
@@ -138,8 +135,8 @@
             </div>
             <div class="py-6 sm:py-12">
                 <x-mine.bg-container maxWidth="4xl">
-                    <x-mine.card-container>
-                        <form action="{{route('setSection', auth()->user()->id)}}" method="POST" class="flex flex-col justify-between gap-4"
+                    <x-mine.card-container class="px-5 py-10 sm:px-9 lg:py-16">
+                        <form action="{{route('setSection', auth()->user()->id)}}" method="POST" class="flex flex-col gap-4"
                             @submit="(e) => {
                                 if(sect.length != 0) {
                                     return true

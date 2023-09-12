@@ -6,7 +6,7 @@
     </x-slot>
         <x-mine.datas :$datas index="{{route('users.all')}}">
             <x-mine.bg-container>
-                <x-mine.card-container class="mb-4 sm:mb-6">
+                <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9">
                     <div>
                         <p class="text-xs font-thin text-slate-400 capitalize">{{$parent->name}}/</p>
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
@@ -21,7 +21,7 @@
                         </p>
                     </div>
                 </x-mine.card-container>
-                <x-mine.card-container>
+                <x-mine.card-container class="p-5 sm:p-9">
                     <x-mine.search url="{{route('sections.show', $info->id)}}"/>
                     <x-mine.table>
                         <x-mine.clean-table>

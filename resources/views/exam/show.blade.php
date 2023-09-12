@@ -24,7 +24,7 @@
                 }">
                     <x-mine.bg-container>
                         {{-- Name and Activate --}}
-                        <x-mine.card-container class="mb-4 sm:mb-6">
+                        <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9">
                             <div class="flex justify-between pb-2 border-b-2">
                                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
                                     {{$info->name}}
@@ -72,7 +72,7 @@
                             </div>
                         </x-mine.card-container> --}}
                         {{-- table --}}
-                        <x-mine.card-container>
+                        <x-mine.card-container class="p-5 sm:p-9">
                             <x-mine.cdp pdfUrl=" "/>
                             <x-mine.search url="{{route('exams.show', $info->id)}}"/>
                             <x-mine.table>
@@ -113,190 +113,190 @@
                                 </x-mine.table-multi-del-sel>
                             </x-mine.table>
                         </x-mine.card-container>
-                    </x-mine.bg-container>
-                    @php
-                        $title="add questions";
-                        $subtitle="Add a question to {$info->name}";
-                        $form="addQuestion";
-                        $inputs=['question', 'question_file', 'a', 'a_file', 'b', 'b_file', 'c', 'c_file', 'd', 'd_file', 'correct_answer'];
-                    @endphp
-                    <x-mine.modal open="openAdd">
-                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
-                        :inputs="$inputs" url="{{route('exams.createFor', $info->id)}}">
-                            <fieldset>
-                                <x-mine.text-area-input name="{{$inputs[0]}}" title="Question"/>
-                                <div>
-                                    <label for="{{$inputs[1]}}" class="sr-only">Question File</label>
-                                    <input id="{{$inputs[1]}}" name="{{$inputs[1]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[1]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[1]}}?.msg" x-text="error.{{$inputs[1]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[2]}}" title="Option A"/>
-                                <div>
-                                    <label for="{{$inputs[3]}}" class="sr-only">Option A File</label>
-                                    <input id="{{$inputs[3]}}" name="{{$inputs[3]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[3]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[3]}}?.msg" x-text="error.{{$inputs[3]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[4]}}" title="Option B"/>
-                                <div>
-                                    <label for="{{$inputs[5]}}" class="sr-only">Option B File</label>
-                                    <input id="{{$inputs[5]}}" name="{{$inputs[5]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[5]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[5]}}?.msg" x-text="error.{{$inputs[5]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[6]}}" title="Option C"/>
-                                <div>
-                                    <label for="{{$inputs[7]}}" class="sr-only">Option C File</label>
-                                    <input id="{{$inputs[7]}}" name="{{$inputs[7]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[7]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[7]}}?.msg" x-text="error.{{$inputs[7]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[8]}}" title="Option D"/>
-                                <div>
-                                    <label for="{{$inputs[9]}}" class="sr-only">Option D File</label>
-                                    <input id="{{$inputs[9]}}" name="{{$inputs[9]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[9]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[9]}}?.msg" x-text="error.{{$inputs[9]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                </div>
-                            </fieldset>
-                            <x-mine.select-input name="{{$inputs[10]}}" title="Correct Answer" :$options/>
-                            <x-slot name="buttons">
-                                <x-mine.submit-button class="justify-end">
-                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                        {{$title}}
-                                    </x-mine.button>
-                                </x-mine.submit-button>
-                            </x-slot>
-                            <template x-cloak x-if="Object.keys(datas).length >= Number(info.num_of_questions)">
-                                <div role="not allowed" class="absolute inset-0 z-50 bg-white flex flex-col items-center justify-center gap-2 ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 fill-red-600">
-                                        <path fill-rule="evenodd" d="M6.72 5.66l11.62 11.62A8.25 8.25 0 006.72 5.66zm10.56 12.68L5.66 6.72a8.25 8.25 0 0011.62 11.62zM5.105 5.106c3.807-3.808 9.98-3.808 13.788 0 3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788z" clip-rule="evenodd" />
-                                    </svg>
-                                    <p class="text-xl font-medium text-red-800">You have reach maximum amount of questions</p>
-                                    <div class="flex justify-between gap-2">
-                                        <x-mine.button do="openAdd = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
+                        @php
+                            $title="add questions";
+                            $subtitle="Add a question to {$info->name}";
+                            $form="addQuestion";
+                            $inputs=['question', 'question_file', 'a', 'a_file', 'b', 'b_file', 'c', 'c_file', 'd', 'd_file', 'correct_answer'];
+                        @endphp
+                        <x-mine.modal open="openAdd">
+                            <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
+                            :inputs="$inputs" url="{{route('exams.createFor', $info->id)}}">
+                                <fieldset>
+                                    <x-mine.text-area-input name="{{$inputs[0]}}" title="Question"/>
+                                    <div>
+                                        <label for="{{$inputs[1]}}" class="sr-only">Question File</label>
+                                        <input id="{{$inputs[1]}}" name="{{$inputs[1]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[1]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[1]}}?.msg" x-text="error.{{$inputs[1]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
                                     </div>
-                                </div>
-                            </template>
+                                </fieldset>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[2]}}" title="Option A"/>
+                                    <div>
+                                        <label for="{{$inputs[3]}}" class="sr-only">Option A File</label>
+                                        <input id="{{$inputs[3]}}" name="{{$inputs[3]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[3]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[3]}}?.msg" x-text="error.{{$inputs[3]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[4]}}" title="Option B"/>
+                                    <div>
+                                        <label for="{{$inputs[5]}}" class="sr-only">Option B File</label>
+                                        <input id="{{$inputs[5]}}" name="{{$inputs[5]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[5]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[5]}}?.msg" x-text="error.{{$inputs[5]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[6]}}" title="Option C"/>
+                                    <div>
+                                        <label for="{{$inputs[7]}}" class="sr-only">Option C File</label>
+                                        <input id="{{$inputs[7]}}" name="{{$inputs[7]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[7]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[7]}}?.msg" x-text="error.{{$inputs[7]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[8]}}" title="Option D"/>
+                                    <div>
+                                        <label for="{{$inputs[9]}}" class="sr-only">Option D File</label>
+                                        <input id="{{$inputs[9]}}" name="{{$inputs[9]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[9]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[9]}}?.msg" x-text="error.{{$inputs[9]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                    </div>
+                                </fieldset>
+                                <x-mine.select-input name="{{$inputs[10]}}" title="Correct Answer" :$options/>
+                                <x-slot name="buttons">
+                                    <x-mine.submit-button class="justify-end">
+                                        <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                            {{$title}}
+                                        </x-mine.button>
+                                    </x-mine.submit-button>
+                                </x-slot>
+                                <template x-cloak x-if="Object.keys(datas).length >= Number(info.num_of_questions)">
+                                    <div role="not allowed" class="absolute inset-0 z-50 bg-white flex flex-col items-center justify-center gap-2 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 fill-red-600">
+                                            <path fill-rule="evenodd" d="M6.72 5.66l11.62 11.62A8.25 8.25 0 006.72 5.66zm10.56 12.68L5.66 6.72a8.25 8.25 0 0011.62 11.62zM5.105 5.106c3.807-3.808 9.98-3.808 13.788 0 3.808 3.807 3.808 9.98 0 13.788-3.807 3.808-9.98 3.808-13.788 0-3.808-3.807-3.808-9.98 0-13.788z" clip-rule="evenodd" />
+                                        </svg>
+                                        <p class="text-xl font-medium text-red-800">You have reach maximum amount of questions</p>
+                                        <div class="flex justify-between gap-2">
+                                            <x-mine.button do="openAdd = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
+                                        </div>
+                                    </div>
+                                </template>
 
 
-                        </x-mine.form-modal>
-                    </x-mine.modal>
-                    <x-mine.modal open="openDel">
-                        <x-mine.delete-modal delUrl="{{route('questions.destroyAll')}}"/>
-                    </x-mine.modal>
-                    @php
-                        $title="update question";
-                        $subtitle="Update a question of {$info->name}.";
-                        $form="updateQuestion";
-                    @endphp
-                    <x-mine.modal open="openEdit">
-                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" url="{{route('exams.createFor', $info->id)}}/${toEdit.id}">
-                            <fieldset>
-                                <x-mine.text-area-input name="{{$inputs[0]}}" title="Question" value="toEdit.question"/>
-                                <div>
-                                    <label for="{{$inputs[1]}}" class="sr-only">Question File</label>
+                            </x-mine.form-modal>
+                        </x-mine.modal>
+                        <x-mine.modal open="openDel">
+                            <x-mine.delete-modal delUrl="{{route('questions.destroyAll')}}"/>
+                        </x-mine.modal>
+                        @php
+                            $title="update question";
+                            $subtitle="Update a question of {$info->name}.";
+                            $form="updateQuestion";
+                        @endphp
+                        <x-mine.modal open="openEdit">
+                            <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" url="{{route('exams.createFor', $info->id)}}/${toEdit.id}">
+                                <fieldset>
+                                    <x-mine.text-area-input name="{{$inputs[0]}}" title="Question" value="toEdit.question"/>
+                                    <div>
+                                        <label for="{{$inputs[1]}}" class="sr-only">Question File</label>
 
-                                    <input id="{{$inputs[1]}}" name="{{$inputs[1]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[1]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[1]}}?.msg" x-text="error.{{$inputs[1]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                    <template x-if="toEdit.question_file">
-                                        <img :src="`{{asset('storage/')}}/${toEdit.question_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
-                                    </template>
-                                    <input type="hidden" name="has_question_file" :value="(toEdit.question_file) ? 'true':'false'">
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[2]}}" title="Option A" value="toEdit.a"/>
-                                <div>
-                                    <label for="{{$inputs[3]}}" class="sr-only">Option A File</label>
+                                        <input id="{{$inputs[1]}}" name="{{$inputs[1]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[1]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[1]}}?.msg" x-text="error.{{$inputs[1]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                        <template x-if="toEdit.question_file">
+                                            <img :src="`{{asset('storage/')}}/${toEdit.question_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
+                                        </template>
+                                        <input type="hidden" name="has_question_file" :value="(toEdit.question_file) ? 'true':'false'">
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[2]}}" title="Option A" value="toEdit.a"/>
+                                    <div>
+                                        <label for="{{$inputs[3]}}" class="sr-only">Option A File</label>
 
-                                    <input id="{{$inputs[3]}}" name="{{$inputs[3]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[3]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[3]}}?.msg" x-text="error.{{$inputs[3]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                    <template x-if="toEdit.a_file">
-                                        <img :src="`{{asset('storage/')}}/${toEdit.a_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
-                                    </template>
-                                    <input type="hidden" name="has_a_file" :value="(toEdit.a_file) ? 'true':'false'">
-                                </div>
-                            </fieldset>
+                                        <input id="{{$inputs[3]}}" name="{{$inputs[3]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[3]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[3]}}?.msg" x-text="error.{{$inputs[3]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                        <template x-if="toEdit.a_file">
+                                            <img :src="`{{asset('storage/')}}/${toEdit.a_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
+                                        </template>
+                                        <input type="hidden" name="has_a_file" :value="(toEdit.a_file) ? 'true':'false'">
+                                    </div>
+                                </fieldset>
 
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[4]}}" title="Option B" value="toEdit.b"/>
-                                <div>
-                                    <label for="{{$inputs[5]}}" class="sr-only">Option B File</label>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[4]}}" title="Option B" value="toEdit.b"/>
+                                    <div>
+                                        <label for="{{$inputs[5]}}" class="sr-only">Option B File</label>
 
-                                    <input id="{{$inputs[5]}}" name="{{$inputs[5]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[5]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[5]}}?.msg" x-text="error.{{$inputs[5]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                    <template x-if="toEdit.b_file">
-                                        <img :src="`{{asset('storage/')}}/${toEdit.b_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
-                                    </template>
-                                    <input type="hidden" name="has_b_file" :value="(toEdit.b_file) ? 'true':'false'">
+                                        <input id="{{$inputs[5]}}" name="{{$inputs[5]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[5]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[5]}}?.msg" x-text="error.{{$inputs[5]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                        <template x-if="toEdit.b_file">
+                                            <img :src="`{{asset('storage/')}}/${toEdit.b_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
+                                        </template>
+                                        <input type="hidden" name="has_b_file" :value="(toEdit.b_file) ? 'true':'false'">
 
-                                </div>
-                            </fieldset>
+                                    </div>
+                                </fieldset>
 
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[6]}}" title="Option C" value="toEdit.c"/>
-                                <div>
-                                    <label for="{{$inputs[7]}}" class="sr-only">Option C File</label>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[6]}}" title="Option C" value="toEdit.c"/>
+                                    <div>
+                                        <label for="{{$inputs[7]}}" class="sr-only">Option C File</label>
 
-                                    <input id="{{$inputs[7]}}" name="{{$inputs[7]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[7]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[7]}}?.msg" x-text="error.{{$inputs[7]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                    <template x-if="toEdit.c_file">
-                                        <img :src="`{{asset('storage/')}}/${toEdit.c_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
-                                    </template>
-                                    <input type="hidden" name="has_c_file" :value="(toEdit.c_file) ? 'true':'false'">
+                                        <input id="{{$inputs[7]}}" name="{{$inputs[7]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[7]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[7]}}?.msg" x-text="error.{{$inputs[7]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                        <template x-if="toEdit.c_file">
+                                            <img :src="`{{asset('storage/')}}/${toEdit.c_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
+                                        </template>
+                                        <input type="hidden" name="has_c_file" :value="(toEdit.c_file) ? 'true':'false'">
 
-                                </div>
-                            </fieldset>
+                                    </div>
+                                </fieldset>
 
-                            <fieldset>
-                                <x-mine.input name="{{$inputs[8]}}" title="Option D" value="toEdit.d"/>
-                                <div>
-                                    <label for="{{$inputs[9]}}" class="sr-only">Option D File</label>
+                                <fieldset>
+                                    <x-mine.input name="{{$inputs[8]}}" title="Option D" value="toEdit.d"/>
+                                    <div>
+                                        <label for="{{$inputs[9]}}" class="sr-only">Option D File</label>
 
-                                    <input id="{{$inputs[9]}}" name="{{$inputs[9]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
-                                        :class="error.{{$inputs[9]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
-                                    >
-                                    <div x-show="error.{{$inputs[9]}}?.msg" x-text="error.{{$inputs[9]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
-                                    <template x-if="toEdit.d_file">
-                                        <img :src="`{{asset('storage/')}}/${toEdit.d_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
-                                    </template>
-                                    <input type="hidden" name="has_d_file" :value="(toEdit.d_file) ? 'true':'false'">
+                                        <input id="{{$inputs[9]}}" name="{{$inputs[9]}}" type="file" class="text-xs block w-full px-3 py-2 mt-1 text-gray-600 bg-white border border-gray-200 rounded-md"
+                                            :class="error.{{$inputs[9]}}?.msg && 'border-red-800 ring-1 ring-red-800 focus:ring-red-800 focus:border-red-800'"
+                                        >
+                                        <div x-show="error.{{$inputs[9]}}?.msg" x-text="error.{{$inputs[9]}}?.msg" class="text-red-800 text-sm font-semibold my-2"></div>
+                                        <template x-if="toEdit.d_file">
+                                            <img :src="`{{asset('storage/')}}/${toEdit.d_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
+                                        </template>
+                                        <input type="hidden" name="has_d_file" :value="(toEdit.d_file) ? 'true':'false'">
 
-                                </div>
-                            </fieldset>
-                            <x-mine.select-input name="{{$inputs[10]}}" title="Correct Answer" :$options selected="toEdit.correct_answer"/>
-                            <x-slot name="buttons">
-                                <x-mine.submit-button class="justify-end">
-                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                        {{$title}}
-                                    </x-mine.button>
-                                </x-mine.submit-button>
-                            </x-slot>
-                        </x-mine.form-modal>
-                    </x-mine.modal>
+                                    </div>
+                                </fieldset>
+                                <x-mine.select-input name="{{$inputs[10]}}" title="Correct Answer" :$options selected="toEdit.correct_answer"/>
+                                <x-slot name="buttons">
+                                    <x-mine.submit-button class="justify-end">
+                                        <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                            {{$title}}
+                                        </x-mine.button>
+                                    </x-mine.submit-button>
+                                </x-slot>
+                            </x-mine.form-modal>
+                        </x-mine.modal>
+                    </x-mine.bg-container>
                 </div>
             </x-mine.crud>
         </x-mine.datas>

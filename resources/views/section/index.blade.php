@@ -7,7 +7,7 @@
         <x-mine.datas :$datas index="{{route('sections.all')}}">
             <x-mine.crud>
                 <x-mine.bg-container>
-                    <x-mine.card-container>
+                    <x-mine.card-container class="p-5 sm:p-9">
                         <x-mine.cdp pdfUrl=" "/>
                         <x-mine.search url="{{route('sections.index')}}"/>
                         <x-mine.table>
@@ -39,49 +39,48 @@
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
                     </x-mine.card-container>
+                    @php
+                        $title="add section";
+                        $subtitle="Add a section for the school.";
+                        $form ="addSection";
+                        $inputs = ['name', 'grade_level_id'];
+                    @endphp
+                    <x-mine.modal open="openAdd">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
+                        :inputs="$inputs" url="{{route('sections.store')}}">
+                            <x-mine.input title="Section name"/>
+                            <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
+                    <x-mine.modal open="openDel">
+                        <x-mine.delete-modal delUrl="{{route('sections.destroyAll')}}"/>
+                    </x-mine.modal>
+                    @php
+                        $title="update section";
+                        $subtitle="update a section for the school.";
+                        $form ="updateSection";
+                    @endphp
+                    <x-mine.modal open="openEdit">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" url="{{route('sections.index')}}/${toEdit.id}">
+                            <x-mine.input title="section name" value="toEdit.name" class="capitalize"/>
+                            <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options selected="toEdit.grade_level_id" />
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
                 </x-mine.bg-container>
-
-                @php
-                    $title="add section";
-                    $subtitle="Add a section for the school.";
-                    $form ="addSection";
-                    $inputs = ['name', 'grade_level_id'];
-                @endphp
-                <x-mine.modal open="openAdd">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form"
-                    :inputs="$inputs" url="{{route('sections.store')}}">
-                        <x-mine.input title="Section name"/>
-                        <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
-                <x-mine.modal open="openDel">
-                    <x-mine.delete-modal delUrl="{{route('sections.destroyAll')}}"/>
-                </x-mine.modal>
-                @php
-                    $title="update section";
-                    $subtitle="update a section for the school.";
-                    $form ="updateSection";
-                @endphp
-                <x-mine.modal open="openEdit">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" url="{{route('sections.index')}}/${toEdit.id}">
-                        <x-mine.input title="section name" value="toEdit.name" class="capitalize"/>
-                        <x-mine.select-input name="{{$inputs[1]}}" title="Grade Level" :$options selected="toEdit.grade_level_id" />
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
             </x-mine.crud>
         </x-mine.datas>
 </x-app-layout>

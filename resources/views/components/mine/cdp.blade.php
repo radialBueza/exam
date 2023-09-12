@@ -6,7 +6,7 @@
         <x-mine.button do="openDel =! openDel" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Delete</x-mine.button>
     </div>
     <div class="inline-flex justify-start items-center gap-2">
-        <x-mine.link-button href="{{$pdfUrl}}" class="border-transparent bg-sky-600 focus:ring-sky-600 hover:bg-sky-500 focus:bg-sky-500 active:bg-sky-700">
+        <x-mine.link-button class="border-transparent bg-sky-600 focus:ring-sky-600 hover:bg-sky-500 focus:bg-sky-500 active:bg-sky-700">
             Print/PDF
         </x-mine.link-button>
     </div>

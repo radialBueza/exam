@@ -7,7 +7,7 @@
         <x-mine.datas :$datas  index="{{route('subjects.all')}}">
             <x-mine.crud>
                 <x-mine.bg-container>
-                    <x-mine.card-container>
+                    <x-mine.card-container class="p-5 sm:p-9">
                         <x-mine.cdp pdfUrl=" "/>
                         <x-mine.search url="{{route('subjects.index')}}"/>
                         <x-mine.table>
@@ -35,44 +35,44 @@
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
                     </x-mine.card-container>
+                    @php
+                        $title="add subject";
+                        $subtitle="Add a subject for the school.";
+                        $form ="addSubject";
+                    @endphp
+                    <x-mine.modal open="openAdd">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('subjects.store')}}">
+                            <x-mine.input title="Subject name"/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
+                    <x-mine.modal open="openDel">
+                        <x-mine.delete-modal delUrl="{{route('subjects.destroyAll')}}"/>
+                    </x-mine.modal>
+                    @php
+                        $title="update subject";
+                        $subtitle="Update a subject of the school.";
+                        $form ="addSubject";
+                    @endphp
+                    <x-mine.modal open="openEdit">
+                        <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('subjects.index')}}/${toEdit.id}">
+                            <x-mine.input title="section name" value="toEdit.name" class="capitalize"/>
+                            <x-slot name="buttons">
+                                <x-mine.submit-button class="justify-end">
+                                    <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                                        {{$title}}
+                                    </x-mine.button>
+                                </x-mine.submit-button>
+                            </x-slot>
+                        </x-mine.form-modal>
+                    </x-mine.modal>
                 </x-mine.bg-container>
-                @php
-                    $title="add subject";
-                    $subtitle="Add a subject for the school.";
-                    $form ="addSubject";
-                @endphp
-                <x-mine.modal open="openAdd">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('subjects.store')}}">
-                        <x-mine.input title="Subject name"/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
-                <x-mine.modal open="openDel">
-                    <x-mine.delete-modal delUrl="{{route('subjects.destroyAll')}}"/>
-                </x-mine.modal>
-                @php
-                    $title="update subject";
-                    $subtitle="Update a subject of the school.";
-                    $form ="addSubject";
-                @endphp
-                <x-mine.modal open="openEdit">
-                    <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" url="{{route('subjects.index')}}/${toEdit.id}">
-                        <x-mine.input title="section name" value="toEdit.name" class="capitalize"/>
-                        <x-slot name="buttons">
-                            <x-mine.submit-button class="justify-end">
-                                <x-mine.button type="submit" class="border-transparent border text-white bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
-                                    {{$title}}
-                                </x-mine.button>
-                            </x-mine.submit-button>
-                        </x-slot>
-                    </x-mine.form-modal>
-                </x-mine.modal>
             </x-mine.crud>
         </x-mine.datas>
 </x-app-layout>
