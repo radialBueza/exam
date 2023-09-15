@@ -66,7 +66,7 @@
                         :$inputs>
                             <x-mine.input title="exam name"/>
                             <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject"/>
-                            <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel"/>
+                            <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel" :nullable="true"/>
                             <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description"/>
                             <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number"/>
                             <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number"/>
@@ -92,7 +92,7 @@
                         :$inputs>
                             <x-mine.input title="exam name" class="capitalize" value="toEdit.name"/>
                             <x-mine.select-input name="{{$inputs[1]}}" title="Subject" :options="$subject" selected="toEdit.subject_id"/>
-                            <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel" selected="toEdit.grade_level_id"/>
+                            <x-mine.select-input name="{{$inputs[2]}}" title="Grade Level" :options="$gradeLevel" selected="toEdit.grade_level_id" :nullable="true"/>
                             <x-mine.text-area-input name="{{$inputs[3]}}" title="exam description" value="toEdit.description"/>
                             <x-mine.input name="{{$inputs[4]}}" title="Number of Question" type="number" value="toEdit.num_of_questions"/>
                             <x-mine.input name="{{$inputs[5]}}" title="Time limit (in minutes)" type="number" value="toEdit.time_limit"/>

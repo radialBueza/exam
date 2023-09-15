@@ -14,9 +14,7 @@ class TakeExam extends Controller
 {
     public function index(Request $request, Exam $exam)
     {
-        // $refreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
         $refreshed = $request->hasHeader('CACHE_CONTROL') && $request->header('CACHE_CONTROL') === 'max-age=0';
-        // session()->flush();
 
         if (!$refreshed) {
             $entered = true;
@@ -28,14 +26,15 @@ class TakeExam extends Controller
                 return redirect(RouteServiceProvider::HOME);
             }
 
-            $newAttempt = ExamAttempt::create([
-                'user_id' => Auth::id(),
+            // $newAttempt = ExamAttempt::create([
+            //     'user_id' => Auth::id(),
+            //     'exam_id' => $exam->id
+            // ]);
+
+            $newAttempt = Auth::user()->examAttempts()->create([
                 'exam_id' => $exam->id
             ]);
-            // session([
-            //     // 'ongoingExam' => true,
-            //     'ongoingExamObject' => $newAttempt
-            // ]);
+
             return view('takeExam.index',
             [
                 'info' => $exam,
@@ -51,7 +50,6 @@ class TakeExam extends Controller
         [
             'info' => $exam,
             'questions' => $exam->questions()->select('id', 'question', 'question_file', 'a', 'a_file', 'b', 'b_file', 'c', 'c_file', 'd', 'd_file')->get(),
-            // 'attempt' => session('ongoingExamObject'),
             'entered' => $entered
         ]);
     }
@@ -59,15 +57,16 @@ class TakeExam extends Controller
     // add ExamAttempt
     public function gradeExam(Request $request, Exam $exam, ExamAttempt $attempt)
     {
-        // session()->forget(['ongoingExamObject', 'ongoingExam']);
         $correctAns = $exam->questions()->select('id','correct_answer')->get();
         $ans = $request->all();
         $totalScore = 0;
-        // dd($request);
         $correctAns->each(function ($item) use($ans, &$totalScore){
-            if ($item->correct_answer == $ans[(string)$item->id]) {
-                $totalScore++;
+            if (isset($ans[(string)$item->id])) {
+                if ($item->correct_answer == $ans[(string)$item->id]) {
+                    $totalScore++;
+                }
             }
+
         });
 
 
@@ -211,9 +210,6 @@ class TakeExam extends Controller
             return response(200);
         }
 
-        return view('takeExam.result',
-        [
-            'score' => $totalScore
-        ]);
+        return redirect()->route('examAttempt.show', $attempt->id);
     }
 }

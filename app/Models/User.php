@@ -68,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     // To see student's exam attempt
-    public function examAttempt(): HasMany
+    public function examAttempts(): HasMany
     {
         return $this->hasMany(ExamAttempt::class);
     }

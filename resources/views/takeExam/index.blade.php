@@ -110,7 +110,6 @@
                 } --}}
                 @isset($attempt)
                 this.attempt = {{$attempt}}
-
                 @endisset
                 if(!this.expiry) {
                     this.expiry = new Date().setSeconds(new Date().getSeconds() + {{($info->time_limit * 60)}})
@@ -186,12 +185,14 @@
                     seconds:this.format(this.seconds().value),
                 }
             },
-
+            clearSession() {
+                sessionStorage.removeItem('_x_expiry')
+                sessionStorage.removeItem('_x_attempt')
+            },
+            submit() {
+                $refs.form.submit()
+            }
         }">
-        {{-- <pre>
-            {{session('ongoingExamObject')}}
-        </pre> --}}
-        {{-- {{route('gradeExam', ['exam' => $info->id, 'attempt' => $attempt->id])}} --}}
             <div class="sm:px-6 lg:px-8 max-w-7xl w-full flex flex-col gap-3 justify-center lg:flex-row lg:items-center">
                 <template x-cloak x-if="expiry">
                     <div class="absolute top-0 right-0 flex justify-center w-1/5 p-1">
@@ -201,7 +202,7 @@
                     </div>
                 </template>
                 <x-mine.card-container class="p-8 sm:p-14 w-full lg:w-3/4">
-                    <form :action="`{{route('exam', ['exam' => $info->id])}}/${attempt}`" method="POST" x-ref="form">
+                    <form :action="`{{route('exam', ['exam' => $info->id])}}/${attempt}`" method="POST" x-ref="form" @submit="clearSession">
                         @csrf
                         @method('PUT')
                         @foreach ($questions as $question)
@@ -267,7 +268,7 @@
                         </div>
                     </form>
                 </x-mine.card-container>
-                <x-mine.card-container class="flex flex-col w-full p-4 sm:p-7 min-h-min lg:w-1/4 ">
+                <x-mine.card-container class="flex flex-col w-full min-h-min max-h-96 p-4 sm:p-7 lg:w-1/4 lg:max-h-[34rem]">
                     <div class="grid grid-cols-10 lg:grid-cols-5 h-3/4 gap-2 overflow-y-auto">
                         @foreach ($questions as $question)
                             <button type="button" class="flex flex-col items-center border-2 rounded-md p-2" @click="jump({{$loop->index}})">
@@ -282,13 +283,11 @@
                         @endforeach
                     </div>
                     <div class="self-end pt-2">
-                        <x-mine.button type="submit" class="text-red-400 border border-transparent focus:ring-transparent">
+                        <x-mine.button do="submit()" class="text-red-400 border border-transparent focus:ring-transparent">
                             End Exam
                         </x-mine.button>
                     </div>
                 </x-mine.card-container>
-                    {{-- </div> --}}
-                {{-- </template> --}}
             </div>
         </main>
     </body>

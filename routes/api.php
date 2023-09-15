@@ -9,6 +9,9 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ExamAttemptController;
+use App\Models\ExamAttempt;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -50,20 +53,22 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::delete('/users', [UserController::class, 'destroyAll'])->name('users.destroyAll');
 
     // Exam
-    Route::apiResource('exams', ExamController::class);
-    Route::delete('/exams', [ExamController::class, 'destroyAll'])->name('exams.destroyAll');
-    Route::post('/exams/{exam}', [ExamController::class, 'createFor'])->name('exams.createFor');
-    Route::put('/exams/{exam}/activate', [ExamController::class, 'activate'])->name('exams.activate');
-    Route::put('/exams/{exam}/{question}', [ExamController::class, 'updateFor']);
-
-    // Question
-    Route::apiResource('questions', QuestionController::class);
-    Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
-
-    // take Exam
-    // Route::post('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
-    Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('apiGradeExam');
+    Route::prefix('tests')->group(function () {
+        Route::apiResource('tests/exams', ExamController::class);
+        Route::delete('tests/exams', [ExamController::class, 'destroyAll'])->name('exams.destroyAll');
+        Route::post('tests/exams/{exam}', [ExamController::class, 'createFor'])->name('exams.createFor');
+        Route::put('tests/exams/{exam}/activate', [ExamController::class, 'activate'])->name('exams.activate');
+        Route::put('tests/exams/{exam}/{question}', [ExamController::class, 'updateFor']);
+        Route::prefix('exams')->group(function () {
+            Route::apiResource('questions', QuestionController::class);
+            Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
+        });
+    });
 
 
+    // Test Results
+    Route::get('/testResults', [ExamAttemptController::class, 'index'])->name('testResults.index');
+
+    // Route::apiResource('testResults', ExamAttemptController::class)->only(['index', 'destroy']);
 
 });

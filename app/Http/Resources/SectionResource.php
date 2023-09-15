@@ -17,7 +17,7 @@ class SectionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'grade_level_id' => $this->gradeLevel->id,
+            'grade_level_id' => $this->grade_level_id,
             'grade_level_name' => $this->gradeLevel->name,
             'name' => $this->name,
             'created_at' => $this->created_at->format('M/d/Y'),

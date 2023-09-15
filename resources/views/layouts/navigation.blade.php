@@ -68,6 +68,12 @@
                             Accounts
                         </x-nav-link>
                     @endif
+
+                    @if (auth()->user()->account_type == 'student')
+                        <x-nav-link :href="route('examAttempt.all')" :active="request()->routeIs('examAttempt.*')" class="px-1 pt-1">
+                            Test Results
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

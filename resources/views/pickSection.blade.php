@@ -153,45 +153,45 @@
                             >
                             @csrf
                             @method('PUT')
-                            <template x-cloak x-if="pages[0]">
-                                <div class=" flex flex-col items-center justify-center gap-6">
+                            {{-- <template x-cloak x-if="pages[0]"> --}}
+                                <div x-cloak x-show="pages[0]" class="flex flex-col items-center justify-center gap-6" >
                                     <p class="text-2xl">What <span class="font-bold  ">department</span> do you belong to?</p>
                                     <div class="flex flex-row gap-2">
                                         <template x-cloak x-for="department in departments">
                                             <div>
-                                                <input type="radio" name="department_id" :id="department.name" :value="department.id" :checked="department.id == dept" x-model="dept">
+                                                <input type="radio" name="department_id" :id="department.name" :value="department.id" x-model="dept">
                                                 <label for="department.name" class="capitalize" x-text="department.name"></label>
                                             </div>
                                         </template>
                                     </div>
                                 </div>
-                            </template>
-                            <template x-cloak x-if="pages[1]">
-                                <div class=" flex flex-col items-center justify-center gap-6">
+                            {{-- </template> --}}
+                            {{-- <template x-cloak x-if="pages[1]"> --}}
+                                <div x-cloak x-show="pages[1]" class="flex flex-col items-center justify-center gap-6" >
                                     <p class="text-2xl">What <span class="font-bold">grade level</span> do you belong to?</p>
                                     <div class="flex flex-row gap-2">
                                         <template x-cloak x-for="gradeLevel in deptsLevels">
                                             <div>
-                                                <input type="radio" name="grade_level_id" :id="gradeLevel.name" :value="gradeLevel.id" :checked="gradeLevel.id == glvl" x-model="glvl">
+                                                <input type="radio" name="grade_level_id" :id="gradeLevel.name" :value="gradeLevel.id" x-model="glvl">
                                                 <label for="gradeLevel.name" class="capitalize" x-text="gradeLevel.name"></label>
                                             </div>
                                         </template>
                                     </div>
                                 </div>
-                            </template>
-                            <template x-cloak x-if="pages[2]">
-                                <div class=" flex flex-col items-center justify-center gap-6">
+                            {{-- </template> --}}
+                            {{-- <template x-cloak x-if="pages[2]"> --}}
+                                <div x-cloak x-show="pages[2]" class=" flex flex-col items-center justify-center gap-6" >
                                     <p class="text-2xl">What <span class="font-bold">section</span> do you belong to?</p>
                                     <div class="flex flex-row gap-2">
                                         <template x-cloak x-for="section in gradeSection">
                                             <div>
-                                                <input type="radio" name="section_id" :id="section.name" :value="section.id" :checked="section.id == sect" x-model="sect">
+                                                <input type="radio" name="section_id" :id="section.name" :value="section.id" x-model="sect">
                                                 <label for="section.name" class="capitalize" x-text="section.name"></label>
                                             </div>
                                         </template>
                                     </div>
                                 </div>
-                            </template>
+                            {{-- </template> --}}
                             <div class="flex justify-between">
                                 <x-mine.button do="back()" class="text-slate-500 border border-transparent focus:ring-transparent">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">

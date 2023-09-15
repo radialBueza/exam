@@ -12,7 +12,8 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\PickSection;
 use App\Http\Controllers\TakeExam;
-
+use App\Http\Controllers\ExamAttemptController;
+use App\Http\Middleware\CheckSection;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,13 +33,13 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', 'cache.headers:no_store', CheckSection::class])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::middleware('can:admin')->group(function() {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::middleware('can:admin')->group(function() {
         // departments
         Route::get('/departments', [DepartmentController::class, 'all'])->name('departments.all');
         Route::get('/departments/{department}', [DepartmentController::class, 'see']);
@@ -61,28 +62,38 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
 
-    //exam
-    Route::get('/exams', [ExamController::class, 'all'])->name('exams.all')->middleware('can:viewAny-exam');
-    Route::get('/exams/{exam}', [ExamController::class, 'see'])->middleware('can:view-exam, exam');
+    Route::prefix('tests')->group(function () {
+        //exam
+        Route::get('/exams', [ExamController::class, 'all'])->name('exams.all')->middleware('can:viewAny-exam');
+        Route::get('/exams/{exam}', [ExamController::class, 'see'])->middleware('can:view-exam,exam');
 
-    // question
-    Route::get('/questions', function () {
-        return;
-    })->name('questions.all');
-    Route::get('/questions/{question}', [QuestionController::class, 'see']);
+        // question
+        Route::prefix('exams')->group(function () {
+            Route::get('/questions', function () {
+                return;
+            })->name('questions.all');
+            Route::get('/questions/{question}', [QuestionController::class, 'see']);
+        });
+    });
+
 
     Route::middleware('can:student')->group(function(){
         //get student's section
         Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
         Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection');
 
-        // take exam
-        Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam');
-        // Route::post('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
-        Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
+        Route::middleware(CheckSection::class)->group(function() {
+            // take exam
+            Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware('cache.headers:no_store');
+            Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
+
+            // Exam Results
+            Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
+            Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show');
+        });
+
 
     });
-
 });
 
 

@@ -16,7 +16,7 @@ class GradeLevelResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'department_id' => $this->department->id,
+            'department_id' => $this->department_id,
             'department_name' => $this->department->name,
             'name' => $this->name,
             'created_at' => $this->created_at->format('M/d/Y'),

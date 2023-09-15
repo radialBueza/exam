@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Database\Query\Builder;
 
 class ExamRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class ExamRequest extends FormRequest
         $this->merge([
             'name' => Str::lower($this->name),
             'subject_id' => (int)$this->subject_id,
-            'grade_level_id' => (int)$this->grade_level_id,
+            'grade_level_id' => $this->grade_level_id !== null ? (int)$this->grade_level_id : null,
             'num_of_questions' => (int)$this->num_of_questions,
             'time_limit' => (int)$this->time_limit
         ]);
@@ -53,7 +54,7 @@ class ExamRequest extends FormRequest
             return [
                 'name' => ['unique:App\Models\Exam,name', 'min:4', 'max:35', 'required'],
                 'subject_id' => ['required', 'exists:subjects,id'],
-                'grade_level_id' => ['required', 'exists:grade_levels,id'],
+                'grade_level_id' => ['nullable', 'exists:grade_levels,id'],
                 'description' => ['required'],
                 'num_of_questions' => ['required', 'integer','gte:10'],
                 'time_limit' => ['required', 'integer', 'gte:10']
@@ -63,7 +64,7 @@ class ExamRequest extends FormRequest
         return [
             'name' => [Rule::unique('exams')->ignore($this->exam), 'min:4', 'max:35', 'required'],
             'subject_id' => ['required', 'exists:subjects,id'],
-            'grade_level_id' => ['required', 'exists:grade_levels,id'],
+            'grade_level_id' => ['nullable', 'exists:grade_levels,id'],
             'description' => ['required'],
             'num_of_questions' => ['required', 'integer','gte:10'],
             'time_limit' => ['required', 'integer', 'gte:10']
