@@ -52,22 +52,25 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('users', UserController::class);
     Route::delete('/users', [UserController::class, 'destroyAll'])->name('users.destroyAll');
 
-    // Exam
     Route::prefix('tests')->group(function () {
+        // Exam
         Route::apiResource('tests/exams', ExamController::class);
         Route::delete('tests/exams', [ExamController::class, 'destroyAll'])->name('exams.destroyAll');
         Route::post('tests/exams/{exam}', [ExamController::class, 'createFor'])->name('exams.createFor');
         Route::put('tests/exams/{exam}/activate', [ExamController::class, 'activate'])->name('exams.activate');
         Route::put('tests/exams/{exam}/{question}', [ExamController::class, 'updateFor']);
+        // Question
         Route::prefix('exams')->group(function () {
             Route::apiResource('questions', QuestionController::class);
             Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
         });
+        // Result
+        Route::get('/testResults', [ExamAttemptController::class, 'index'])->name('testExamAttempt.index');
     });
 
 
-    // Test Results
-    Route::get('/testResults', [ExamAttemptController::class, 'index'])->name('testResults.index');
+    // Test Results Search
+    Route::get('/testResults', [ExamAttemptController::class, 'index'])->name('examAttempt.index');
 
     // Route::apiResource('testResults', ExamAttemptController::class)->only(['index', 'destroy']);
 

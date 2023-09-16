@@ -4,16 +4,22 @@
             Test Results
         </h1>
     </x-slot>
-        <x-mine.datas :$datas index="{{route('examAttempt.all')}}">
+        <x-mine.datas :$datas index="{{route('testsExamAttempt.all')}}">
             <x-mine.bg-container>
                 <x-mine.card-container class="p-5 sm:p-9">
-                    <x-mine.search url="{{route('testResults.index')}}"/>
+                    <x-mine.search url="{{route('testExamAttempt.index')}}"/>
                     <x-mine.table>
                         <x-mine.clean-table>
                             <x-slot name="thead">
                                 <th scope="col" class="px-6 py-3"></th>
+                                <x-mine.th-cell col="user_name">
+                                    Name
+                                </x-mine.th-cell>
                                 <x-mine.th-cell col="exam_name">
                                     Exam
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="grade_level_name">
+                                    Exam Grade Level
                                 </x-mine.th-cell>
                                 <x-mine.th-cell col="subject">
                                     Subject
@@ -30,8 +36,10 @@
                             </x-slot>
                             <th scope="col" class="px-6 py-3"></th>
                             <x-mine.td-cell-primary>
-                                <a :href="`${index}/${data.id}`" x-text="data.exam_name" ></a>
+                                <a :href="`${index}/${data.id}`" x-text="data.user_name" ></a>
                             </x-mine.td-cell-primary>
+                            <x-mine.td-cell txt="data.exam_name"/>
+                            <x-mine.td-cell txt="data.grade_level_name"/>
                             <x-mine.td-cell txt="data.subject"/>
                             <x-mine.td-cell txt="data.score"/>
                             <x-mine.td-cell txt="data.percent"/>

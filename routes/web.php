@@ -74,6 +74,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             })->name('questions.all');
             Route::get('/questions/{question}', [QuestionController::class, 'see']);
         });
+
+        Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('testsExamAttempt.all');
+        Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('testsExamAttempt.show');
     });
 
 

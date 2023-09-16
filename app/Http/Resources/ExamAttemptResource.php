@@ -18,6 +18,7 @@ class ExamAttemptResource extends JsonResource
             'id' => $this->id,
             'user_name' => $this->user->name,
             'exam_name' => $this->exam->name,
+            'grade_level_name' => $this->exam->grade_level_id !== null ? $this->exam->gradeLevel->name : null,
             'subject' => $this->exam->subject->name,
             'score' => $this->score,
             'percent' => $this->percent,
