@@ -6,6 +6,7 @@ use App\Models\Exam;
 use App\Models\User;
 use App\Policies\ExamPolicy;
 use App\Policies\QuestionPolicy;
+use App\Policies\ExamAttemptPolicy;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -48,5 +49,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view-exam', [ExamPolicy::class, 'view']);
 
         Gate::define('view-question', [QuestionPolicy::class, 'view']);
+
+        Gate::define('view-examAttempt', [ExamAttemptPolicy::class, 'view']);
+
     }
 }

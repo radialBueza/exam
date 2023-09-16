@@ -72,11 +72,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/questions', function () {
                 return;
             })->name('questions.all');
-            Route::get('/questions/{question}', [QuestionController::class, 'see']);
+            Route::get('/questions/{question}', [QuestionController::class, 'see'])->middleware('can:view-question,question');
         });
 
         Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('testsExamAttempt.all');
-        Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('testsExamAttempt.show');
+        Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('testsExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');
     });
 
 
@@ -92,7 +92,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Exam Results
             Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
-            Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show');
+            Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
         });
 
 

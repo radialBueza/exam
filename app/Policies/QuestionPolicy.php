@@ -19,9 +19,10 @@ class QuestionPolicy
      */
     public function view(User $user, Question $question): bool
     {
-        return ($user->account_type == 'admin' || $question->user_id == $user->id);
+        return ($user->account_type == 'admin' || $question->exam->user_id == $user->id);
 
     }
+
 
     /**
      * Determine whether the user can create models.
