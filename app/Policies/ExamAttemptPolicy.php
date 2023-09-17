@@ -35,6 +35,13 @@ class ExamAttemptPolicy
     // }
 
     /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, ExamAttempt $examAttempt): bool
+    {
+        return ($user->account_type == 'admin' || $examAttempt->user_id == $user->id);
+    }
+    /**
      * Determine whether the user can delete the model.
      */
     // public function delete(User $user, ExamAttempt $examAttempt): bool

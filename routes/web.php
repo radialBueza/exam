@@ -83,12 +83,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('can:student')->group(function(){
         //get student's section
         Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
-        Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection');
+        Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection')->middleware('can:pickSection,user');
 
         Route::middleware(CheckSection::class)->group(function() {
             // take exam
             Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware('cache.headers:no_store');
-            Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam');
+            Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam')->middleware('can:update-attempt,attempt');
 
             // Exam Results
             Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');

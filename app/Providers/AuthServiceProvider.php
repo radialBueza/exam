@@ -44,6 +44,12 @@ class AuthServiceProvider extends ServiceProvider
                             : Response::denyAsNotFound();
         });
 
+        Gate::define('pickSection', function(User $user, User $userModel) {
+            return $user->id == $userModel->id
+                            ? Response::allow()
+                            : Response::denyAsNotFound();
+        });
+
         Gate::define('viewAny-exam', [ExamPolicy::class, 'viewAny']);
 
         Gate::define('view-exam', [ExamPolicy::class, 'view']);
@@ -51,6 +57,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view-question', [QuestionPolicy::class, 'view']);
 
         Gate::define('view-examAttempt', [ExamAttemptPolicy::class, 'view']);
+
+        Gate::define('update-attempt', [ExamAttemptPolicy::class, 'update']);
 
     }
 }
