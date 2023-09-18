@@ -42,8 +42,9 @@ class RegisteredUserController extends Controller
             'name' => Str::lower($request->name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'birthday' => $request->birthday,
             'account_type' => 'student',
-            'birthday' => $request->birthday
+            'take_survey' => true,
         ]);
 
         event(new Registered($user));

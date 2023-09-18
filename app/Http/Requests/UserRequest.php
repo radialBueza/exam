@@ -14,18 +14,30 @@ class UserRequest extends FormRequest
         $this->merge([
             'name' => Str::lower($this->name),
             'account_type' => Str::lower($this->account_type),
+
         ]);
 
         if ($this->account_type == 'admin') {
             $this->merge([
                 'department_id' => (int)$this->department_id,
-                'section_id' => (int)$this->section_id
+                'section_id' => (int)$this->section_id,
             ]);
         }
 
         if ($this->account_type == 'advisor') {
             $this->merge([
-                'section_id' => (int)$this->section_id
+                'section_id' => (int)$this->section_id,
+            ]);
+        }
+
+        if ($this->account_type == 'student') {
+            $this->merge([
+                'take_survey' => true,
+                'section_id' => (int)$this->section_id,
+            ]);
+        }else {
+            $this->merge([
+                'take_survey' => false
             ]);
         }
 
@@ -47,6 +59,7 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this);
         if ($this->isMethod('post')) {
             return [
                 'name' => ['required', 'string', 'max:255'],
@@ -54,7 +67,8 @@ class UserRequest extends FormRequest
                 'birthday' => ['required', 'date', 'date_format:Y-m-d'],
                 'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
                 'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
-                'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id']
+                'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id'],
+                'take_survey' => ['required', 'boolean']
             ];
         }
 
@@ -64,7 +78,8 @@ class UserRequest extends FormRequest
             'birthday' => ['required', 'date', 'date_format:Y-m-d'],
             'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
             'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
-            'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id']
+            'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id'],
+            'take_survey' => ['required', 'boolean']
         ];
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             // answer is 0 to 6
             $table->tinyInteger('num_games_play');
             $table->tinyInteger('hrs_play_mobile');

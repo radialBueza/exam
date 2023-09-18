@@ -75,7 +75,8 @@ class UserController extends Controller
             'birthday' => $request->birthday,
             'account_type' => $request->account_type,
             'department_id' => $request->department_id,
-            'section_id' => $request->section_id
+            'section_id' => $request->section_id,
+            'take_survey' => $request->take_survey
         ]);
 
         // capitalize name
@@ -115,7 +116,8 @@ class UserController extends Controller
         $user->birthday = $request->birthday;
         $user->account_type = $request->account_type;
         $user->department_id = $request->department_id;
-        $user->section_id = $request-> section_id;
+        $user->section_id = $request->section_id;
+        $user->take_survey = $request->take_survey;
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;

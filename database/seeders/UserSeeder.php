@@ -67,7 +67,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('1234567890'),
             'birthday' => Carbon::create('1997', '12', '12'),
             'account_type' => 'student',
-            'section_id' => 5
+            'section_id' => 5,
+            'take_survey' => true
         ]);
     }
 }

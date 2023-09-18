@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('account_type', ['admin', 'teacher', 'advisor', 'student'])->nullable();
             $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('section_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->boolean('take_survey')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
