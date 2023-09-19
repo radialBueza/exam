@@ -89,6 +89,13 @@
             dept: '',
             glvl: '',
             sect: '',
+            open: false,
+            @if($errors->any())
+            init() {
+                this.open = true
+                setTimeout(() => this.open = false, 5000)
+            },
+            @endif
             get deptsLevels() {
                 return this.gradeLevels.filter((item) => {
                     if(item.department_id == parseInt(this.dept)) {
@@ -128,9 +135,8 @@
                     this.pages[this.currPage] = true
                 }
             },
-            open: false
         }">
-            <div x-cloak x-show="open" x-transition.scale.origin.top class="text-lg font-medium text-red-600 absolute top-0 px-1 py-2 flex justify-center bg-white border w-1/2 rounded-b-lg">
+            <div x-cloak x-show="open" x-transition.scale.origin.top class="self-center text-lg font-medium text-red-600 absolute top-0 px-1 py-2 flex justify-center bg-white border w-1/2 rounded-b-lg">
                 Please pick a section.
             </div>
             <div class="py-6 sm:py-12">
@@ -193,7 +199,7 @@
                                 </div>
                             {{-- </template> --}}
                             <div class="flex justify-between">
-                                <x-mine.button do="back()" class="text-slate-500 border border-transparent focus:ring-transparent">
+                                <x-mine.button do="back()" class="text-slate-500 border-0 border-transparent focus:ring-transparent">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                         <path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z" clip-rule="evenodd" />
                                     </svg>
@@ -201,7 +207,7 @@
                                 </x-mine.button>
 
                                 <template x-cloak x-if="currPage < pages.length-1">
-                                    <x-mine.button do="next()" class="text-green-400 border border-transparent focus:ring-transparent">
+                                    <x-mine.button do="next()" class="text-green-400 border-0 border-transparent focus:ring-transparent">
                                         next
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                             <path fill-rule="evenodd" d="M16.72 7.72a.75.75 0 011.06 0l3.75 3.75a.75.75 0 010 1.06l-3.75 3.75a.75.75 0 11-1.06-1.06l2.47-2.47H3a.75.75 0 010-1.5h16.19l-2.47-2.47a.75.75 0 010-1.06z" clip-rule="evenodd" />

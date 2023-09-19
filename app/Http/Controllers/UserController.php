@@ -53,12 +53,13 @@ class UserController extends Controller
             'id' => 'student',
             'name' => 'Student'
         ]);
+
         return view('user.index',
         [
             'datas' => User::oldest()->get()->toJson(),
             'options' => Department::all(),
             'sections' => Section::orderBy('grade_level_id', 'asc')->get(),
-            'accountType' => $accountType
+            'accountType' => $accountType->all()
         ]);
     }
 

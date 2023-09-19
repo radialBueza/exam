@@ -36,12 +36,12 @@ class GradeLevelSeeder extends Seeder
 
         GradeLevel::create([
             'department_id' => 2,
-            'name' => 'grade 1'
+            'name' => 'grade 01'
         ]);
 
         GradeLevel::create([
             'department_id' => 3,
-            'name' => 'junior-casa 1'
+            'name' => 'junior-casa 01'
         ]);
     }
 }

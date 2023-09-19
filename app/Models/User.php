@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -72,6 +73,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function examAttempts(): HasMany
     {
         return $this->hasMany(ExamAttempt::class);
+    }
+
+    public function surveys(): hasMany
+    {
+        return $this->hasMany(Survey::class);
     }
 
 }

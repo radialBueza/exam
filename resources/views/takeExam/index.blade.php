@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title class="capitalize">Pick Section</title>
+        <title class="capitalize">{{$info->name}}</title>
 
         <style>
         @font-face {
@@ -245,7 +245,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div class="flex justify-between">
+                        <div class="flex justify-between mt-1">
                             <x-mine.button do="prev()" class="text-slate-500 border border-transparent focus:ring-transparent">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                     <path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z" clip-rule="evenodd" />

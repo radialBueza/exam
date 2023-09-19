@@ -13,7 +13,9 @@ use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\PickSection;
 use App\Http\Controllers\TakeExam;
 use App\Http\Controllers\ExamAttemptController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Middleware\CheckSection;
+use App\Http\Middleware\CheckSurvey;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +35,7 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', 'cache.headers:no_store', CheckSection::class])->name('dashboard');
+Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', 'cache.headers:no_store', CheckSection::class, CheckSurvey::class])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -84,8 +86,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //get student's section
         Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
         Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection')->middleware('can:pickSection,user');
+        Route::get('/survey', [SurveyController::class, 'create'])->name('survey');
+        Route::post('/survey/{user}', [SurveyController::class, 'store'])->name('recordSurvey');
 
-        Route::middleware(CheckSection::class)->group(function() {
+        Route::middleware([CheckSection::class, CheckSurvey::class])->group(function() {
             // take exam
             Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware('cache.headers:no_store');
             Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam')->middleware('can:update-attempt,attempt');
@@ -93,9 +97,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // Exam Results
             Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
             Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+            // Route::resource('survey', [SurveyController::class])->only(['create', 'store']);
         });
-
-
     });
 });
 

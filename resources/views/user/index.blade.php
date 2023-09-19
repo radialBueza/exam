@@ -38,6 +38,29 @@
                                 </x-mine.clean-table>
                             </x-mine.table-multi-del-sel>
                         </x-mine.table>
+                        <div x-data="{
+                            async retake() {
+                                const res = await fetch('{{route('retake')}}', {
+                                    method: 'PUT',
+                                    headers: {
+                                        'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
+                                        'Accept': 'application/json'
+                                    }
+                                })
+
+                                if (res.status == 201 ) {
+                                    const result = await res.json()
+                                    datas = result.data
+                                    sort()
+                                    return
+                                }
+                            }
+                        }">
+                        <x-mine.button do="retake()" class="text-slate-600 border border-transparent focus:ring-transparent">
+                            Re-Take Survey
+                        </x-mine.button>
+                        </div>
+
                     </x-mine.card-container>
                     @php
                         $title = "Register Account";

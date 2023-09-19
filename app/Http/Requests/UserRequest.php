@@ -14,26 +14,33 @@ class UserRequest extends FormRequest
         $this->merge([
             'name' => Str::lower($this->name),
             'account_type' => Str::lower($this->account_type),
+            'department_id' => filter_var($this->department_id, FILTER_SANITIZE_NUMBER_INT),
+            'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
 
         ]);
 
-        if ($this->account_type == 'admin') {
-            $this->merge([
-                'department_id' => (int)$this->department_id,
-                'section_id' => (int)$this->section_id,
-            ]);
-        }
+        // if ($this->account_type == 'admin') {
+        //     $this->merge([
+        //         'department_id' => (int)$this->department_id,
+        //         'section_id' => (int)$this->section_id,
+        //         'department_id' => filter_var($this->department_id, FILTER_SANITIZE_NUMBER_INT),
+        //         'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
+        //     ]);
+        // }
 
-        if ($this->account_type == 'advisor') {
-            $this->merge([
-                'section_id' => (int)$this->section_id,
-            ]);
-        }
+        // if ($this->account_type == 'advisor') {
+        //     $this->merge([
+        //         'section_id' => (int)$this->section_id,
+        //         'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
+
+        //     ]);
+        // }
 
         if ($this->account_type == 'student') {
             $this->merge([
                 'take_survey' => true,
-                'section_id' => (int)$this->section_id,
+                // 'section_id' => (int)$this->section_id,
+                // 'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
             ]);
         }else {
             $this->merge([
@@ -59,7 +66,7 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd($this);
+        dd($this);
         if ($this->isMethod('post')) {
             return [
                 'name' => ['required', 'string', 'max:255'],

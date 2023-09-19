@@ -15,6 +15,9 @@ class CheckSurvey
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if ($request->user()->account_type == 'student' && $request->user()->take_survey == true) {
+            return redirect()->route('survey');
+        }
         return $next($request);
     }
 }

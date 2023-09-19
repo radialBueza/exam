@@ -14,10 +14,14 @@ class ExamRequest extends FormRequest
     {
         $this->merge([
             'name' => Str::lower($this->name),
-            'subject_id' => (int)$this->subject_id,
-            'grade_level_id' => $this->grade_level_id !== null ? (int)$this->grade_level_id : null,
-            'num_of_questions' => (int)$this->num_of_questions,
-            'time_limit' => (int)$this->time_limit
+            // 'subject_id' => (int)$this->subject_id,
+            // 'grade_level_id' => $this->grade_level_id !== null ? (int)$this->grade_level_id : null,
+            // 'num_of_questions' => (int)$this->num_of_questions,
+            // 'time_limit' => (int)$this->time_limit
+            'subject_id' => filter_var($this->subject_id, FILTER_SANITIZE_NUMBER_INT),
+            'grade_level_id' => $this->grade_level_id !== null ? filter_var($this->grade_level_id, FILTER_SANITIZE_NUMBER_INT) : null,
+            'num_of_questions' => filter_var($this->num_of_questions, FILTER_SANITIZE_NUMBER_INT),
+            'time_limit' => filter_var($this->time_limit, FILTER_SANITIZE_NUMBER_INT)
         ]);
 
     }

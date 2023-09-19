@@ -12,9 +12,10 @@ class GradeLevelRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'department_id' => (int)$this->department_id,
+            // 'department_id' => (int)$this->department_id,
             'name' => Str::lower($this->name),
             // 'show' => filter_var($this->show, FILTER_VALIDATE_BOOLEAN)
+            'department_id' => filter_var($this->department_id, FILTER_SANITIZE_NUMBER_INT),
         ]);
     }
     /**

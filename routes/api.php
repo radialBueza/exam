@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ExamAttemptController;
-use App\Models\ExamAttempt;
+use App\Http\Controllers\SurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +51,8 @@ Route::middleware('auth:sanctum')->group(function (){
     // User
     Route::apiResource('users', UserController::class);
     Route::delete('/users', [UserController::class, 'destroyAll'])->name('users.destroyAll');
+    Route::put('/retakeSurvey', [SurveyController::class, 'retake'])->name('retake');
+
 
     Route::prefix('tests')->group(function () {
         // Exam
@@ -75,3 +77,5 @@ Route::middleware('auth:sanctum')->group(function (){
     // Route::apiResource('testResults', ExamAttemptController::class)->only(['index', 'destroy']);
 
 });
+
+
