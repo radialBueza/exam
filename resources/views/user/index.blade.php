@@ -56,9 +56,9 @@
                                 }
                             }
                         }">
-                        <x-mine.button do="retake()" class="text-slate-600 border border-transparent focus:ring-transparent">
-                            Re-Take Survey
-                        </x-mine.button>
+                            <x-mine.button do="retake()" class="text-slate-600 border border-transparent focus:ring-transparent">
+                                Re-Take Survey
+                            </x-mine.button>
                         </div>
 
                     </x-mine.card-container>

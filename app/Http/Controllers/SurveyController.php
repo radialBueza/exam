@@ -87,7 +87,7 @@ class SurveyController extends Controller
             ],
             [
                 'name' => 'hrs_play_puzzle_plat',
-                'question' => 'On average, how many hours do you play Puzzle Platform Games(e.g., Limbo, Portal 2, Unravel, Little Nightmares, and more) in a day?',
+                'question' => 'On average, how many hours do you play Puzzle Platform Games (e.g., Limbo, Portal 2, Unravel, Little Nightmares, and more) in a day?',
                 'answers' => ['0 minutes', '1 minute to 60 minutes (1 hour)', '61 minutes to 120 minutes (2 hours)', '121 minutes to 180 minutes (3 hours)', '181 minutes to 240 minutes (4 hours)', '241 minutes to 300 minutes (5 hours)', '301 minutes or more (more than 5 hours)']
             ],
             [
@@ -164,10 +164,18 @@ class SurveyController extends Controller
     {
         User::where('account_type', 'student')->update(['take_survey' => true]);
 
-        // return response(200);
         return response()->json([
             // 'success' => true,
             'data' => User::oldest()->get(),
         ], 201);
+    }
+
+    public function retakeOne(User $user)
+    {
+        $user->take_survey = true;
+
+        $user->save();
+
+        return response(200);
     }
 }

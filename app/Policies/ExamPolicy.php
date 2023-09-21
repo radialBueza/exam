@@ -31,18 +31,22 @@ class ExamPolicy
     /**
      * Determine whether the user can create models.
      */
-    // public function create(User $user): bool
-    // {
-    //     //
-    // }
+    public function create(User $user): Response
+    {
+        return ($user->account_type != 'student')
+                            ? Response::allow()
+                            : Response::denyAsNotFound();
+    }
 
     /**
      * Determine whether the user can update the model.
      */
-    // public function update(User $user, Exam $exam): bool
-    // {
-    //     //
-    // }
+    public function update(User $user, Exam $exam): Response
+    {
+        return ($user->account_type == 'admin' || $exam->user_id == $user->id)
+                            ? Response::allow()
+                            : Response::denyAsNotFound();
+    }
 
     /**
      * Determine whether the user can delete the model.
@@ -58,7 +62,7 @@ class ExamPolicy
     }
 
     /**
-     * Determine whether the user can restore the model.
+     * Destory many
      */
     // public function restore(User $user, Exam $exam): bool
     // {

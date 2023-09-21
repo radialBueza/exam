@@ -1,3 +1,5 @@
+@props(['paginate' => true])
+
 <div>
     <template x-cloack x-if="datas">
         <div class="inline-block text-xs font-light text-slate-400 ml-6"> <span x-text="entryStart"></span> - <span x-text="entryEnd"></span> of <span x-text="datas.length"></span></div>
@@ -24,17 +26,19 @@
         <x-mine.loading condition="!datas"/>
     </div>
 
-    <div class="flex justify-center items-center space-x-2">
-        <x-mine.button do="prevPage" class="text-black border-2 border-black focus:ring-black">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
-            </svg>
-        </x-mine.button>
-        <x-mine.button do="nextPage" class="text-black border-2 border-black focus:ring-black">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
-            </svg>
-        </x-mine.button>
+    @if ($paginate)
+        <div class="flex justify-center items-center space-x-2 mt-1.5">
+            <x-mine.button do="prevPage" class="text-black border-2 border-black focus:ring-black">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+                </svg>
+            </x-mine.button>
+            <x-mine.button do="nextPage" class="text-black border-2 border-black focus:ring-black">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                    <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
+                </svg>
+            </x-mine.button>
+        </div>
+    @endif
 
-    </div>
 </div>

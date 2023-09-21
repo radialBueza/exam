@@ -13,9 +13,21 @@ use App\Http\Requests\ExamRequest;
 use App\Http\Requests\QuestionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class ExamController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('can:viewAny-exam')->only('index');
+    //     $this->middleware('can:create-exam')->only('store');
+    //     $this->middleware('can:view-exam,exam')->only(['show', 'see']);
+    //     $this->middleware('can:update-exam,exam')->only('update');
+    //     $this->middleware('can:delete-exam,exam')->only('destroy');
+
+    // }
+
     /**
      * Search API
      */
@@ -37,7 +49,12 @@ class ExamController extends Controller
         if (Auth::user()->account_type === 'admin') {
             return ExamResource::collection(Exam::oldest()->where('name', 'like', "%{$search}%")->orWhere('description', 'like', "%{$search}%")->orWhereIn('user_id', $userId)->orWhereIn('subject_id', $subjectId)->orWhereIn('grade_level_id', $gradeLevelId)->get());
         }else {
-            return ExamResource::collection(Auth::user()->exams()->oldest()->where('name', 'like', "%{$search}%")->orWhere('description', 'like', "%{$search}%")->orWhereIn('user_id', $userId)->orWhereIn('subject_id', $subjectId)->orWhereIn('grade_level_id', $gradeLevelId)->get());
+            return ExamResource::collection(Exam::where('user_id', Auth::id())->where(function (Builder $builder) use($search, $subjectId, $gradeLevelId) {
+                $builder->where('name', 'like', "%{$search}%");
+                $builder->orWhere('description', 'like', "%{$search}%");
+                $builder->orWhereIn('subject_id', $subjectId);
+                $builder->orWhereIn('grade_level_id', $gradeLevelId);
+            })->get());
         }
     }
 
@@ -115,7 +132,7 @@ class ExamController extends Controller
         return view('exam.show',
         [
             'datas' => $exam->questions->toJson(),
-            'info' => new ExamResource($exam),
+            'info' => $exam,
             'options' => $options
         ]);
     }
@@ -130,7 +147,7 @@ class ExamController extends Controller
 
         }
         $search = Str::lower($request->search);
-        return $exam->questions()->where('name', 'like', "%{$search}%")->get();
+        return $exam->questions()->where('question', 'like', "%{$search}%")->get();
     }
 
     /**

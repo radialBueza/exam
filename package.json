@@ -16,6 +16,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@alpinejs/persist": "^3.13.0"
+        "@alpinejs/persist": "^3.13.0",
+        "@stdlib/stats-pcorrtest": "^0.0.7",
+        "@stdlib/stats-ranks": "^0.0.8"
     }
 }

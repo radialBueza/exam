@@ -4,7 +4,7 @@
             Exam | {{$info->name}}
         </h1>
     </x-slot>
-        <x-mine.datas :$datas index="{{route('questions.all')}}">
+        <x-mine.datas :$datas index="{{url('questions/')}}">
             <x-mine.crud>
                 <div x-data="{
                     info: {{Js::from($info)}},
@@ -40,38 +40,7 @@
                             <p x-text="info.description"></p>
                         </x-mine.card-container>
                         {{-- Info --}}
-                        {{-- <x-mine.card-container class="mb-4 sm:mb-6">
-                            <div class="flex justify-between pb-4 border-b-2">
-                                <h3 class="font-semibold text-xl text-gray-800 leading-tight">Information</h3>
-                                <x-mine.button class="text-green-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 fill-green-600 mr-1">
-                                        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
-                                    </svg>
-                                    Edit
-                                </x-mine.button>
-                            </div>
-                            <div class="flex flex-col py-1">
-                                <div class="capitalize p-2">
-                                    <span class="font-semibold">Author: </span><span x-text="info.user_name"></span>
-                                </div>
-                                <div class="capitalize p-2">
-                                    <span class="font-semibold">Grade Level: </span><span x-text="info.grade_level_name"></span>
-                                </div>
-                                <div class="capitalize p-2">
-                                    <span class="font-semibold">Subject: </span><span x-text="info.subject_name"></span>
-                                </div>
-                                <div class="capitalize p-2 text-justify">
-                                    <span class="font-semibold">Description: </span><span x-text="info.description" class="normal-case"></span>
-                                </div>
-                                <div class="capitalize p-2">
-                                    <span class="font-semibold">Number of Questions: </span><span x-text="info.num_of_questions"></span>
-                                </div>
-                                <div class="capitalize p-2">
-                                    <span class="font-semibold">Time Limit: </span><span x-text="info.time_limit"></span>
-                                </div>
-                            </div>
-                        </x-mine.card-container> --}}
-                        {{-- table --}}
+
                         <x-mine.card-container class="p-5 sm:p-9">
                             <x-mine.cdp pdfUrl=" "/>
                             <x-mine.search url="{{route('exams.show', $info->id)}}"/>

@@ -1,10 +1,15 @@
+@props(['pageSize' => 10])
+
 <div
     x-data = "{
-    pageSize: 10,
+    {{-- pageSize: 10, --}}
+    pageSize: {{$pageSize}},
     curPage: 1,
 
     get entryStart() {
-        return this.pageSize * this.curPage - 9
+        {{-- return this.pageSize * this.curPage - 9 --}}
+        return this.pageSize * this.curPage - {{$pageSize-1}}
+
     },
     get entryEnd() {
         if((this.curPage * this.pageSize) >= datas.length) return datas.length

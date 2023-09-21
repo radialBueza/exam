@@ -43,24 +43,9 @@
                     @endif
 
                     @if (auth()->user()->account_type != 'student')
-                        <x-mine.dropdown-pc>
-                            <x-slot name="button">
-                                <x-mine.nav-dropdown-pc :active="request()->routeIs('exams.*') || request()->routeIs('testsExamAttempt.*')">
-                                    Test
-                                    <div class="ml-1">
-                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                </x-mine.nav-dropdown-pc>
-                            </x-slot>
-                            <x-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="pr-6 py-3 pl-4">
-                                Exams
-                            </x-nav-link>
-                            <x-nav-link :href="route('testsExamAttempt.all')" :active="request()->routeIs('testsExamAttempt.*')" class="pr-6 py-3 pl-4">
-                                Results
-                            </x-nav-link>
-                        </x-mine.dropdown-pc>
+                        <x-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="px-1 pt-1">
+                            Exams
+                        </x-nav-link>
                     @endif
 
                     @if (auth()->user()->account_type == 'admin')
@@ -71,7 +56,7 @@
 
                     @if (auth()->user()->account_type == 'student')
                         <x-nav-link :href="route('examAttempt.all')" :active="request()->routeIs('examAttempt.*')" class="px-1 pt-1">
-                            Test Results
+                            Exam Results
                         </x-nav-link>
                     @endif
                 </div>
@@ -156,24 +141,9 @@
                 </x-responsive-nav-link>
             @endif
             @if (auth()->user()->account_type != 'student')
-                <x-mine.dropdown-mob>
-                    <x-slot name="button">
-                        <x-mine.nav-dropdown-mobile>
-                            Test
-                            <div class="ml-1 inline-block">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </x-mine.nav-dropdown-mobile>
-                    </x-slot>
-                    <x-responsive-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="pl-5">
-                        Exams
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('gradeLevels.all')" :active="request()->routeIs('gradeLevels.*')" class="pl-5">
-                        Results
-                    </x-responsive-nav-link>
-                </x-mine.dropdown-mob>
+                <x-responsive-nav-link :href="route('exams.all')" :active="request()->routeIs('exams.*')" class="pl-3">
+                    Exams
+                </x-responsive-nav-link>
             @endif
 
 

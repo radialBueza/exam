@@ -31,11 +31,11 @@ class ExamRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (Auth::user() == 'admin') {
+        if (Auth::user()->account_type == 'admin') {
             return true;
         }
 
-        if ($this->isMethod('post')) {
+        if ($this->isMethod('post') && Auth::user()->account_type != 'admin') {
             return true;
         }
 

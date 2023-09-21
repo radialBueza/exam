@@ -30,6 +30,9 @@ class Survey extends Model
         'is_gamer'
     ];
 
+    protected $casts = [
+        'is_gamer' => 'boolean',
+    ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

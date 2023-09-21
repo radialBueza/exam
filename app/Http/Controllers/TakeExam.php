@@ -206,10 +206,6 @@ class TakeExam extends Controller
 
         $attempt->save();
 
-        if ($request->is('api/*')) {
-            return response(200);
-        }
-
         return redirect()->route('examAttempt.show', $attempt->id);
     }
 }

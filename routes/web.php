@@ -41,7 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::middleware('can:admin')->group(function() {
+    Route::middleware(['can:admin', 'cache.headers:no_store'])->group(function() {
         // departments
         Route::get('/departments', [DepartmentController::class, 'all'])->name('departments.all');
         Route::get('/departments/{department}', [DepartmentController::class, 'see']);
@@ -64,21 +64,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
 
-    Route::prefix('tests')->group(function () {
+    Route::middleware('cache.headers:no_store')->group(function () {
         //exam
         Route::get('/exams', [ExamController::class, 'all'])->name('exams.all')->middleware('can:viewAny-exam');
         Route::get('/exams/{exam}', [ExamController::class, 'see'])->middleware('can:view-exam,exam');
 
         // question
         Route::prefix('exams')->group(function () {
-            Route::get('/questions', function () {
-                return;
-            })->name('questions.all');
+            // Route::get('/questions', function () {
+            //     return abort(404);
+            // })->name('questions.all');
             Route::get('/questions/{question}', [QuestionController::class, 'see'])->middleware('can:view-question,question');
         });
 
-        Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('testsExamAttempt.all');
-        Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('testsExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+        // Route::get('/studentResult/', [ExamAttemptController::class, 'all'])->name('testsExamAttempt.all');
+        Route::get('/studentResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('studentExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');
     });
 
 
@@ -95,8 +95,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam')->middleware('can:update-attempt,attempt');
 
             // Exam Results
-            Route::get('/testResult/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
-            Route::get('/testResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+            Route::get('/result/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
+            Route::get('/result/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
             // Route::resource('survey', [SurveyController::class])->only(['create', 'store']);
         });
     });
