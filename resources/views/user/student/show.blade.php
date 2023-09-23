@@ -27,11 +27,14 @@
             }">
                 <div class="flex justify-between items-center pb-2 border-b-2">
                     <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize" x-text="user.name"></h2>
+                    @if (Auth::user()->account_type == 'admin')
                     <x-mine.button do="retake()" class="text-slate-600 border border-transparent focus:ring-transparent">
                         Re-Take Survey
                     </x-mine.button>
+                    @endif
                 </div>
                 <table class="text-sm mt-2">
+                    @if (Auth::user()->account_type == 'admin')
                     <tr>
                         <td class="font-semibold px-1 py-0.5">
                             Section:
@@ -48,6 +51,7 @@
 
                         </td>
                     </tr>
+                    @endif
                     <tr>
                         <td class="font-semibold px-1 py-0.5">
                             Birthday:
@@ -60,7 +64,7 @@
                         <td class="font-semibold px-1 py-0.5">
                             Gamer:
                         </td>
-                        <td x-text="user.isGamer" class="px-1 py-0.5 capitalize">
+                        <td x-text="user.is_gamer" class="px-1 py-0.5 capitalize">
 
                         </td>
                     </tr>
@@ -98,7 +102,11 @@
                 <div x-cloak x-show="pages[0]">
                     <x-mine.datas :$datas index="{{url('result/')}}">
                             {{-- <div class="relative" x-data=x-show> --}}
+                                @if (Auth::user()->account_type == 'admin')
                                 <x-mine.search url="{{route('users.show', $user->id)}}"/>
+                                @else
+                                <x-mine.search url="{{route('myStudents.show', $user->id)}}"/>
+                                @endif
                                 <x-mine.table>
                                     <x-mine.clean-table>
                                         <x-slot name="thead">

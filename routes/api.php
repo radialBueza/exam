@@ -11,6 +11,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ExamAttemptController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\MyStudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,15 +69,25 @@ Route::middleware('auth:sanctum')->group(function (){
             Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
         });
         // Result
-        Route::get('/testResults', [ExamAttemptController::class, 'index'])->name('testExamAttempt.index');
+        // Route::get('/testResults', [ExamAttemptController::class, 'index'])->name('testExamAttempt.index');
 
 
+    Route::middleware('can:student')->group(function(){
+        // Test Results Search
+        Route::get('/results', [ExamAttemptController::class, 'index'])->name('examAttempt.index');
+    });
 
-    // Test Results Search
-    Route::get('/results', [ExamAttemptController::class, 'index'])->name('examAttempt.index');
-
+    Route::middleware('can:advisor')->group(function() {
+        Route::get('/myStudents', [MyStudentController::class, 'index'])->name('myStudents.index');
+        Route::get('/myStudents/{myStudents}', [MyStudentController::class, 'show'])->name('myStudents.show');
+        // Route::get('/myStudent/{myStudents}', [MyStudentController::class, 'show'])->name('myStudent.show');
+    });
     // Route::apiResource('testResults', ExamAttemptController::class)->only(['index', 'destroy']);
 
+    Route::middleware('can:teacher')->group(function(){
+        // Test Results Search
+        Route::get('/examResult{exam}', [ExamAttemptController::class, 'searchAllExams'])->name('searchAllExams');
+    });
 });
 
 

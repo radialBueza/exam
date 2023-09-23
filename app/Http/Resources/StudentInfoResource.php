@@ -15,6 +15,12 @@ class StudentInfoResource extends JsonResource
     public function toArray(Request $request): array
     {
         $advisor = $this->section->users()->where('account_type', 'admin')->orWhere('account_type', 'advisor')->first();
+        $gamer = $this->surveys()->latest()->first();
+        if (!empty($gamer)) {
+            $isGamer = $gamer->is_gamer == true ? 'Yes' : 'No';
+        }else {
+            $isGamer = null;
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -24,7 +30,9 @@ class StudentInfoResource extends JsonResource
             'birthday' => $this->birthday->format('M/d/Y'),
             'section' => $this->section->name,
             'advisor' => empty($advisor) ? null : $advisor->name,
-            'isGamer' => $this->surveys()->latest()->first()->is_gamer == 1 ? 'Yes' : 'No'
+            'is_gamer' =>  $isGamer
+            // 'isGamer' => $this->is_gamer == 1 ? 'Yes' : 'No'
+
         ];
     }
 }

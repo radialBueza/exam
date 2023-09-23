@@ -1,28 +1,28 @@
-<x-app-layout title="Test Results">
+<x-app-layout title="Exam Results">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Test Results
+            Exam Results
         </h1>
     </x-slot>
-        <x-mine.datas :$datas index="{{route('testsExamAttempt.all')}}">
+        <x-mine.datas :$datas index="{{url('result/')}}">
             <x-mine.bg-container>
+                <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9">
+                    <div class="flex flex-col gap-1">
+                        <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">{{$exam->name}}</h2>
+                        <p class="font-light text-xs capitalize"><span class="font-medium">Grade Level: </span>{{$exam->gradeLevel->name}}</p>
+                    </div>
+                </x-mine.card-container>
                 <x-mine.card-container class="p-5 sm:p-9">
-                    <x-mine.search url="{{route('testExamAttempt.index')}}"/>
+                    <x-mine.search url="{{route('searchAllExams', $exam->id)}}"/>
                     <x-mine.table>
                         <x-mine.clean-table>
                             <x-slot name="thead">
-                                <th scope="col" class="px-6 py-3"></th>
+                                {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                 <x-mine.th-cell col="user_name">
                                     Name
                                 </x-mine.th-cell>
-                                <x-mine.th-cell col="exam_name">
-                                    Exam
-                                </x-mine.th-cell>
-                                <x-mine.th-cell col="grade_level_name">
-                                    Exam Grade Level
-                                </x-mine.th-cell>
-                                <x-mine.th-cell col="subject">
-                                    Subject
+                                <x-mine.th-cell col="section">
+                                    Section
                                 </x-mine.th-cell>
                                 <x-mine.th-cell col="score">
                                     score
@@ -34,13 +34,11 @@
                                     grade
                                 </x-mine.th-cell>
                             </x-slot>
-                            <th scope="col" class="px-6 py-3"></th>
+                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
                             <x-mine.td-cell-primary>
                                 <a :href="`${index}/${data.id}`" x-text="data.user_name" ></a>
                             </x-mine.td-cell-primary>
-                            <x-mine.td-cell txt="data.exam_name"/>
-                            <x-mine.td-cell txt="data.grade_level_name"/>
-                            <x-mine.td-cell txt="data.subject"/>
+                            <x-mine.td-cell txt="data.section"/>
                             <x-mine.td-cell txt="data.score"/>
                             <x-mine.td-cell txt="data.percent"/>
                             <x-mine.td-cell txt="data.grade"/>

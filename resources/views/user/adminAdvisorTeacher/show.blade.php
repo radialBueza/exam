@@ -50,6 +50,7 @@
         </x-mine.card-container>
         <x-mine.card-container class="p-5 sm:p-9">
             <div x-data="{
+                @if ($user->account_type == 'admin')
                 pages: [true, false],
                 examResult() {
                     this.pages[0] = true;
@@ -59,7 +60,9 @@
                     this.pages[0] = false
                     this.pages[1] = true
                 }
+                @endif
             }">
+                @if ($user->account_type == 'admin')
                 <div class="flex justify-center items-center gap-2">
                     <x-mine.button do="examResult" class="text-sky-600 border-2 border-sky-600 focus:ring-sky-600">
                         Exams
@@ -68,7 +71,11 @@
                         Students
                     </x-mine.button>
                 </div>
+                @endif
+
+                @if ($user->account_type == 'admin')
                 <div x-cloak x-show="pages[0]">
+                @endif
                     <x-mine.datas :$datas index="{{route('exams.all')}}">
                             {{-- <div class="relative" x-data=x-show> --}}
                                 <x-mine.search url="{{route('users.show', ['user' => $user->id, 'type' => 'exams'])}}"/>
@@ -104,6 +111,7 @@
                                 </x-mine.table>
                             {{-- </div> --}}
                     </x-mine.datas>
+                @if ($user->account_type == 'admin')
                 </div>
                 <div x-cloak x-show="pages[1]">
                     <x-mine.datas :datas="$students" index="{{route('users.all')}}">
@@ -131,8 +139,9 @@
                             </x-mine.clean-table>
                         </x-mine.table>
                     </x-mine.datas>
+                    </div>
                 </div>
-            </div>
+                @endif
         </x-mine.card-container>
     </x-mine.bg-container>
 </x-app-layout>

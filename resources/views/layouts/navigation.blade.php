@@ -59,6 +59,12 @@
                             Exam Results
                         </x-nav-link>
                     @endif
+
+                    @if (auth()->user()->account_type == 'advisor')
+                        <x-nav-link :href="route('myStudent.all')" :active="request()->routeIs('myStudent.*')" class="px-1 pt-1">
+                            My Students
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -154,9 +160,15 @@
             @endif
 
             @if (auth()->user()->account_type == 'student')
-                <x-nav-link :href="route('examAttempt.all')" :active="request()->routeIs('examAttempt.*')" class="px-1 pt-1">
-                    Test Results
-                </x-nav-link>
+                <x-responsive-nav-link :href="route('examAttempt.all')" :active="request()->routeIs('examAttempt.*')" class="pl-3">
+                    Exam Results
+                </x-responsive-nav-link>
+            @endif
+
+            @if (auth()->user()->account_type == 'advisor')
+                <x-responsive-nav-link :href="route('myStudent.all')" :active="request()->routeIs('myStudent.*')" class="pl-3">
+                    My Students
+                </x-responsive-nav-link>
             @endif
 
         </div>

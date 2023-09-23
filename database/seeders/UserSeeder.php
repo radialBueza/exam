@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'anna marie',
-            'email' => 'mail@gmail.com',
+            'email' => 'mail@mail.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1967', '9', '17'),
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'leomer bueza',
-            'email' => 'mail1@gmail.com',
+            'email' => 'mail1@mail.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1968', '5', '17'),
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'renin joseph',
-            'email' => 'mail2@gmail.com',
+            'email' => 'mail2@mail.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1996', '4', '3'),

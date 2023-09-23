@@ -1,7 +1,7 @@
-<x-app-layout title="Test Results">
+<x-app-layout title="Exam Results">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Test Results
+            Exam Results
         </h1>
     </x-slot>
         <x-mine.datas :$datas index="{{route('examAttempt.all')}}">
@@ -11,7 +11,7 @@
                     <x-mine.table>
                         <x-mine.clean-table>
                             <x-slot name="thead">
-                                <th scope="col" class="px-6 py-3"></th>
+                                {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                 <x-mine.th-cell col="exam_name">
                                     Exam
                                 </x-mine.th-cell>
@@ -28,7 +28,7 @@
                                     grade
                                 </x-mine.th-cell>
                             </x-slot>
-                            <th scope="col" class="px-6 py-3"></th>
+                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
                             <x-mine.td-cell-primary>
                                 <a :href="`${index}/${data.id}`" x-text="data.exam_name" ></a>
                             </x-mine.td-cell-primary>

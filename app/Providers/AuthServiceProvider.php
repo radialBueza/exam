@@ -34,12 +34,23 @@ class AuthServiceProvider extends ServiceProvider
                             : Response::denyAsNotFound();
         });
 
-        // Gate::define('not-student', function(User $user) {
-        //     return $user->account_type != 'student';
-        // });
+        Gate::define('teacherOrStudent', function(User $user) {
+            return $user->account_type == 'student' || $user->account_type == 'teacher';
+        });
+
+        Gate::define('teacher', function(User $user) {
+            return $user->account_type == 'teacher';
+        });
+
 
         Gate::define('student', function(User $user) {
             return $user->account_type == 'student'
+                            ? Response::allow()
+                            : Response::denyAsNotFound();
+        });
+
+        Gate::define('advisor', function(User $user) {
+            return $user->account_type == 'advisor'
                             ? Response::allow()
                             : Response::denyAsNotFound();
         });

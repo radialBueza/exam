@@ -27,6 +27,11 @@ class Dashboard extends Controller
             [
                 'datas' => ActiveExamResource::collection($allExams)->toJson(),
             ]);
+        }elseif (Auth::user()->account_type === 'teacher') {
+            return view('dashboard.teacher',
+            [
+                'datas' => ActiveExamResource::collection(Auth::user()->exams()->has('examAttempts')->oldest()->get())->toJson(),
+            ]);
         }
 
         return view('dashboard.dashboard');

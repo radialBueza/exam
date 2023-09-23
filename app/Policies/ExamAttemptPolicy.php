@@ -21,7 +21,10 @@ class ExamAttemptPolicy
      */
     public function view(User $user, ExamAttempt $examAttempt): Response
     {
-        return ($user->account_type == 'admin' || $examAttempt->user_id == $user->id  || $examAttempt->exam->user_id == $user->id)
+        return ($user->account_type == 'admin'
+        || $examAttempt->user_id == $user->id
+        || $examAttempt->exam->user_id == $user->id
+        || ($user->account_type == 'advisor' && $examAttempt->user->section_id == $user->section_id))
                             ? Response::allow()
                             : Response::denyAsNotFound();
     }

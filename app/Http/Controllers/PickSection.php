@@ -13,7 +13,7 @@ class PickSection extends Controller
 {
     public function index()
     {
-        return view('pickSection', [
+        return view('section.pickSection', [
             'departments' => Department::all()->toJson(),
             'gradeLevels' => GradeLevel::all()->toJson(),
             'sections' => Section::all()->toJson()

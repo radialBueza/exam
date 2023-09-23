@@ -16,6 +16,8 @@ use App\Http\Controllers\ExamAttemptController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Middleware\CheckSection;
 use App\Http\Middleware\CheckSurvey;
+use App\Http\Controllers\MyStudentController;
+use App\Http\Controllers\Statistic;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,7 +80,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         // Route::get('/studentResult/', [ExamAttemptController::class, 'all'])->name('testsExamAttempt.all');
-        Route::get('/studentResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('studentExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+        // Route::get('/studentResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('studentExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');
     });
 
 
@@ -95,18 +97,33 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam')->middleware('can:update-attempt,attempt');
 
             // Exam Results
-            Route::get('/result/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
-            Route::get('/result/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+            Route::get('/result', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
+
             // Route::resource('survey', [SurveyController::class])->only(['create', 'store']);
         });
     });
+
+    // Route::middleware('can:teacherOrStudent')->group(function() {
+    // });
+
+    Route::middleware('can:teacher')->group(function() {
+        Route::get('/examResult/{exam}', [ExamAttemptController::class, 'allExams'])->name('techerAttempt.all');
+        // Route::get('/examResult/{attempt}', [ExamAttemptController::class, 'oneExam'])->name('techerAttempt.one');
+
+        // Route::get('/result/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
+    });
+
+    Route::middleware('can:advisor')->group(function() {
+        Route::get('/myStudents', [MyStudentController::class, 'all'])->name('myStudent.all');
+        Route::get('/myStudents/{myStudents}', [MyStudentController::class, 'see'])->name('myStudent.see');
+        // Route::get('/myStudents/result/{examAttempt}', [ExamAttemptController::class, 'show'])->name('myStudentExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');;
+    });
+
+    // Route::get('/result/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+
+    Route::get('/result/{examAttempt}', [ExamAttemptController::class, 'result'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+
+    Route::get('/stat', [Statistic::class, 'index']);
 });
 
-
-Route::get('/mail', function(){
-    $password = Illuminate\Support\Str::random();
-    $name = 'clark kent';
-
-    return new App\Mail\AccountCreated($password, $name);
-});
 require __DIR__.'/auth.php';
