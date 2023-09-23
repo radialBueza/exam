@@ -20,7 +20,8 @@ class MyStudentController extends Controller
         }
         $search = Str::lower($request->search);
 
-        return $request->user()->section->users()->where('account_type', 'student')->where(function (Builder $builder) use($search) {
+        return $request->user()->section->users()->where(function (Builder $builder) use($search) {
+            $builder->where('account_type', 'student');
             $builder->where('name', 'like', "%{$search}%");
             $builder->orWhere('email', 'like', "%{$search}%");
         })->get();

@@ -33,7 +33,11 @@ class UserController extends Controller
             return User::oldest()->get();
         }
         $search = Str::lower($request->search);
-        return User::oldest()->where('name', 'like', "%{$search}%")->orWhere('account_type', 'like', "%{$search}%")->get();
+        // return User::oldest()->where('name', 'like', "%{$search}%")->orWhere('account_type', 'like', "%{$search}%")->get();
+        return User::oldest()->where(function (Builder $builder) use($search) {
+            $builder->where('name', 'like', "%{$search}%");
+            $builder->orWhere('account_type', 'like', "%{$search}%");
+        })->get();
     }
 
     /**
@@ -127,12 +131,12 @@ class UserController extends Controller
             $subject = Subject::select('id')->where('name', 'like', "%{$search}%")->get();
             // dd($user);
             $gradeLevel = GradeLevel::select('id')->where('name', 'like', "%{$search}%")->get();
-            return ExamResource::collection(Exam::where('user_id', $user->id)->where(function (Builder $builder) use($search, $subject, $gradeLevel) {
-                $builder->where('name', 'like', "%{$search}%");
-                $builder->orWhere('description', 'like', "%{$search}%");
-                $builder->orWhereIn('subject_id', $subject);
-                $builder->orWhereIn('grade_level_id', $gradeLevel);
-            })->get());
+            return ExamResource::collection($user->exams()->where(function (Builder $builder) use($search, $subject, $gradeLevel) {
+                    $builder->where('name', 'like', "%{$search}%");
+                    $builder->orWhere('description', 'like', "%{$search}%");
+                    $builder->orWhereIn('subject_id', $subject);
+                    $builder->orWhereIn('grade_level_id', $gradeLevel);
+                })->get());
         }else {
             if (empty($request->search)) {
                 if ($type == 'exams') {
@@ -143,10 +147,9 @@ class UserController extends Controller
             }
             $search = Str::lower($request->search);
             $subject = Subject::select('id')->where('name', 'like', "%{$search}%")->get();
-            // dd($user);
             $gradeLevel = GradeLevel::select('id')->where('name', 'like', "%{$search}%")->get();
             if ($type == 'exams') {
-                return ExamResource::collection(Exam::where('user_id', $user->id)->where(function (Builder $builder) use($search, $subject, $gradeLevel) {
+                return ExamResource::collection($user->exams()->where(function (Builder $builder) use($search, $subject, $gradeLevel) {
                     $builder->where('name', 'like', "%{$search}%");
                     $builder->orWhere('description', 'like', "%{$search}%");
                     $builder->orWhereIn('subject_id', $subject);

@@ -13,6 +13,8 @@
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize pb-2 border-b-2" x-text="user.name"></h2>
                 {{-- </div> --}}
                 <table class="text-sm mt-2">
+                    @if ($user->account_type == 'admin')
+
                     <tr>
                         <td class="font-semibold px-1 py-0.5">
                             Section:
@@ -29,6 +31,7 @@
 
                         </td>
                     </tr>
+                    @endif
                     <tr>
                         <td class="font-semibold px-1 py-0.5">
                             Birthday:

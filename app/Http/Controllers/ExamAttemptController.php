@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Subject;
 use App\Models\User;
-use App\Models\GradeLevel;
 use App\Models\Exam;
 use App\Models\Section;
 use App\Http\Resources\ExamAttemptResource;
@@ -62,10 +61,7 @@ class ExamAttemptController extends Controller
     {
         return view('examAttempt.teacher.show',
         [
-            'datas' => ExamAttemptResource::collection(ExamAttempt::whereHas('exam', function(Builder $builder) use($exam){
-                $builder->where('id', $exam->id);
-            })
-            ->oldest()->get())->toJson(),
+            'datas' => ExamAttemptResource::collection($exam->examAttempts()->oldest()->get())->toJson(),
             'exam' => $exam
         ]);
     }
@@ -73,25 +69,17 @@ class ExamAttemptController extends Controller
     public function searchAllExams(Request $request, Exam $exam)
     {
         if (empty($request->search)) {
-            return ExamAttemptResource::collection(ExamAttempt::whereHas('exam', function(Builder $builder) use($exam){
-                $builder->where('id', $exam->id);
-            })
-            ->oldest()->get());
+            return ExamAttemptResource::collection($exam->examAttempts()->oldest()->get())->toJson();
         }
 
         $search = Str::lower($request->search);
         $section = Section::select('id')->where('name', 'like', "%{$search}%")->get();
         $user = User::select('id')->where('name', 'like', "%{$search}%")->get();
 
-        return ExamAttemptResource::collection(ExamAttempt::whereHas('exam', function(Builder $builder) use($exam){
-            $builder->where('id', $exam->id);
-        })->where(function (Builder $builder) use($user, $section) {
-            $builder->whereHas('user', function (Builder $builder) use($user, $section) {
-                $builder->whereIn('id', $user);
-                $builder->orWhereIn('section_id', $section);
-            });
-        })
-        ->oldest()->get());
+        return  ExamAttemptResource::collection($exam->examAttempts()->whereHas('user', function (Builder $builder) use($user, $section) {
+                    $builder->whereIn('id', $user);
+                    $builder->orWhereIn('section_id', $section);
+                })->oldest()->get());
     }
 
     /**

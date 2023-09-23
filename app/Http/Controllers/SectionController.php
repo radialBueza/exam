@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use App\Http\Requests\SectionRequest;
 use App\Http\Resources\SectionResource;
 use App\Models\GradeLevel;
-// use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Builder;
 
 class SectionController extends Controller
@@ -23,7 +22,11 @@ class SectionController extends Controller
         }
         $search = Str::lower($request->search);
         $gradeLevelId = GradeLevel::select('id')->where('name', 'like', "%{$search}%")->get();
-        return SectionResource::collection(Section::oldest()->where('name', 'like', "%{$search}%")->orWhereIn('grade_level_id', $gradeLevelId)->get());
+        return SectionResource::collection(Section::oldest()->where(function (Builder $builder) use($search, $gradeLevelId) {
+            $builder->where('name', 'like', "%{$search}%");
+            $builder->orWhereIn('grade_level_id', $gradeLevelId);
+        })->get());
+
     }
 
     /**
@@ -73,7 +76,11 @@ class SectionController extends Controller
         [
             'info' => $section,
             'parent' => $section->gradeLevel,
-            'advisor' => $section->users()->where('account_type', 'admin')->orWhere('account_type', 'advisor')->first(),
+            // 'advisor' => $section->users()->where('account_type', 'admin')->orWhere('account_type', 'advisor')->first(),
+            'advisor' => $section->users()->where(function (Builder $builder) {
+                $builder->where('account_type', 'admin');
+                $builder->orWhere('account_type', 'advisor');
+            })->first(),
             'datas' => $section->users()->where('account_type', 'student')->get()->toJson()
         ]);
     }

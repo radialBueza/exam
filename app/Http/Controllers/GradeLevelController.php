@@ -10,6 +10,7 @@ use App\Http\Resources\GradeLevelResource;
 use App\Models\Department;
 use App\Http\Requests\GradeLevelChild;
 use App\Models\Section;
+use Illuminate\Database\Eloquent\Builder;
 
 class GradeLevelController extends Controller
 {
@@ -23,7 +24,11 @@ class GradeLevelController extends Controller
         }
         $search = Str::lower($request->search);
         $deptId = Department::select('id')->where('name', 'like', "%{$search}%")->get();
-        return GradeLevelResource::collection(GradeLevel::oldest()->where('name', 'like', "%{$search}%")->orWhereIn('department_id', $deptId)->get());
+        return GradeLevelResource::collection(GradeLevel::oldest()->where(function (Builder $builder) use($search, $deptId){
+            $builder->where('name', 'like', "%{$search}%");
+            $builder->orWhereIn('department_id', $deptId);
+        })->get());
+
     }
 
      /**

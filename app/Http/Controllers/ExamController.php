@@ -49,12 +49,13 @@ class ExamController extends Controller
         if (Auth::user()->account_type === 'admin') {
             return ExamResource::collection(Exam::oldest()->where('name', 'like', "%{$search}%")->orWhere('description', 'like', "%{$search}%")->orWhereIn('user_id', $userId)->orWhereIn('subject_id', $subjectId)->orWhereIn('grade_level_id', $gradeLevelId)->get());
         }else {
-            return ExamResource::collection(Exam::where('user_id', Auth::id())->where(function (Builder $builder) use($search, $subjectId, $gradeLevelId) {
-                $builder->where('name', 'like', "%{$search}%");
-                $builder->orWhere('description', 'like', "%{$search}%");
-                $builder->orWhereIn('subject_id', $subjectId);
-                $builder->orWhereIn('grade_level_id', $gradeLevelId);
-            })->get());
+            return ExamResource::collection(Auth::user()->exams()
+                ->where(function (Builder $builder) use($search, $subjectId, $gradeLevelId){
+                    $builder->where('name', 'like', "%{$search}%");
+                    $builder->orWhere('description', 'like', "%{$search}%");
+                    $builder->orWhereIn('subject_id', $subjectId);
+                    $builder->orWhereIn('grade_level_id', $gradeLevelId);
+                })->get());
         }
     }
 
