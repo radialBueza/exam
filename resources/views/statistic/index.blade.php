@@ -138,7 +138,6 @@
                             });
                         },
                         pickVar(el) {
-                            {{-- this.xy = [] --}}
                             this.xAxis = el.options[el.selectedIndex].text
                             this.pResult = this.pcorr(all[el.value], all.absScore)
                             this.sResult = this.scorr(all[el.value], all.absScore)

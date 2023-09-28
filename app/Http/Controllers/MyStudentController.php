@@ -14,7 +14,6 @@ use App\Models\Subject;
 class MyStudentController extends Controller
 {
     public function index(Request $request) {
-        // return $request->section->users()->oldest()->get();
         if (empty($request->search)) {
             return $request->user()->section->users()->where('account_type', 'student')->get()->toJson();
         }
@@ -36,7 +35,6 @@ class MyStudentController extends Controller
 
     public function show(Request $request, User $myStudents)
     {
-        // dd($myStudents);
         if (empty($request->search)) {
             return ExamAttemptResource::collection($myStudents->examAttempts);
         }
@@ -50,7 +48,6 @@ class MyStudentController extends Controller
     }
 
     public function see(User $myStudents) {
-        // $examAttempts = $myStudents->examAttempts;
         $survey = $myStudents->surveys()->latest()->first();
         if (!empty($survey)) {
             $surveys = collect([
@@ -222,7 +219,6 @@ class MyStudentController extends Controller
         }else {
             $surveys = collect();
         }
-        // dd($myStudents);
 
         return view('user.student.show',
         [

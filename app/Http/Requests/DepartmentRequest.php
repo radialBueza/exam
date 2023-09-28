@@ -10,10 +10,6 @@ use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
-
-    // protected $stopOnFirstFailure = true;
-    // Lower strings
-
     protected function prepareForValidation(): void
     {
         $this->merge([

@@ -14,7 +14,6 @@ class StatisticController extends Controller
         // $data = Survey::select('num_games_play', 'user_id')->orderBy('num_games_play', 'asc')->get();
         $data = Survey::orderBy('num_games_play', 'asc')->get();
 
-        // dd($data);
 
         $abstractExam = Exam::select('id')->where('name', 'Abstract Reasoning Exam')->first();
         // Gamer
@@ -83,9 +82,6 @@ class StatisticController extends Controller
             'male' => 0,
         ]);
 
-
-
-        // dd($abstractExam);
         $data->each(function($item, $index) use(&$x, &$y, &$xy, $abstractExam, &$gamer, &$nonGamer, &$all) {
 
             $abs = $item->user->examAttempts()->where('exam_id', $abstractExam->id)->first();
@@ -175,79 +171,4 @@ class StatisticController extends Controller
             'all' => $all->toJson()
         ]);
     }
-
-    // public function getData(Request $request)
-    // {
-    //     $var = $request->var;
-    //     $name = '';
-    //     $data = Survey::select($var, 'user_id')->orderBy($var, 'asc')->get();
-    //     $abstractExam = Exam::select('id')->where('name', 'Abstract Reasoning Exam')->first();
-    //     $x = collect();
-    //     $y = collect();
-    //     $xy = collect();
-
-    //     $data->each(function($item, $index) use(&$x, &$y, $abstractExam, &$xy, $var) {
-    //         $x->push($item->$var);
-    //         $y->push($item->user->examAttempts()->where('exam_id', $abstractExam->id)->first()->score);
-    //         $xy->push([
-    //             'x' => $x[$index],
-    //             'y' => $y[$index]
-    //         ]);
-    //     });
-    //     // dd($xy);
-    //     switch ($var) {
-    //         case 'num_games_play':
-    //             $name = 'Number of Games Played';
-    //             break;
-    //         case 'hrs_play_mobile':
-    //             $name = 'Avg. Mobile Playtime';
-    //             break;
-    //         case 'hrs_play_console':
-    //             $name = 'Avg. Console Playtime';
-    //             break;
-    //         case 'hrs_play_pc':
-    //             $name = 'Avg. Computer Playtime';
-    //             break;
-    //         case 'hrs_play_shooter':
-    //             $name = 'Avg. Shooter Game Playtime';
-    //             break;
-    //         case 'hrs_play_act_adv':
-    //             $name = 'Avg. Action and Adventure Game Playtime';
-    //             break;
-    //         case 'hrs_play_sims':
-    //             $name = 'Avg. Simulation Game Playtime';
-    //             break;
-    //         case 'hrs_play_moba':
-    //             $name = 'Avg. MOBA Game Playtime';
-    //             break;
-    //         case 'hrs_play_sports':
-    //             $name = 'Avg. Sports Game Playtime';
-    //             break;
-    //         case 'hrs_play_racing':
-    //             $name = 'Avg. Racing Game Playtime';
-    //             break;
-    //         case 'hrs_play_strat':
-    //             $name = 'Avg. Strategy Game Playtime';
-    //             break;
-    //         case 'hrs_play_battle_royal':
-    //             $name = 'Avg. Battle Royal Game Playtime';
-    //             break;
-    //         case 'hrs_play_puzzle_plat':
-    //             $name = 'Avg. Puzzle Platform Game Playtime';
-    //             break;
-    //         case 'hrs_play_fighting':
-    //             $name = 'Avg. Fighting Game Playtime';
-    //             break;
-    //         case 'hrs_play_board':
-    //             $name = 'Avg. Online Board Game Playtime';
-    //             break;
-    //     }
-    //     return response()->json(
-    //         [
-    //             'x' => $x,
-    //             'y' => $y,
-    //             'xy' => $xy,
-    //             'name' => $name
-    //         ], 200);
-    // }
 }

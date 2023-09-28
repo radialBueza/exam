@@ -31,7 +31,6 @@
                 <x-mine.table>
                     <x-mine.clean-table>
                         <x-slot name="thead">
-                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
                             <x-mine.th-cell col="name">
                                 name
                             </x-mine.th-cell>
@@ -40,7 +39,6 @@
                             </x-mine.th-cell>
                             <th scope="col" class="px-6 py-3"></th>
                         </x-slot>
-                        {{-- <th scope="col" class="px-6 py-3"></th> --}}
                         <x-mine.td-cell-primary>
                             <p x-text="data.name" ></p>
                         </x-mine.td-cell-primary>

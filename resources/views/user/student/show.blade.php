@@ -101,7 +101,6 @@
                 </div>
                 <div x-cloak x-show="pages[0]">
                     <x-mine.datas :$datas index="{{url('result/')}}">
-                            {{-- <div class="relative" x-data=x-show> --}}
                                 @if (Auth::user()->account_type == 'admin')
                                 <x-mine.search url="{{route('users.show', $user->id)}}"/>
                                 @else
@@ -110,7 +109,6 @@
                                 <x-mine.table>
                                     <x-mine.clean-table>
                                         <x-slot name="thead">
-                                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                             <x-mine.th-cell col="exam_name">
                                                 Exam
                                             </x-mine.th-cell>
@@ -127,7 +125,6 @@
                                                 grade
                                             </x-mine.th-cell>
                                         </x-slot>
-                                        {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                         <x-mine.td-cell-primary>
                                             <a :href="`${index}/${data.id}`" x-text="data.exam_name" ></a>
                                         </x-mine.td-cell-primary>
@@ -137,7 +134,6 @@
                                         <x-mine.td-cell txt="data.grade"/>
                                     </x-mine.clean-table>
                                 </x-mine.table>
-                            {{-- </div> --}}
                     </x-mine.datas>
                 </div>
                 <div x-cloak x-show="pages[1]">
@@ -145,7 +141,6 @@
                         <x-mine.table :pageSize="15">
                             <x-mine.clean-table :paginate="false">
                                 <x-slot name="thead">
-                                    {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                     <x-mine.th-cell col="name">
                                         Name
                                     </x-mine.th-cell>
@@ -171,7 +166,6 @@
                                         6 hrs/games &lt;
                                     </x-mine.th-cell>
                                 </x-slot>
-                                {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                 <x-mine.td-cell-primary :isLink="false">
                                     <p x-text="data.name"></p>
                                 </x-mine.td-cell-primary>

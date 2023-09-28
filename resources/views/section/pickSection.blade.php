@@ -153,13 +153,11 @@
                                     e.preventDefault()
                                     console.log('hi')
                                 }
-                                {{-- return false
-                                console.log('hi') --}}
+
                             }"
                             >
                             @csrf
                             @method('PUT')
-                            {{-- <template x-cloak x-if="pages[0]"> --}}
                                 <div x-cloak x-show="pages[0]" class="flex flex-col items-center justify-center gap-6" >
                                     <p class="text-2xl">What <span class="font-bold  ">department</span> do you belong to?</p>
                                     <div class="flex flex-row gap-2">
@@ -171,8 +169,6 @@
                                         </template>
                                     </div>
                                 </div>
-                            {{-- </template> --}}
-                            {{-- <template x-cloak x-if="pages[1]"> --}}
                                 <div x-cloak x-show="pages[1]" class="flex flex-col items-center justify-center gap-6" >
                                     <p class="text-2xl">What <span class="font-bold">grade level</span> do you belong to?</p>
                                     <div class="flex flex-row gap-2">
@@ -184,8 +180,6 @@
                                         </template>
                                     </div>
                                 </div>
-                            {{-- </template> --}}
-                            {{-- <template x-cloak x-if="pages[2]"> --}}
                                 <div x-cloak x-show="pages[2]" class=" flex flex-col items-center justify-center gap-6" >
                                     <p class="text-2xl">What <span class="font-bold">section</span> do you belong to?</p>
                                     <div class="flex flex-row gap-2">
@@ -197,7 +191,6 @@
                                         </template>
                                     </div>
                                 </div>
-                            {{-- </template> --}}
                             <div class="flex justify-between">
                                 <x-mine.button do="back()" class="text-slate-500 border-0 border-transparent focus:ring-transparent">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">

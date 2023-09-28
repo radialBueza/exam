@@ -105,9 +105,7 @@
                     }
                     this.hasAnswer[i] = false
                 }
-                {{-- if(!this.attempt) {
-                    this.attempt = {{$attempt}}
-                } --}}
+
                 @isset($attempt)
                 this.attempt = {{$attempt}}
                 @endisset

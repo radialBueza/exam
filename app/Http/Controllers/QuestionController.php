@@ -94,7 +94,6 @@ class QuestionController extends Controller
 
     public function destroyAll(Request $request)
     {
-        // Question::destroy($request->items);
         $question = Question::whereIn('id', $request->items)->get();
 
         $question->each(function ($item) {

@@ -4,7 +4,6 @@
     @isset ($col)
     @click="sort('{{$col}}')"
     @endisset
-    {{-- @click="sort('{{$col}}')" --}}
     >
     {{$slot}}
     @isset ($col)

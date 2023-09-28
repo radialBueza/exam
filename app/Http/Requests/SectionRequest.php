@@ -12,7 +12,6 @@ class SectionRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            // 'grade_level_id' => (int)$this->grade_level_id,
             'name' => Str::lower($this->name),
             'grade_level_id' => filter_var($this->grade_level_id, FILTER_SANITIZE_NUMBER_INT),
         ]);

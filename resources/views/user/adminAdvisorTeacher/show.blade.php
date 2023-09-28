@@ -9,9 +9,7 @@
             <div x-data="{
                 user: {{Js::from($user)}},
             }">
-                {{-- <div class="flex justify-between items-center pb-2 border-b-2"> --}}
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize pb-2 border-b-2" x-text="user.name"></h2>
-                {{-- </div> --}}
                 <table class="text-sm mt-2">
                     @if ($user->account_type == 'admin')
 
@@ -80,12 +78,10 @@
                 <div x-cloak x-show="pages[0]">
                 @endif
                     <x-mine.datas :$datas index="{{route('exams.all')}}">
-                            {{-- <div class="relative" x-data=x-show> --}}
                                 <x-mine.search url="{{route('users.show', ['user' => $user->id, 'type' => 'exams'])}}"/>
                                 <x-mine.table>
                                     <x-mine.clean-table>
                                         <x-slot name="thead">
-                                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                             <x-mine.th-cell col="name">
                                                 name
                                             </x-mine.th-cell>
@@ -102,7 +98,6 @@
                                                 created
                                             </x-mine.th-cell>
                                         </x-slot>
-                                        {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                         <x-mine.td-cell-primary>
                                             <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
                                         </x-mine.td-cell-primary>
@@ -112,7 +107,6 @@
                                         <x-mine.td-cell txt="data.created_at"/>
                                     </x-mine.clean-table>
                                 </x-mine.table>
-                            {{-- </div> --}}
                     </x-mine.datas>
                 @if ($user->account_type == 'admin')
                 </div>
@@ -122,7 +116,6 @@
                         <x-mine.table>
                             <x-mine.clean-table>
                                 <x-slot name="thead">
-                                    {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                     <x-mine.th-cell col="name">
                                         Name
                                     </x-mine.th-cell>
@@ -133,7 +126,6 @@
                                         Birthday
                                     </x-mine.th-cell>
                                 </x-slot>
-                                {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                 <x-mine.td-cell-primary :isLink="false">
                                     <p x-text="data.name"></p>
                                 </x-mine.td-cell-primary>

@@ -18,16 +18,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ExamController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('can:viewAny-exam')->only('index');
-    //     $this->middleware('can:create-exam')->only('store');
-    //     $this->middleware('can:view-exam,exam')->only(['show', 'see']);
-    //     $this->middleware('can:update-exam,exam')->only('update');
-    //     $this->middleware('can:delete-exam,exam')->only('destroy');
-
-    // }
-
     /**
      * Search API
      */
@@ -85,8 +75,7 @@ class ExamController extends Controller
      */
     public function store(ExamRequest $request)
     {
-        // $user = User::find(Auth::id());
-        // $user->exams()->create($request->validated());
+
         Auth::user()->exams()->create($request->validated());
 
         if (Auth::user()->account_type === 'admin') {
@@ -108,7 +97,6 @@ class ExamController extends Controller
     {
         $options = collect([]);
 
-        // $object = ;
 
         $options->push((object)[
             'id' => 'a',
@@ -162,7 +150,6 @@ class ExamController extends Controller
         if ($request->hasFile('question_file')) {
             $path = $request->question_file->store('questions', 'public');
 
-            // $data->replace(['question_file' => $path]);
             $data['question_file'] = $path;
 
         }
@@ -170,7 +157,6 @@ class ExamController extends Controller
         if ($request->hasFile('a_file')) {
             $path = $request->a_file->store('answers', 'public');
 
-            // $data->replace(['a_file' => $path]);
             $data['a_file'] = $path;
 
         }
@@ -178,7 +164,6 @@ class ExamController extends Controller
         if ($request->hasFile('b_file')) {
             $path = $request->b_file->store('answers', 'public');
 
-            // $data->replace(['b_file' => $path]);
             $data['b_file'] = $path;
 
         }
@@ -186,7 +171,6 @@ class ExamController extends Controller
         if ($request->hasFile('c_file')) {
             $path = $request->c_file->store('answers', 'public');
 
-            // $data->replace(['c_file' => $path]);
             $data['c_file'] = $path;
 
         }
@@ -194,7 +178,6 @@ class ExamController extends Controller
         if ($request->hasFile('d_file')) {
             $path = $request->d_file->store('answers', 'public');
 
-            // $data->replace(['d_file' => $path]);
             $data['d_file'] = $path;
 
         }
@@ -213,7 +196,6 @@ class ExamController extends Controller
 
      public function updateFor(Exam $exam, QuestionRequest $request, Question $question)
      {
-        // dd($question);
         $question->question = $request->question;
         $question->a = $request->a;
         $question->b = $request->b;
@@ -224,35 +206,30 @@ class ExamController extends Controller
         if ($request->hasFile('question_file')) {
             $path = $request->question_file->store('questions', 'public');
 
-            // $data->replace(['question_file' => $path]);
             $question->question_file = $path;
         }
 
         if ($request->hasFile('a_file')) {
             $path = $request->a_file->store('answers', 'public');
 
-            // $data->replace(['a_file' => $path]);
             $question->a_file = $path;
         }
 
         if ($request->hasFile('b_file')) {
             $path = $request->b_file->store('answers', 'public');
 
-            // $data->replace(['b_file' => $path]);
             $question->b_file = $path;
         }
 
         if ($request->hasFile('c_file')) {
             $path = $request->c_file->store('answers', 'public');
 
-            // $data->replace(['c_file' => $path]);
             $question->c_file = $path;
         }
 
         if ($request->hasFile('d_file')) {
             $path = $request->d_file->store('answers', 'public');
 
-            // $data->replace(['d_file' => $path]);
             $question->d_file = $path;
         }
 

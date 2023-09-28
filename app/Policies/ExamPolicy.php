@@ -61,19 +61,4 @@ class ExamPolicy
         return ($user->account_type == 'admin' || $exam->user_id == $user->id);
     }
 
-    /**
-     * Destory many
-     */
-    // public function restore(User $user, Exam $exam): bool
-    // {
-
-    // }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    // public function forceDelete(User $user, Exam $exam): bool
-    // {
-
-    // }
 }

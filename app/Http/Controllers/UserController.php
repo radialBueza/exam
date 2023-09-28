@@ -9,7 +9,6 @@ use App\Models\Department;
 use App\Models\Section;
 use App\Models\Subject;
 use App\Models\GradeLevel;
-// use App\Models\Exam;
 use App\Http\Requests\UserRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -143,7 +142,6 @@ class UserController extends Controller
 
             $search = Str::lower($request->search);
             $subject = Subject::select('id')->where('name', 'like', "%{$search}%")->get();
-            // dd($user);
             $gradeLevel = GradeLevel::select('id')->where('name', 'like', "%{$search}%")->get();
             return ExamResource::collection($user->exams()->where(function (Builder $builder) use($search, $subject, $gradeLevel) {
                     $builder->where('name', 'like', "%{$search}%");
@@ -363,7 +361,6 @@ class UserController extends Controller
                 'user' => new StudentInfoResource($user),
                 'datas' => ExamAttemptResource::collection($user->examAttempts)->toJson(),
                 'surveys' => $surveys->toJson(),
-                // 'user' => $user
             ]);
         }elseif ($user->account_type == 'teacher') {
             return view('user.adminAdvisorTeacher.show',

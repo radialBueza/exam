@@ -31,6 +31,12 @@
             this.showLoad = false
             datas = result.data
             sort()
+            @if($open == "openEdit")
+            const getIndex = (el) => el.id == toEdit.id
+            let index = datas.findIndex(getIndex)
+            toEdit = datas[index]
+            @endif
+
             return
         }
         if (res.status == 422) {
@@ -48,9 +54,7 @@
         @foreach($inputs as $input)
             this.error.{{$input}} = { msg: ''}
         @endforeach
-        {{-- Object.keys(this.error).forEach(key => {
-            this.error[key] = { msg: ''}
-        }) --}}
+
         this.success = false
     },
 
@@ -61,9 +65,7 @@
         @foreach($inputs as $input)
             error.{{$input}} = { msg: ''}
         @endforeach
-        {{-- Object.keys(this.error).forEach(key => {
-            this.error[key] = { msg: ''}
-        }) --}}
+
         @if($open == "openAdd")
         $refs.{{$form}}.reset()
         @endif

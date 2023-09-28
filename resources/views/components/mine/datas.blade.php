@@ -1,11 +1,8 @@
-{{-- @props(['datas', 'url', 'index']) --}}
 @props(['datas', 'index'])
 
 
 <div x-data="{
-    {{-- retrieve data --}}
     datas: {{$datas}},
-    {{-- url: new URL('{{$url}}'), --}}
     @isset($index)
         index: new URL('{{$index}}'),
     @endisset
@@ -27,7 +24,6 @@
         });
     },
 
-    {{-- Open Edit Modal --}}
 }">
     {{$slot}}
 </div>

@@ -21,15 +21,10 @@ class TakeExam extends Controller
 
             $attempt = $exam->examAttempts()->where('user_id', Auth::id())->count();
 
-            // dd($attempt);
-            if ($attempt != 0 /*|| $request->session()->get('ongoingExam')*/) {
+            if ($attempt != 0 ) {
                 return redirect(RouteServiceProvider::HOME);
             }
 
-            // $newAttempt = ExamAttempt::create([
-            //     'user_id' => Auth::id(),
-            //     'exam_id' => $exam->id
-            // ]);
 
             $newAttempt = Auth::user()->examAttempts()->create([
                 'exam_id' => $exam->id
@@ -73,7 +68,6 @@ class TakeExam extends Controller
         $percent = ($totalScore / ($exam->num_of_questions) * 100);
         $percent = number_format($percent, 1, '.','');
         $grade = 0;
-        // dd($percent);
         switch ($percent) {
             case ($percent == 100):
                 $grade = 100;

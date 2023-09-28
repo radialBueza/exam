@@ -80,7 +80,6 @@
                             <div x-data="{
                                 accountType: '',
                             }" class="space-y-4">
-                                {{-- <x-mine.react-select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/> --}}
                                 <x-mine.select-input name="{{$inputs[4]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/>
 
                                 <template x-if="accountType == 'admin'">

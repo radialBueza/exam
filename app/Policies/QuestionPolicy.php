@@ -9,10 +9,6 @@ use Illuminate\Auth\Access\Response;
 
 class QuestionPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-
 
     /**
      * Determine whether the user can view the model.

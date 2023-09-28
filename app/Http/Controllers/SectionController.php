@@ -76,7 +76,6 @@ class SectionController extends Controller
         [
             'info' => $section,
             'parent' => $section->gradeLevel,
-            // 'advisor' => $section->users()->where('account_type', 'admin')->orWhere('account_type', 'advisor')->first(),
             'advisor' => $section->users()->where(function (Builder $builder) {
                 $builder->where('account_type', 'admin');
                 $builder->orWhere('account_type', 'advisor');

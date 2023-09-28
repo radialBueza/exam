@@ -11,7 +11,6 @@
                     <x-mine.table>
                         <x-mine.clean-table>
                             <x-slot name="thead">
-                                {{-- <th scope="col" class="px-6 py-3"></th> --}}
                                 <x-mine.th-cell col="exam_name">
                                     Exam
                                 </x-mine.th-cell>
@@ -28,7 +27,6 @@
                                     grade
                                 </x-mine.th-cell>
                             </x-slot>
-                            {{-- <th scope="col" class="px-6 py-3"></th> --}}
                             <x-mine.td-cell-primary>
                                 <a :href="`${index}/${data.id}`" x-text="data.exam_name" ></a>
                             </x-mine.td-cell-primary>

@@ -10,7 +10,6 @@ class SurveyRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            // 'num_games_play' => (int)$this->num_games_play,
             'num_games_play' => filter_var($this->num_games_play, FILTER_SANITIZE_NUMBER_INT),
             'hrs_play_mobile' => filter_var($this->hrs_play_mobile, FILTER_SANITIZE_NUMBER_INT),
             'hrs_play_console' => filter_var($this->hrs_play_console, FILTER_SANITIZE_NUMBER_INT),
