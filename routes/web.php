@@ -17,7 +17,7 @@ use App\Http\Controllers\SurveyController;
 use App\Http\Middleware\CheckSection;
 use App\Http\Middleware\CheckSurvey;
 use App\Http\Controllers\MyStudentController;
-use App\Http\Controllers\Statistic;
+use App\Http\Controllers\StatisticController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -121,9 +121,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Route::get('/result/{examAttempt}', [ExamAttemptController::class, 'show'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
 
-    Route::get('/result/{examAttempt}', [ExamAttemptController::class, 'result'])->name('examAttempt.show')->middleware('can:view-examAttempt,examAttempt');
+    Route::get('/result/{examAttempt}/{where?}', [ExamAttemptController::class, 'result'])->name('examAttempt.result')->middleware('can:view-examAttempt,examAttempt');
 
-    Route::get('/stat', [Statistic::class, 'index']);
+    Route::get('/stat', [StatisticController::class, 'index'])->name('stat');
 });
 
 require __DIR__.'/auth.php';

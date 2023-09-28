@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
 
 class RegisteredUserController extends Controller
 {
@@ -35,7 +37,9 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'birthday' => ['required', 'date:m/d/Y']
+            'birthday' => ['required', 'date:m/d/Y'],
+            'gender' => ['required', Rule::in(['male', 'female'])]
+
         ]);
 
         $user = User::create([
@@ -45,6 +49,7 @@ class RegisteredUserController extends Controller
             'birthday' => $request->birthday,
             'account_type' => 'student',
             'take_survey' => true,
+            'gender' => $request->gender
         ]);
 
         event(new Registered($user));

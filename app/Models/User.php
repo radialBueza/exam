@@ -30,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'section_id',
         'birthday',
         'take_survey',
+        'gender'
     ];
 
     /**

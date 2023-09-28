@@ -17,7 +17,11 @@
     },
     "dependencies": {
         "@alpinejs/persist": "^3.13.0",
+        "@stdlib/stats-base-mean": "^0.1.0",
+        "@stdlib/stats-base-stdev": "^0.1.0",
         "@stdlib/stats-pcorrtest": "^0.0.7",
-        "@stdlib/stats-ranks": "^0.0.8"
+        "@stdlib/stats-ranks": "^0.0.8",
+        "@stdlib/utils-tabulate": "^0.1.0",
+        "chart.js": "^4.4.0"
     }
 }

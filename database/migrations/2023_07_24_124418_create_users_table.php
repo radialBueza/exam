@@ -20,9 +20,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->date('birthday')->nullable();
+            $table->enum('gender', ['male', 'female']);
             $table->enum('account_type', ['admin', 'teacher', 'advisor', 'student'])->nullable();
-            $table->foreignId('department_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('section_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('department_id')->nullable()->default(null)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('section_id')->nullable()->default(null)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->boolean('take_survey')->default(false);
             $table->rememberToken();
             $table->timestamps();

@@ -4,6 +4,7 @@
             Account
         </h1>
     </x-slot>
+
         <x-mine.datas :$datas index="{{route('users.all')}}">
             <x-mine.crud>
                 <x-mine.bg-container >
@@ -66,7 +67,7 @@
                         $title = "Register Account";
                         $subtitle = "Create an account for a student, teacher, or admin.";
                         $form = "addUser";
-                        $inputs = ['name', 'email', 'birthday', 'account_type', 'department_id', 'section_id'];
+                        $inputs = ['name', 'email', 'gender','birthday', 'account_type', 'department_id', 'section_id'];
                         // $accountType = ['admin', 'advisor', 'teacher',  'student']
                     @endphp
                     <x-mine.modal open="openAdd">
@@ -74,18 +75,19 @@
                         :inputs="$inputs" url="{{route('users.store')}}">
                             <x-mine.input title="Name"/>
                             <x-mine.input name="{{$inputs[1]}}" title="email"/>
+                            <x-mine.select-input name="{{$inputs[2]}}" title="Gender" :options="$gender"/>
                             <x-mine.date-input />
                             <div x-data="{
                                 accountType: '',
                             }" class="space-y-4">
                                 {{-- <x-mine.react-select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/> --}}
-                                <x-mine.select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/>
+                                <x-mine.select-input name="{{$inputs[4]}}" title="account type" :options="$accountType" :nullable="true" do="accountType"/>
 
                                 <template x-if="accountType == 'admin'">
-                                    <x-mine.select-input name="{{$inputs[4]}}" title="Department" :$options/>
+                                    <x-mine.select-input name="{{$inputs[5]}}" title="Department" :$options/>
                                 </template>
                                 <template x-if="accountType == 'admin' || accountType == 'advisor' || accountType == 'student'">
-                                    <x-mine.select-input name="{{$inputs[5]}}" title="Section" :options="$sections"/>
+                                    <x-mine.select-input name="{{$inputs[6]}}" title="Section" :options="$sections"/>
                                 </template>
                             </div>
                             <x-slot name="buttons">
@@ -109,6 +111,7 @@
                         <x-mine.form-modal :title="$title" :subtitle="$subtitle" :form="$form" :inputs="$inputs" url="{{route('users.index')}}/${toEdit.id}">
                             <x-mine.input title="Name" class="capitalize" value="toEdit.name"/>
                             <x-mine.input name="{{$inputs[1]}}" title="email" value="toEdit.email"/>
+                            <x-mine.select-input name="{{$inputs[2]}}" title="Gender" :options="$gender" selected="toEdit.gender"/>
                             <x-mine.date-input :edit="true"/>
                             <div x-data="{
                                 accountType: '',
@@ -117,12 +120,12 @@
                                     accountType = toEdit.account_type
                                 }
                             })">
-                                <x-mine.select-input name="{{$inputs[3]}}" title="account type" :options="$accountType" :nullable="true" do="accountType" selected="toEdit.account_type"/>
+                                <x-mine.select-input name="{{$inputs[4]}}" title="account type" :options="$accountType" :nullable="true" do="accountType" selected="toEdit.account_type"/>
                                 <template x-if="accountType == 'admin'">
-                                    <x-mine.select-input name="{{$inputs[4]}}" title="Department" :$options selected="toEdit.department_id"/>
+                                    <x-mine.select-input name="{{$inputs[5]}}" title="Department" :$options selected="toEdit.department_id"/>
                                 </template>
                                 <template x-if="accountType == 'admin' || accountType == 'advisor' || accountType == 'student'">
-                                    <x-mine.select-input name="{{$inputs[5]}}" title="Section" :options="$sections" selected="toEdit.section_id"/>
+                                    <x-mine.select-input name="{{$inputs[6]}}" title="Section" :options="$sections" selected="toEdit.section_id"/>
                                 </template>
                             </div>
                             <x-slot name="buttons">

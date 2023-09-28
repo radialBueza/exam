@@ -65,6 +65,9 @@
                             My Students
                         </x-nav-link>
                     @endif
+                    <x-nav-link :href="route('stat')" :active="request()->routeIs('stat')" class="px-1 pt-1">
+                        Statistical Results
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -170,6 +173,10 @@
                     My Students
                 </x-responsive-nav-link>
             @endif
+
+            <x-responsive-nav-link :href="route('stat')" :active="request()->routeIs('stat')" class="pl-3">
+                Statistical Results
+            </x-responsive-nav-link>
 
         </div>
 

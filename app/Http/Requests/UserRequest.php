@@ -14,33 +14,14 @@ class UserRequest extends FormRequest
         $this->merge([
             'name' => Str::lower($this->name),
             'account_type' => Str::lower($this->account_type),
-            'department_id' => filter_var($this->department_id, FILTER_SANITIZE_NUMBER_INT),
-            'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
-
+            'section_id' => $this->section_id !== null ? filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT) : null,
+            'gender' => Str::lower($this->gender)
         ]);
 
-        // if ($this->account_type == 'admin') {
-        //     $this->merge([
-        //         'department_id' => (int)$this->department_id,
-        //         'section_id' => (int)$this->section_id,
-        //         'department_id' => filter_var($this->department_id, FILTER_SANITIZE_NUMBER_INT),
-        //         'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
-        //     ]);
-        // }
-
-        // if ($this->account_type == 'advisor') {
-        //     $this->merge([
-        //         'section_id' => (int)$this->section_id,
-        //         'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
-
-        //     ]);
-        // }
 
         if ($this->account_type == 'student') {
             $this->merge([
                 'take_survey' => true,
-                // 'section_id' => (int)$this->section_id,
-                // 'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT),
             ]);
         }else {
             $this->merge([
@@ -48,6 +29,18 @@ class UserRequest extends FormRequest
             ]);
         }
 
+        if ($this->account_type == 'admin') {
+            $this->merge([
+                'department_id' => filter_var($this->department_id, FILTER_SANITIZE_NUMBER_INT)
+
+            ]);
+        }
+
+        if ($this->account_type !== 'teacher') {
+            $this->merge([
+                'section_id' => filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT)
+            ]);
+        }
 
     }
 
@@ -66,7 +59,7 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        dd($this);
+        // dd($this);
         if ($this->isMethod('post')) {
             return [
                 'name' => ['required', 'string', 'max:255'],
@@ -75,7 +68,8 @@ class UserRequest extends FormRequest
                 'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
                 'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
                 'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id'],
-                'take_survey' => ['required', 'boolean']
+                'take_survey' => ['required', 'boolean'],
+                'gender' => ['required', Rule::in(['male', 'female'])]
             ];
         }
 
@@ -86,7 +80,9 @@ class UserRequest extends FormRequest
             'account_type' => ['required', Rule::in(['admin', 'advisor', 'teacher', 'student'])],
             'department_id' => ['required_if:account_type,admin', 'exists:departments,id'],
             'section_id' => ['required_if:account_type,admin,advisor,student', 'exists:sections,id'],
-            'take_survey' => ['required', 'boolean']
+            'take_survey' => ['required', 'boolean'],
+            'gender' => ['required', Rule::in(['male', 'female'])]
+
         ];
     }
 

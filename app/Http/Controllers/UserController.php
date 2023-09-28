@@ -9,7 +9,7 @@ use App\Models\Department;
 use App\Models\Section;
 use App\Models\Subject;
 use App\Models\GradeLevel;
-use App\Models\Exam;
+// use App\Models\Exam;
 use App\Http\Requests\UserRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -67,12 +67,25 @@ class UserController extends Controller
             'name' => 'Student'
         ]);
 
+        $gender = collect();
+
+        $gender->push((object)[
+            'id' => 'male',
+            'name' => 'Male'
+        ]);
+
+        $gender->push((object)[
+            'id' => 'female',
+            'name' => 'Female'
+        ]);
+
         return view('user.index',
         [
             'datas' => User::oldest()->get()->toJson(),
             'options' => Department::all(),
             'sections' => Section::orderBy('grade_level_id', 'asc')->get(),
-            'accountType' => $accountType->all()
+            'accountType' => $accountType->all(),
+            'gender' => $gender->all()
         ]);
     }
 
@@ -90,7 +103,8 @@ class UserController extends Controller
             'account_type' => $request->account_type,
             'department_id' => $request->department_id,
             'section_id' => $request->section_id,
-            'take_survey' => $request->take_survey
+            'take_survey' => $request->take_survey,
+            'gender' => $request->gender
         ]);
 
         // capitalize name

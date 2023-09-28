@@ -12,6 +12,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ExamAttemptController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\MyStudentController;
+use App\Http\Controllers\StatisticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +89,8 @@ Route::middleware('auth:sanctum')->group(function (){
         // Test Results Search
         Route::get('/examResult{exam}', [ExamAttemptController::class, 'searchAllExams'])->name('searchAllExams');
     });
+
+    Route::get('stat', [StatisticController::class, 'getData'])->name('getData');
 });
 
 

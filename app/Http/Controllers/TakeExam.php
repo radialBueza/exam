@@ -206,6 +206,6 @@ class TakeExam extends Controller
 
         $attempt->save();
 
-        return redirect()->route('examAttempt.result', $attempt->id);
+        return redirect()->route('examAttempt.result', ['examAttempt' => $attempt->id, 'where' => 'submit']);
     }
 }

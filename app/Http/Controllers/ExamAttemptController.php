@@ -48,12 +48,13 @@ class ExamAttemptController extends Controller
     /**
      * Display the specified resource.
      */
-    public function result(ExamAttempt $examAttempt)
+    public function result(ExamAttempt $examAttempt, ?string $where = 'notSubmit')
     {
         return view('examAttempt.result',
         [
             'info' => $examAttempt->exam,
-            'attempt' => $examAttempt
+            'attempt' => $examAttempt,
+            'type' => $where
         ]);
     }
 

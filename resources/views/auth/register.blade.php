@@ -15,6 +15,20 @@
             <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="gender" :value="__('Gender')" />
+            <select name="gender" id="gender" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <option value="male" @if (old('gender') =='male')
+                    selected
+                @endif>Male</option>
+                <option value="female"@if (old('gender') =='female')
+                    selected
+                @endif>Female</option>
+            </select>
+            {{-- <x-text-input id="gender" class="block mt-1 w-full" type="date" name="gender" :value="old('gender')" required autofocus autocomplete="gender" /> --}}
+            <x-input-error :messages="$errors->get('gender')" class="mt-2" />
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
