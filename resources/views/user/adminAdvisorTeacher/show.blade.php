@@ -11,7 +11,7 @@
             }">
                 <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize pb-2 border-b-2" x-text="user.name"></h2>
                 <table class="text-sm mt-2">
-                    @if ($user->account_type == 'admin')
+                    @if ($user->account_type == 'admin' || $user->account_type == 'advisor')
 
                     <tr>
                         <td class="font-semibold px-1 py-0.5">
@@ -51,7 +51,7 @@
         </x-mine.card-container>
         <x-mine.card-container class="p-5 sm:p-9">
             <div x-data="{
-                @if ($user->account_type == 'admin')
+                @if ($user->account_type == 'admin' || $user->account_type == 'advisor')
                 pages: [true, false],
                 examResult() {
                     this.pages[0] = true;
@@ -63,7 +63,7 @@
                 }
                 @endif
             }">
-                @if ($user->account_type == 'admin')
+                @if ($user->account_type == 'admin' || $user->account_type == 'advisor')
                 <div class="flex justify-center items-center gap-2">
                     <x-mine.button do="examResult" class="text-sky-600 border-2 border-sky-600 focus:ring-sky-600">
                         Exams
@@ -74,7 +74,7 @@
                 </div>
                 @endif
 
-                @if ($user->account_type == 'admin')
+                @if ($user->account_type == 'admin' || $user->account_type == 'advisor')
                 <div x-cloak x-show="pages[0]">
                 @endif
                     <x-mine.datas :$datas index="{{route('exams.all')}}">
@@ -108,7 +108,7 @@
                                     </x-mine.clean-table>
                                 </x-mine.table>
                     </x-mine.datas>
-                @if ($user->account_type == 'admin')
+                @if ($user->account_type == 'admin' || $user->account_type == 'advisor')
                 </div>
                 <div x-cloak x-show="pages[1]">
                     <x-mine.datas :datas="$students" index="{{route('users.all')}}">
