@@ -289,27 +289,27 @@
                                         data: this.arrayAvgGamer,
                                         borderColor: '#ef4444',
                                         backgroundColor: '#f87171',
-                                        stack: 'Stack 0',
+                                        {{-- stack: 'Stack 0', --}}
                                     }, {
                                         label: 'Gamer\'s Standard Deviation',
                                         data: this.arrayStdevGamer,
                                         borderColor: '#d97706',
                                         backgroundColor: '#f59e0b',
-                                        stack: 'Stack 0',
+                                        {{-- stack: 'Stack 0', --}}
                                     },
                                     {
                                         label: 'Non-Gamer\'s Avg.',
                                         data: this.arrayAvgNonGamer,
                                         borderColor: '#0891b2',
                                         backgroundColor: '#06b6d4',
-                                        stack: 'Stack 1',
+                                        {{-- stack: 'Stack 1', --}}
                                     },
                                     {
                                         label: 'Non-Gamer\'s Standard Deviation',
                                         data: this.arrayStdevNonGamer,
                                         borderColor: '#7c3aed',
                                         backgroundColor: '#8b5cf6',
-                                        stack: 'Stack 1',
+                                        {{-- stack: 'Stack 1', --}}
                                     }
                                 ]
                                 },
@@ -322,10 +322,10 @@
                                     scales: {
                                         y: {
                                             beginAtZero: true,
-                                            stacked: true,
+                                            {{-- stacked: true, --}}
                                         },
                                         x: {
-                                            stacked: true,
+                                            {{-- stacked: true, --}}
                                         }
                                     }
                                 }
