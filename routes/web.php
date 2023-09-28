@@ -103,14 +103,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    // Route::middleware('can:teacherOrStudent')->group(function() {
-    // });
-
-    Route::middleware('can:teacher')->group(function() {
-        Route::get('/examResult/{exam}', [ExamAttemptController::class, 'allExams'])->name('techerAttempt.all');
-        // Route::get('/examResult/{attempt}', [ExamAttemptController::class, 'oneExam'])->name('techerAttempt.one');
-
-        // Route::get('/result/', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
+    Route::middleware('can:teacherOrAdvisor')->group(function() {
+        Route::get('/examResult/{exam}', [ExamAttemptController::class, 'allExams'])->name('techerAttempt.all')->middleware('can:view-exam,exam');
     });
 
     Route::middleware('can:advisor')->group(function() {

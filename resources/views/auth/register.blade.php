@@ -25,7 +25,6 @@
                     selected
                 @endif>Female</option>
             </select>
-            {{-- <x-text-input id="gender" class="block mt-1 w-full" type="date" name="gender" :value="old('gender')" required autofocus autocomplete="gender" /> --}}
             <x-input-error :messages="$errors->get('gender')" class="mt-2" />
         </div>
 

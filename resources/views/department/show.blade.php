@@ -22,7 +22,7 @@
                         </div>
                     </x-mine.card-container>
                     <x-mine.card-container class="p-5 sm:p-9">
-                        <x-mine.cdp pdfUrl=" "/>
+                        <x-mine.cdp/>
                         <x-mine.search url="{{route('departments.show', $info->id)}}"/>
                         <x-mine.table>
                             <x-mine.table-multi-del-sel url="{{route('gradeLevels.index')}}">

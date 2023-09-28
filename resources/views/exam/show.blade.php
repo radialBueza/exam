@@ -4,7 +4,7 @@
             Exam | {{$info->name}}
         </h1>
     </x-slot>
-        <x-mine.datas :$datas index="{{url('questions/')}}">
+        <x-mine.datas :$datas index="{{url('exams/questions/')}}">
             <x-mine.crud>
                 <div x-data="{
                     info: {{Js::from($info)}},
@@ -26,9 +26,13 @@
                         {{-- Name and Activate --}}
                         <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9">
                             <div class="flex justify-between pb-2 border-b-2">
-                                <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-                                    {{$info->name}}
-                                </h2>
+                                <div>
+                                    <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
+                                        {{$info->name}}
+                                    </h2>
+                                    <p class="font-light text-xs capitalize"><span class="font-medium">Author: </span>{{$info->user->name}}</p>
+                                </div>
+
                                 <x-mine.button do="activate()" class="text-white border border-transparent focus:ring-transparent">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="inline-block w-5 h-5 mr-1" :class="info.is_active ? 'fill-green-600':'fill-slate-400'">
                                         <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd" />
@@ -42,7 +46,7 @@
                         {{-- Info --}}
 
                         <x-mine.card-container class="p-5 sm:p-9">
-                            <x-mine.cdp pdfUrl=" "/>
+                            <x-mine.cdp/>
                             <x-mine.search url="{{route('exams.show', $info->id)}}"/>
                             <x-mine.table>
                                 <x-mine.table-multi-del-sel url="{{route('questions.index')}}">
@@ -54,9 +58,6 @@
                                             </x-mine.th-cell>
                                             <x-mine.th-cell col="question_file">
                                                 question image
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="correct_answer">
-                                                correct answer
                                             </x-mine.th-cell>
                                             <th scope="col" class="px-6 py-3"></th>
                                         </x-slot>

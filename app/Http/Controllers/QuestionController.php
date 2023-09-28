@@ -39,7 +39,12 @@ class QuestionController extends Controller
      */
     public function see(Question $question)
     {
-        //
+        return view('question.show',
+        [
+            'parent' => $question->exam,
+            'info' => $question,
+            'datas' => $question->toJson()
+        ]);
     }
 
     /**

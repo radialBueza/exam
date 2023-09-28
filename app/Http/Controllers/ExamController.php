@@ -219,6 +219,7 @@ class ExamController extends Controller
         $question->b = $request->b;
         $question->c = $request->c;
         $question->d = $request->d;
+        $question->correct_answer = $request->correct_answer;
 
         if ($request->hasFile('question_file')) {
             $path = $request->question_file->store('questions', 'public');

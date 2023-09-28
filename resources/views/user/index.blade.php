@@ -9,7 +9,7 @@
             <x-mine.crud>
                 <x-mine.bg-container >
                     <x-mine.card-container class="p-5 sm:p-9">
-                        <x-mine.cdp pdfUrl=" "/>
+                        <x-mine.cdp/>
                         <x-mine.search url="{{route('users.index')}}"/>
                         <x-mine.table>
                             <x-mine.table-multi-del-sel url="{{route('users.index')}}">

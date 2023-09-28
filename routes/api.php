@@ -85,9 +85,9 @@ Route::middleware('auth:sanctum')->group(function (){
     });
     // Route::apiResource('testResults', ExamAttemptController::class)->only(['index', 'destroy']);
 
-    Route::middleware('can:teacher')->group(function(){
+    Route::middleware('can:teacherOrAdvisor')->group(function(){
         // Test Results Search
-        Route::get('/examResult{exam}', [ExamAttemptController::class, 'searchAllExams'])->name('searchAllExams');
+        Route::get('/examResult/{exam}', [ExamAttemptController::class, 'searchAllExams'])->name('searchAllExams')->middleware('can:view-exam,exam');
     });
 
     Route::get('stat', [StatisticController::class, 'getData'])->name('getData');

@@ -60,7 +60,7 @@ class ExamAttemptController extends Controller
 
     public function allExams(Exam $exam)
     {
-        return view('examAttempt.teacher.show',
+        return view('examAttempt.teacherOrAdvisor.show',
         [
             'datas' => ExamAttemptResource::collection($exam->examAttempts()->oldest()->get())->toJson(),
             'exam' => $exam

@@ -14,7 +14,6 @@ class UserRequest extends FormRequest
         $this->merge([
             'name' => Str::lower($this->name),
             'account_type' => Str::lower($this->account_type),
-            'section_id' => $this->section_id !== null ? filter_var($this->section_id, FILTER_SANITIZE_NUMBER_INT) : null,
             'gender' => Str::lower($this->gender)
         ]);
 
@@ -59,7 +58,6 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd($this);
         if ($this->isMethod('post')) {
             return [
                 'name' => ['required', 'string', 'max:255'],

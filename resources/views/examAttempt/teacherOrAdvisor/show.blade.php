@@ -9,7 +9,11 @@
                 <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9">
                     <div class="flex flex-col gap-1">
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">{{$exam->name}}</h2>
-                        <p class="font-light text-xs capitalize"><span class="font-medium">Grade Level: </span>{{$exam->gradeLevel->name}}</p>
+                        <p class="font-light text-xs capitalize"><span class="font-medium">Grade Level: </span>
+                        @isset($exam->grade_level_id)
+                            {{$exam->gradeLevel->name}}
+                        @endisset
+                        </p>
                     </div>
                 </x-mine.card-container>
                 <x-mine.card-container class="p-5 sm:p-9">
