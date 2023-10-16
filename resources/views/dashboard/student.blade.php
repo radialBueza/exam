@@ -45,7 +45,7 @@
                         <x-mine.td-cell txt="data.subject_name"/>
                         <td scope="col"class="px-6 py-4">
                             <div class="flex justify-center items-center">
-                                <x-mine.button do="start(data.id)" class="text-white whitespace-nowrap border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Start Exam</x-mine.button>
+                                <x-mine.button do="start(data.id)" class="text-white whitespace-nowrap border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Go to Exam</x-mine.button>
                             </div>
                         </td>
                     </x-mine.clean-table>
@@ -73,8 +73,8 @@
                     <div x-text="toOpen.time_limit" class="border-b text-sm col-span-2 px-1 py-2"></div>
                 </div>
                 <div class="pt-4 flex justify-end">
-                    <x-mine.link-button href="{{url('takeExam')}}/${toOpen.id}" class="whitespace-nowrap border-transparent bg-sky-600 focus:ring-sky-600 hover:bg-sky-500 focus:bg-sky-500 active:bg-sky-700">
-                        Go to Exam
+                    <x-mine.link-button href="{{url('takeExam')}}/${toOpen.id}" class="whitespace-nowrap border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                        Start Exam
                     </x-mine.link-button>
                 </div>
             </x-mine.modal>
