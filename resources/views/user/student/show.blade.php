@@ -16,13 +16,6 @@
                             'Accept': 'application/json'
                         }
                     })
-
-                    if (res.status == 201 ) {
-                        const result = await res.json()
-                        datas = result.data
-                        sort()
-                        return
-                    }
                 }
             }">
                 <div class="flex justify-between items-center pb-2 border-b-2">

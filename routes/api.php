@@ -66,9 +66,14 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::put('/exams/{exam}/{question}', [ExamController::class, 'updateFor']);
         // Question
         Route::prefix('exams')->group(function () {
-            Route::apiResource('questions', QuestionController::class);
-            Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
+            // Route::apiResource('questions', QuestionController::class);
+            Route::get('/questions', function () {
+                return;
+            })->name('questions.index');
+            Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
         });
+        Route::delete('/questions', [QuestionController::class, 'destroyAll'])->name('questions.destroyAll');
+
         // Result
         // Route::get('/testResults', [ExamAttemptController::class, 'index'])->name('testExamAttempt.index');
 
@@ -90,7 +95,7 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::get('/examResult/{exam}', [ExamAttemptController::class, 'searchAllExams'])->name('searchAllExams')->middleware('can:view-exam,exam');
     });
 
-    Route::get('stat', [StatisticController::class, 'getData'])->name('getData');
+    // Route::get('stat', [StatisticController::class, 'getData'])->name('getData');
 });
 
 

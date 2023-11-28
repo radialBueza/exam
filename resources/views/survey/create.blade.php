@@ -92,7 +92,7 @@
                         this.pages[i] = false
                     }
                 }
-                console.log(this.pages.length)
+                {{-- console.log(this.pages.length) --}}
                 @if($errors->any())
                     this.open = true
                     setTimeout(() => this.open = false, 5000)

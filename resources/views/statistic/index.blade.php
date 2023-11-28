@@ -268,15 +268,27 @@
                                 if(name == 'male' || name == 'female') {
                                     continue
                                 }
-                                this.arrayAvgGamer.push(this.avg(this.gamerLength,gamer[name],1))
-                                this.arrayStdevGamer.push(this.std(this.gamerLength,1,gamer[name],1))
+                                if(this.gamerLength <= 1) {
+                                    this.arrayAvgGamer.push(0)
+                                    this.arrayStdevGamer.push(0)
+                                }else {
+                                    this.arrayAvgGamer.push(this.avg(this.gamerLength,gamer[name],1))
+                                    this.arrayStdevGamer.push(this.std(this.gamerLength,1,gamer[name],1))
+                                }
                             }
+
                             for (const name in nonGamer) {
                                 if(name == 'male' || name == 'female') {
                                     continue
                                 }
-                                this.arrayAvgNonGamer.push(this.avg(this.nonGamerLength,nonGamer[name],1))
-                                this.arrayStdevNonGamer.push(this.std(this.nonGamerLength,1,nonGamer[name],1))
+                                if(this.nonGamerLength <= 1) {
+                                    this.arrayAvgNonGamer.push(0)
+                                    this.arrayStdevNonGamer.push(0)
+                                }else {
+                                    this.arrayAvgNonGamer.push(this.avg(this.nonGamerLength,nonGamer[name],1))
+                                    this.arrayStdevNonGamer.push(this.std(this.nonGamerLength,1,nonGamer[name],1))
+                                }
+
                             }
 
 
@@ -527,7 +539,7 @@
                                     })
 
                                 })
-                                console.log(data)
+                                {{-- console.log(data) --}}
                                 return data
                             }else {
                                 this.options.all.forEach((element, index) => {

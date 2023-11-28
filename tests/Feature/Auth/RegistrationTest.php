@@ -22,11 +22,13 @@ class RegistrationTest extends TestCase
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'birthday' => '1997-12-12',
+            'gender' => 'male',
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);
 
-        $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
+        $response->assertRedirectToRoute('login');
+        // $response->assertRedirect(RouteServiceProvider::HOME);
     }
 }

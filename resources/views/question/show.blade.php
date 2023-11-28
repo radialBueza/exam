@@ -57,9 +57,9 @@
                             <p x-text="datas.correct_answer" class="text-sm capitalize inline-block"></p>
                             <div x-data="{
                                 correctFile: `${datas.correct_answer}_file`,
-                                init() {
+                                {{-- init() {
                                     console.log(this.correctFile)
-                                }
+                                } --}}
                             }">
                                 <template x-if="datas[correctFile]">
                                     <img :src="`{{asset('storage/')}}/${datas[correctFile]}`" alt="optionD" class="object-contain h-20 max-w-full">

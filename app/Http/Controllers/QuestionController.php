@@ -96,6 +96,7 @@ class QuestionController extends Controller
     {
         $question = Question::whereIn('id', $request->items)->get();
 
+
         $question->each(function ($item) {
             if ($item->a_file != null) {
                 Storage::disk('public')->delete($item->a_file);

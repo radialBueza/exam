@@ -8,7 +8,7 @@
 
         const res = await fetch(this.url)
 
-        console.log(res)
+        {{-- console.log(res) --}}
 
         const result = await res.json()
 

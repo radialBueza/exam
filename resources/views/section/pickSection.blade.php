@@ -146,12 +146,12 @@
                             @submit="(e) => {
                                 if(sect.length != 0) {
                                     return true
-                                    console.log('hello')
+                                    {{-- console.log('hello') --}}
                                 }else{
                                     open = true
                                     setTimeout(() => open = false, 3000)
                                     e.preventDefault()
-                                    console.log('hi')
+                                    {{-- console.log('hi') --}}
                                 }
 
                             }"

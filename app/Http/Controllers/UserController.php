@@ -123,7 +123,7 @@ class UserController extends Controller
     /**
      * Search for children API
      */
-    public function show(User $user, Request $request, string $type)
+    public function show(User $user, Request $request, string $type = '')
     {
         if ($user->account_type == 'student') {
             if (empty($request->search)) {

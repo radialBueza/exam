@@ -31,7 +31,7 @@ class ExamSeeder extends Seeder
          * Science Exam
          */
         Exam::create([
-            'user_id' => 1,
+            'user_id' => 4,
             'subject_id' => 3,
             'grade_level_id' => 4,
             'name' => 'First Quarterly Assessment',

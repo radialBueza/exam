@@ -28,7 +28,7 @@
     x-transition:leave="transition ease-in duration-200 transform"
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
-    class="fixed inset-0 z-40 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    class="fixed inset-0 z-40 overflow-y-auto no-scrollbar" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="bg-gray-100/75 flex justify-center items-start min-h-screen px-4 text-center sm:p-0">
             <div
                 x-cloak x-show="{{$open}}" @click.outside="{{$open}} = false"

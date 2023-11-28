@@ -164,10 +164,8 @@ class SurveyController extends Controller
     {
         User::where('account_type', 'student')->update(['take_survey' => true]);
 
-        return response()->json([
-            // 'success' => true,
-            'data' => User::oldest()->get(),
-        ], 201);
+
+        return response(200);
     }
 
     public function retakeOne(User $user)

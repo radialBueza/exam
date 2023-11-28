@@ -1,7 +1,7 @@
-<x-app-layout title="Subject">
+<x-app-layout title="Subjects">
     <x-slot name="header">
         <h1 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
-            Subject
+            Subjects
         </h1>
     </x-slot>
         <x-mine.datas :$datas  index="{{route('subjects.all')}}">
