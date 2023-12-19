@@ -22,6 +22,7 @@
         "@stdlib/stats-pcorrtest": "^0.0.7",
         "@stdlib/stats-ranks": "^0.0.8",
         "@stdlib/utils-tabulate": "^0.1.0",
-        "chart.js": "^4.4.0"
+        "chart.js": "^4.4.0",
+        "npm": "^10.2.5"
     }
 }
