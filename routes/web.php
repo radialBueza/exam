@@ -93,7 +93,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::middleware([CheckSection::class, CheckSurvey::class])->group(function() {
             // take exam
-            Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware('cache.headers:no_store');
+            Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware(['cache.headers:no_store', 'can:take-exam,exam']);
+            // Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware('cache.headers:no_store');
+
             Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam')->middleware('can:update-attempt,attempt');
 
             // Exam Results

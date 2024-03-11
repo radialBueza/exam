@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Exam;
+use App\Models\Question;
 use App\Models\User;
 use App\Policies\ExamPolicy;
 use App\Policies\QuestionPolicy;
@@ -70,6 +71,18 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view-examAttempt', [ExamAttemptPolicy::class, 'view']);
 
         Gate::define('update-attempt', [ExamAttemptPolicy::class, 'update']);
+
+        Gate::define('take-exam', function (User $user, Exam $exam) {
+            if ($exam->subject_id == 6) {
+                return Response::allow();
+            }
+            $gradeUser = $user->section->gradeLevel->id;
+            $gradeExam = $exam->gradeLevel->id;
+            // dd($gradeExam);
+            return $gradeUser === $gradeExam
+                ? Response::allow()
+                : Response::denyAsNotFound();
+        });
 
     }
 }
