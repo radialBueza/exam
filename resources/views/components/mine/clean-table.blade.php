@@ -13,7 +13,7 @@
             <thead>
             <tbody>
                 <template x-cloak x-for="data in pagedDatas" :key="data.id" >
-                    <tr class="bg-white border-b ">
+                    <tr class="bg-white border-b">
                         {{$slot}}
                         @isset($action)
                             {{$action}}

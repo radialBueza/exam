@@ -63,7 +63,7 @@
                                         </x-slot>
                                         {{-- table body --}}
                                         <td class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.includes(data.id)" @click="addDelete(data.id)"></td>
-                                        <x-mine.td-cell-primary>
+                                        <x-mine.td-cell-primary class="max-w-xl">
                                             <a :href="`${index}/${data.id}`" x-text="data.question" ></a>
                                         </x-mine.td-cell-primary>
                                         <td class="px-6 py-4">

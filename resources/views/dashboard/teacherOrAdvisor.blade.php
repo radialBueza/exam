@@ -13,7 +13,7 @@
                         <span class="text-xs ml-1 text-gray-100 border rounded-xl px-1.5 capitalize bg-gray-600">{{auth()->user()->account_type}}</span>
                     </div>
                     @if (auth()->user()->account_type == 'advisor')
-                        <p class="text-xs">Section: {{auth()->user()->section->name}}</p>
+                        <p class="text-xs capitalize">section: {{auth()->user()->section->name}}</p>
                     @endif
                 </div>
             </x-mine.card-container>

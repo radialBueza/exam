@@ -36,14 +36,14 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', 'cache.headers:no_store', CheckSection::class, CheckSurvey::class])->name('dashboard');
+// , 'cache.headers:no_store'
+Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', CheckSection::class, CheckSurvey::class])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::middleware(['can:admin', 'cache.headers:no_store'])->group(function() {
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         // departments
         Route::get('/departments', [DepartmentController::class, 'all'])->name('departments.all');
         Route::get('/departments/{department}', [DepartmentController::class, 'see']);

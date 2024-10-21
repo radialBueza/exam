@@ -12,9 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-6 sm:-my-px sm:ml-8 md:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="px-1 pt-1">
-                        Dashboard
-                    </x-nav-link>
+                    @if (auth()->user()->account_type !== 'admin')
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="px-1 pt-1">
+                            Dashboard
+                        </x-nav-link>
+                    @endif
                     @if (auth()->user()->account_type == 'admin')
                         <x-mine.dropdown-pc>
                             <x-slot name="button">

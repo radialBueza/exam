@@ -163,7 +163,7 @@
                             </template>
                             <template x-cloak x-if="currPage == pages.length-1">
                                 <x-mine.button type="submit" class="text-green-400 border border-transparent focus:ring-transparent">
-                                    Submit Exam
+                                    Submit Survey
                                 </x-mine.button>
                             </template>
                         </div>

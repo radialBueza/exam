@@ -34,6 +34,7 @@ class Dashboard extends Controller
             ]);
         }
 
-        return view('dashboard.dashboard');
+        // return view('dashboard.dashboard');
+        return redirect()->route('departments.all');
     }
 }

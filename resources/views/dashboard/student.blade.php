@@ -23,7 +23,7 @@
                         <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">{{auth()->user()->name}}</h2>
                         <span class="text-xs ml-1 text-gray-100 border rounded-xl px-1.5 capitalize bg-gray-600">{{auth()->user()->account_type}}</span>
                     </div>
-                    <p class="text-xs">Section: {{auth()->user()->section->name}}</p>
+                    <p class="text-xs capitalize">section: {{auth()->user()->section->name}}</p>
                 </div>
             </x-mine.card-container>
             <x-mine.card-container class="p-5 sm:p-9">
@@ -39,7 +39,7 @@
                             </x-mine.th-cell>
                             <th scope="col" class="px-6 py-3"></th>
                         </x-slot>
-                        <x-mine.td-cell-primary>
+                        <x-mine.td-cell-primary :isLink="false">
                             <p x-text="data.name" ></p>
                         </x-mine.td-cell-primary>
                         <x-mine.td-cell txt="data.subject_name"/>
