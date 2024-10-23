@@ -79,8 +79,8 @@
                             if(this.xy.length >= 4) {
                                 this.pResult = this.pcorr(all.numGames, all.absScore)
                                 this.sResult = this.scorr(all.numGames, all.absScore)
-                                this.pCorr = Math.round((this.pResult.pcorr + Number.EPSILON) * 100) / 100
-                                this.sCorr =  Math.round((this.sResult.pcorr + Number.EPSILON) * 100) / 100
+                                this.pCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.pResult.pcorr).toFixed(2)
+                                this.sCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.sResult.pcorr).toFixed(2)
                                 this.pRej = (this.pResult.rejected)
                                 this.sRej = (this.sResult.rejected)
                             }
@@ -141,8 +141,8 @@
                             this.xAxis = el.options[el.selectedIndex].text
                             this.pResult = this.pcorr(all[el.value], all.absScore)
                             this.sResult = this.scorr(all[el.value], all.absScore)
-                            this.pCorr = (this.pResult.pcorr).toFixed(2)
-                            this.sCorr = (this.sResult.pcorr).toFixed(2)
+                            this.pCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.pResult.pcorr).toFixed(2)
+                            this.sCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.sResult.pcorr).toFixed(2)
                             this.pRej = (this.pResult.rejected)
                             this.sRej = (this.sResult.rejected)
                             this.createData(all[el.value], all.absScore)
