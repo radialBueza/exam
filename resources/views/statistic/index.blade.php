@@ -62,136 +62,11 @@
 
                     </div>
                     {{-- correlation --}}
-                    <div x-cloak x-show="pages[0][0]" x-data="{
-                        xy: [],
-                        xAxis: 'Number of Games Played',
-                        corrChart: null,
-                        pcorr: pearson,
-                        scorr: spearman,
-                        pResult: null,
-                        sResult: null,
-                        pCorr: null,
-                        sCorr: null,
-                        pRej: null,
-                        sRej: null,
-                        init() {
-                            this.createData(all.numGames, all.absScore)
-                            if(this.xy.length >= 4) {
-                                this.pResult = this.pcorr(all.numGames, all.absScore)
-                                this.sResult = this.scorr(all.numGames, all.absScore)
-                                this.pCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.pResult.pcorr).toFixed(2)
-                                this.sCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.sResult.pcorr).toFixed(2)
-                                this.pRej = (this.pResult.rejected)
-                                this.sRej = (this.sResult.rejected)
-                            }
-
-                            this.corrChart = new Chart($refs.corr, {
-                                type: 'scatter',
-                                data: {
-                                    datasets: [{
-                                        data: this.xy,
-                                        backgroundColor: 'rgb(255, 99, 132)'
-                                    }]
-                                },
-                                options: {
-                                    plugins: {
-                                        legend: {
-                                            display:false
-                                        },
-                                    },
-                                    scales: {
-                                        x: {
-                                            beginAtZero: true,
-                                            type: 'linear',
-                                            position: 'bottom',
-                                            title: {
-                                                display: true,
-                                                text: this.xAxis
-                                            }
-                                        },
-
-                                        y: {
-                                            beginAtZero: true,
-                                            type: 'linear',
-                                            position: 'left',
-                                            title: {
-                                                display: true,
-                                                text: 'Abstract Reasoning Exam Grade'
-                                            }
-                                        }
-                                    }
-                                }
-                            })
-                        },
-                        createData(x, y) {
-                            this.xy = []
-                            x.forEach((el, i)=> {
-                                this.xy.push(
-                                    {
-                                        x: x[i],
-                                        y: y[i],
-                                    }
-                                )
-                            });
-                            this.xy.sort((a,b) => {
-                                return a.x - b.x
-                            });
-                        },
-                        pickVar(el) {
-                            this.xAxis = el.options[el.selectedIndex].text
-                            this.pResult = this.pcorr(all[el.value], all.absScore)
-                            this.sResult = this.scorr(all[el.value], all.absScore)
-                            this.pCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.pResult.pcorr).toFixed(2)
-                            this.sCorr = isNaN(this.pResult.pcorr)  ? 'Too little variation' : (this.sResult.pcorr).toFixed(2)
-                            this.pRej = (this.pResult.rejected)
-                            this.sRej = (this.sResult.rejected)
-                            this.createData(all[el.value], all.absScore)
-                            this.corrChart.destroy()
-                            this.corrChart = new Chart($refs.corr, {
-                                type: 'scatter',
-                                data: {
-                                    datasets: [{
-                                        data: this.xy,
-                                        backgroundColor: 'rgb(255, 99, 132)'
-                                    }]
-                                },
-                                options: {
-                                    plugins: {
-                                        legend: {
-                                            display:false
-                                        },
-                                    },
-                                    scales: {
-                                        x: {
-                                            beginAtZero: true,
-                                            type: 'linear',
-                                            position: 'bottom',
-                                            title: {
-                                                display: true,
-                                                text: this.xAxis
-                                            }
-                                        },
-
-                                        y: {
-                                            beginAtZero: true,
-                                            type: 'linear',
-                                            position: 'left',
-                                            title: {
-                                                display: true,
-                                                text: 'Abstract Reasoning Exam Grade'
-                                            }
-                                        }
-                                    }
-                                }
-
-                            })
-
-                        },
-                    }">
+                    <div x-cloak x-show="pages[0][0]" x-data="corrChart()">
                         <div class="flex justify-center px-3 py-2 mb-2 text-gray-600 capitalize">
                             <form method="GET">
                                 <label for="var" class="sr-only">Pick Variable</label>
-                                <select name="var" id="var" @change="pickVar($el)" class="rounded-md">
+                                <select name="var" id="var" @change.debouce.500ms="updateChart($el)" class="rounded-md">
                                     <option value="numGames">Number of Games Played</option>
                                     <option value="mobile">Daily Mobile Playtime</option>
                                     <option value="console">Daily Console Playtime</option>
@@ -224,21 +99,22 @@
                             <tbody>
                                 <tr class="border-b">
                                     <td class="text-center px-6 py-3">Correlation</td>
-                                    <td class="text-center px-6 py-3" x-text="pCorr"></td>
-                                    <td class="text-center px-6 py-3" x-text="sCorr"></td>
+                                    <td class="text-center px-6 py-3" x-text="result.pCorr"></td>
+                                    <td class="text-center px-6 py-3" x-text="result.sCorr"></td>
                                 </tr>
                                 <tr class="border-b">
                                     <td class="text-center px-6 py-3">Significance</td>
-                                    <td class="text-center capitalize px-6 py-3" x-text="pRej"></td>
-                                    <td class="text-center capitalize px-6 py-3" x-text="sRej"></td>
+                                    <td class="text-center capitalize px-6 py-3" x-text="result.pRej"></td>
+                                    <td class="text-center capitalize px-6 py-3" x-text="result.sRej"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
                     {{-- Play Time --}}
                     <div x-cloak x-show="pages[1][0]"x-data="{
-                        avg: mean,
-                        std: stdev,
+                        {{-- avg: mean, --}}
+                        {{-- std: stdev, --}}
                         labels: [
                             'Number of Games Played',
                             'Mobile Playtime',
@@ -272,8 +148,8 @@
                                     this.arrayAvgGamer.push(0)
                                     this.arrayStdevGamer.push(0)
                                 }else {
-                                    this.arrayAvgGamer.push(this.avg(this.gamerLength,gamer[name],1))
-                                    this.arrayStdevGamer.push(this.std(this.gamerLength,1,gamer[name],1))
+                                    this.arrayAvgGamer.push(mean(this.gamerLength,gamer[name],1))
+                                    this.arrayStdevGamer.push(stdev(this.gamerLength,1,gamer[name],1))
                                 }
                             }
 
@@ -285,8 +161,8 @@
                                     this.arrayAvgNonGamer.push(0)
                                     this.arrayStdevNonGamer.push(0)
                                 }else {
-                                    this.arrayAvgNonGamer.push(this.avg(this.nonGamerLength,nonGamer[name],1))
-                                    this.arrayStdevNonGamer.push(this.std(this.nonGamerLength,1,nonGamer[name],1))
+                                    this.arrayAvgNonGamer.push(mean(this.nonGamerLength,nonGamer[name],1))
+                                    this.arrayStdevNonGamer.push(stdev(this.nonGamerLength,1,nonGamer[name],1))
                                 }
 
                             }
@@ -457,7 +333,7 @@
                         freq: [],
                         freqChart: null,
                         title: 'Number of Games Played',
-                        tabulate: tabulate,
+                        {{-- tabulate: tabulate, --}}
                         type: 'numGames',
                         result: null,
                         labels: [],
@@ -482,7 +358,7 @@
                             ]
                         },
                         init() {
-                            this.result = this.tabulate(all.numGames)
+                            this.result = tabulate(all.numGames)
                             this.createData(this.result, 'numGames')
                             this.freqChart = new Chart($refs.freqDough, {
                                 type: 'doughnut',
@@ -563,8 +439,8 @@
 
                             }
                         },
-                        pickVar(el) {
-                            this.result = this.tabulate(all[this.type])
+                        pickVarGender(el) {
+                            this.result = tabulate(all[this.type])
                             this.createData(this.result, this.type)
                             this.title = el.options[el.selectedIndex].text
                             this.freqChart.destroy()
