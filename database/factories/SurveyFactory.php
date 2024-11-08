@@ -18,22 +18,22 @@ class SurveyFactory extends Factory
     {
         return [
             'user_id' => null,
-            'num_games_play' => 1,
-            'hrs_play_mobile' => 1,
-            'hrs_play_console' => 1,
-            'hrs_play_pc' => 1,
-            'hrs_play_shooter' => 1,
-            'hrs_play_act_adv' => 1,
-            'hrs_play_sims' => 1,
-            'hrs_play_moba' => 1,
-            'hrs_play_sports' => 1,
-            'hrs_play_racing' => 1,
-            'hrs_play_strat' => 1,
-            'hrs_play_battle_royal' => 1,
-            'hrs_play_puzzle_plat' => 1,
-            'hrs_play_fighting' => 1,
-            'hrs_play_board' => 1,
-            'is_gamer' => 1
+            'num_games_play' => rand(0,6),
+            'hrs_play_mobile' => rand(0,6),
+            'hrs_play_console' => rand(0,6),
+            'hrs_play_pc' => rand(0,6),
+            'hrs_play_shooter' => rand(0,6),
+            'hrs_play_act_adv' => rand(0,6),
+            'hrs_play_sims' => rand(0,6),
+            'hrs_play_moba' => rand(0,6),
+            'hrs_play_sports' => rand(0,6),
+            'hrs_play_racing' => rand(0,6),
+            'hrs_play_strat' => rand(0,6),
+            'hrs_play_battle_royal' => rand(0,6),
+            'hrs_play_puzzle_plat' => rand(0,6),
+            'hrs_play_fighting' => rand(0,6),
+            'hrs_play_board' => rand(0,6),
+            'is_gamer' => rand(0,6)
         ];
     }
 }

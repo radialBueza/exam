@@ -248,6 +248,8 @@
                 {{-- Male vs. Female --}}
                 <div x-cloak x-show="pages[2][0]" x-data="{
                     init() {
+                        console.log(nonGamer.male)
+                        console.log(nonGamer.female)
                         new Chart($refs.gamer, {
                             type: 'doughnut',
                             data: {
@@ -317,8 +319,8 @@
                         <tbody>
                             <tr class="border-b">
                                 <td class="text-center px-6 py-3">Gamer</td>
-                                <td class="text-center px-6 py-3" x-text="nonGamer.male"></td>
-                                <td class="text-center px-6 py-3" x-text="nonGamer.female"></td>
+                                <td class="text-center px-6 py-3" x-text="gamer.male"></td>
+                                <td class="text-center px-6 py-3" x-text="gamer.female"></td>
                             </tr>
                             <tr class="border-b">
                                 <td class="text-center px-6 py-3">Non-Gamer</td>
