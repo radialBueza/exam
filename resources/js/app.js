@@ -73,7 +73,7 @@ function corrChart() {
     }
 
     const setChartData = (data) => {
-        chart.options.scales.x.title.text = data.name;
+        chart.options.scales.x.title.text = data.xAxis;
         chart.data.datasets.forEach((dataset, i) => {
             dataset.data = data.xy[i];
         });
@@ -119,16 +119,16 @@ function corrChart() {
                     },
                     scales: {
                         x: {
-                            beginAtZero: true,
+                            beginAtZero: false,
                             type: 'linear',
                             position: 'bottom',
                             title: {
                                 display: true,
-                                text: data.name
+                                text: data.xAxis
                             }
                         },
                         y: {
-                            beginAtZero: true,
+                            beginAtZero: false,
                             type: 'linear',
                             position: 'left',
                             title: {

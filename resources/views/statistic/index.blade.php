@@ -248,8 +248,6 @@
                 {{-- Male vs. Female --}}
                 <div x-cloak x-show="pages[2][0]" x-data="{
                     init() {
-                        console.log(nonGamer.male)
-                        console.log(nonGamer.female)
                         new Chart($refs.gamer, {
                             type: 'doughnut',
                             data: {
