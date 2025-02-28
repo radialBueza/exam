@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('exam_id')->constrained();
             $table->smallInteger('score')->default(0);
-            $table->float('percent', 4, 1)->default(0);
+            $table->decimal('percent', 4, 1)->default(0);
             $table->smallInteger('grade')->default(60);
             $table->timestamp('start_date');
             $table->timestamp('end_date');
