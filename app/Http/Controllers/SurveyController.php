@@ -162,17 +162,22 @@ class SurveyController extends Controller
 
     public function retake()
     {
+        Survey::truncate();
         User::where('account_type', 'student')->update(['take_survey' => true]);
-
 
         return response(200);
     }
 
     public function retakeOne(User $user)
     {
+
+        Survey::where([
+            'user_id' => $user->id
+        ])->delete();
         $user->take_survey = true;
 
         $user->save();
+
 
         return response(200);
     }

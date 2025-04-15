@@ -15,9 +15,10 @@ class ExamSeeder extends Seeder
     {
         /**
          * Filipino Exam
+         * ID:1
          */
         Exam::create([
-            'user_id' => 1,
+            'user_id' => 3,
             'subject_id' => 2,
             'grade_level_id' => 4,
             'name' => 'Pag Tatasa sa Unag Kwarter',
@@ -29,6 +30,7 @@ class ExamSeeder extends Seeder
 
         /**
          * Science Exam
+         * ID:2
          */
         Exam::create([
             'user_id' => 4,
@@ -43,6 +45,7 @@ class ExamSeeder extends Seeder
 
         /**
          * Abstract Reasoning Exam
+         * ID:3
          */
         Exam::create([
             'user_id' => 1,
@@ -54,38 +57,5 @@ class ExamSeeder extends Seeder
             'time_limit' => 15,
             'is_active' => true
         ]);
-
-        // Exam::create([
-        //     'user_id' => 1,
-        //     'subject_id' => 6,
-        //     'grade_level_id' => 3,
-        //     'name' => 'Abstract Reasoning Exam',
-        //     'description' => 'This exam aims to practice, improve, and determine the students\' abstract reasoning ability.',
-        //     'num_of_questions' => 20,
-        //     'time_limit' => 15,
-        //     'is_active' => true
-        // ]);
-
-        // Exam::create([
-        //     'user_id' => 1,
-        //     'subject_id' => 6,
-        //     'grade_level_id' => 2,
-        //     'name' => 'Abstract Reasoning Exam',
-        //     'description' => 'This exam aims to practice, improve, and determine the students\' abstract reasoning ability.',
-        //     'num_of_questions' => 20,
-        //     'time_limit' => 15,
-        //     'is_active' => true
-        // ]);
-
-        // Exam::create([
-        //     'user_id' => 1,
-        //     'subject_id' => 6,
-        //     'grade_level_id' => 1,
-        //     'name' => 'Abstract Reasoning Exam',
-        //     'description' => 'This exam aims to practice, improve, and determine the students\' abstract reasoning ability.',
-        //     'num_of_questions' => 20,
-        //     'time_limit' => 15,
-        //     'is_active' => true
-        // ]);
     }
 }

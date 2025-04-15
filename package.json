@@ -23,6 +23,7 @@
         "@stdlib/stats-ranks": "^0.0.8",
         "@stdlib/utils-tabulate": "^0.1.0",
         "chart.js": "^4.4.0",
-        "npm": "^10.2.5"
+        "npm": "^10.2.5",
+        "regression": "^2.0.1"
     }
 }
