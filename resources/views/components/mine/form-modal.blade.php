@@ -1,4 +1,13 @@
-@aware([
+{{-- @aware([
+    'title',
+    'subtitle',
+    'form',
+    'inputs' => ['name'],
+    'open',
+    'url',
+]) --}}
+@aware(['open',])
+@props([
     'title',
     'subtitle',
     'form',

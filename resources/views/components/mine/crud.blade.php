@@ -2,6 +2,8 @@
     openAdd: false,
     openDel: false,
     openEdit: false,
+    openOneDel: false,
+    oneDel: 0,
     toEdit: {},
     toDelete: { items: []},
 

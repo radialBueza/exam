@@ -34,7 +34,10 @@
 
     {{-- delete one item --}}
     async destroy(id) {
-        const delUrl = '{{$url}}' + '/' + id
+        oneDel = id
+        openOneDel = true
+        console.log(oneDel)
+        {{-- const delUrl = '{{$url}}' + '/' + id
 
         const res = await fetch(delUrl, {
             method: 'DELETE',
@@ -47,7 +50,8 @@
         if (res.status == 200) {
             datas = datas.filter(data => data.id != id)
 
-        }
+        } --}}
+
     },
 }">
     {{$slot}}

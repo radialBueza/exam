@@ -56,6 +56,9 @@
                     <x-mine.modal open="openDel">
                         <x-mine.delete-modal delUrl="{{route('departments.destroyAll')}}"/>
                     </x-mine.modal>
+                    <x-mine.modal open="openOneDel">
+                        <x-mine.delete-one-modal delUrl="{{route('departments.index')}}"/>
+                    </x-mine.modal>
                     @php
                         $title="Update Department";
                         $subtitle="Update a department of the school.";
