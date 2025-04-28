@@ -19,7 +19,7 @@
                         <x-mine.cdp/>
                         <x-mine.search url="{{route('gradeLevels.show', $info->id)}}"/>
                         <x-mine.table>
-                            <x-mine.table-multi-del-sel url="{{route('sections.index')}}">
+                            {{-- <x-mine.table-multi-del-sel url="{{route('sections.index')}}"> --}}
                                 <x-mine.clean-table>
                                     <x-slot name="thead">
                                         <th scope="col" class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.length == datas?.length  && datas.length != 0" @click="selectAll()"></th>
@@ -40,7 +40,7 @@
                                         <x-mine.td-action/>
                                     </x-slot>
                                 </x-mine.clean-table>
-                            </x-mine.table-multi-del-sel>
+                            {{-- </x-mine.table-multi-del-sel> --}}
                         </x-mine.table>
                     </x-mine.card-container>
                     @php

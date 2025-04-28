@@ -1,4 +1,4 @@
-@props(['url'])
+{{-- @props(['url']) --}}
 <div x-data="{
     {{-- add or remove items to be deleted --}}
 
@@ -18,7 +18,7 @@
         return
     },
 
-        {{-- Add all item to delete --}}
+    {{-- Add all item to delete --}}
     selectAll() {
         if(toDelete.items.length >= datas.length) {
             toDelete.items = []
@@ -37,21 +37,6 @@
         oneDel = id
         openOneDel = true
         console.log(oneDel)
-        {{-- const delUrl = '{{$url}}' + '/' + id
-
-        const res = await fetch(delUrl, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
-                'Accept': 'application/json'
-            }
-        })
-
-        if (res.status == 200) {
-            datas = datas.filter(data => data.id != id)
-
-        } --}}
-
     },
 }">
     {{$slot}}

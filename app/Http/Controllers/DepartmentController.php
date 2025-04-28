@@ -127,17 +127,41 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        if ($department->gradeLevels()->exists()) {
+            return response()->json([
+                'name' => $department->name,
+                'errorMsg' => " has existing Grade Levels."
+            ], 409);
+        }
+
         $department->delete();
 
-        return response(200);
+        return response()->noContent();
     }
 
     // Destory multiple items API
 
     public function destroyAll(Request $request)
     {
-        Department::destroy($request->items);
+        // Department::destroy($request->items);
 
-        return response(200);
+        $depWithGrade = Department::whereIn('id', $request->items)
+            ->has('gradeLevels') // or use whereHas() if you need filters
+            ->pluck('name', 'id');
+
+        $canDelete = array_diff($request->items, $depWithGrade->keys()->toArray());
+
+        Department::whereIn('id', $canDelete)->delete();
+
+        if (!empty($depWithGrade)) {
+            $name = implode(", ", $depWithGrade->values()->toArray());
+            return response()->json([
+                'name' => $name,
+                'errorMsg' => " have existing Grade Levels.",
+                'deletedId' => array_values($canDelete)
+            ], 409);
+        }
+
+        return response()->noContent();
     }
 }

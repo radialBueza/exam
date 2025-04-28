@@ -6,6 +6,9 @@
     showForm: true,
     success: false,
     url: '{{$delUrl}}',
+    error: '',
+    errorName: '',
+    errorSta: false,
     async destroyAll() {
         const res = await fetch(this.url, {
             method: 'DELETE',
@@ -19,16 +22,28 @@
 
         this.showForm = false
 
-        if (res.status == 200) {
+        if (res.status == 204) {
             datas = datas.filter(data => !toDelete.items.includes(data.id))
             this.success = true
             toDelete.items = []
+        }else {
+            const result = await res.json()
+            console.log(result.deletedId)
+            console.log(result)
+            if(result.deletedId.length !== 0) {
+                datas = datas.filter(data => !result.deleteId.includes(data.id))
+            }
+            this.errorName = result.name
+            this.error = result.errorMsg
+            toDelete.items = []
+            this.errorSta = true
         }
     },
 }" x-init="$watch('{{$open}}', (value) => {
     if (value == true) {
         showForm = true
         success = false
+        errorSta = false
     }
 })">
     <template x-cloak x-if="showForm">
@@ -45,7 +60,23 @@
             </div>
         </div>
     </template>
-    <x-mine.loading condition="!showForm&&!success"/>
+    <x-mine.loading condition="!showForm&&!success&&!errorSta"/>
+    <template x-cloak x-if="errorSta">
+        <div role="success" class="flex flex-col justify-center items-center gap-2 m-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 stroke-red-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            </svg>
+            <p class="text-xl font-medium text-red-500">Failed to Delete</p>
+            <p class="text-sm font-medium">
+                <span class="capitalize" x-text="errorName"></span>
+                <span x-text="error"></span>
+            </p>
+
+            <div class="flex justify-between gap-2">
+                <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
+            </div>
+        </div>
+    </template>
 
     <x-mine.success>
         <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
