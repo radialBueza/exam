@@ -6,12 +6,12 @@
     'open',
     'url',
 ]) --}}
-@aware(['open',])
+@aware(['open'])
 @props([
     'title',
     'subtitle',
     'form',
-    'inputs' => ['name'],
+    'inputs',
     'open',
     'url',
 ])
@@ -25,9 +25,14 @@
         @endforeach
     },
     async sendData(form) {
+        @if($open == "openEdit")
+            const url = '{{$url}}/' + toEdit.id
+        @else
+            const url = '{{$url}}'
+        @endif
         this.showLoad = true
         const inputForm = new FormData(form)
-        const res = await fetch(`{{$url}}`, {
+        const res = await fetch(url, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json'
@@ -76,7 +81,9 @@
         @endforeach
 
         @if($open == "openAdd")
-        $refs.{{$form}}.reset()
+        if ($refs.{{$form}}) {
+            $refs.{{$form}}.reset()
+        }
         @endif
     }else {
 

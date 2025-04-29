@@ -5,8 +5,21 @@
         </h1>
     </x-slot>
         <x-mine.datas :$datas index="{{route('gradeLevels.all')}}">
-            <x-mine.crud>
-                <x-mine.bg-container>
+            <x-mine.crud
+                :search="route('departments.show', $info->id)"
+                :addTitle="'add grade level'"
+                :addSub="'Add a grade level for the school.'"
+                :addForm="addGradeLevel"
+                :inputs="['name', 'department_id', 'show']"
+                :addRoute="route('departments.createFor', $info->id)"
+                :dellAllRoute="route('gradeLevels.destroyAll')"
+                :dellOneRoute="route('departments.createFor', $info->id)"
+                :updateTitle="'update grade level'"
+                :updateSub="'Update a department of the school.'"
+                :updateForm="'updateGradeLevel'"
+                :updateRoute="route('departments.createFor', $info->id)"
+            >>
+                <x-slot name="head">
                     <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9" >
                         <div>
                             <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
@@ -21,6 +34,7 @@
                             </p>
                         </div>
                     </x-mine.card-container>
+                <x-slot>
                     <x-mine.card-container class="p-5 sm:p-9">
                         <x-mine.cdp/>
                         <x-mine.search url="{{route('departments.show', $info->id)}}"/>

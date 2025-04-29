@@ -6,7 +6,7 @@
     </x-slot>
         <x-mine.datas :$datas index="{{url('exams/questions/')}}">
             <x-mine.crud>
-                <div x-data="{
+                {{-- <div x-data="{
                     info: {{Js::from($info)}},
                     async activate() {
                         const res = await fetch('{{route('exams.activate', $info->id)}}', {
@@ -21,11 +21,26 @@
                             this.info.is_active = !this.info.is_active
                         }
                     }
-                }">
+                }"> --}}
                     <x-mine.bg-container>
                         {{-- Name and Activate --}}
                         <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9">
-                            <div class="flex justify-between pb-2 border-b-2">
+                            <div class="flex justify-between pb-2 border-b-2" x-data="{
+                                info: {{Js::from($info)}},
+                                async activate() {
+                                    const res = await fetch('{{route('exams.activate', $info->id)}}', {
+                                        method: 'PUT',
+                                        headers: {
+                                            'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
+                                            'Accept': 'application/json'
+                                        }
+                                    })
+
+                                    if(res.status == 200) {
+                                        this.info.is_active = !this.info.is_active
+                                    }
+                                }
+                            }">
                                 <div>
                                     <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize">
                                         {{$info->name}}
@@ -267,7 +282,7 @@
                             </x-mine.form-modal>
                         </x-mine.modal>
                     </x-mine.bg-container>
-                </div>
+                {{-- </div> --}}
             </x-mine.crud>
         </x-mine.datas>
 </x-app-layout>

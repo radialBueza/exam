@@ -28,10 +28,8 @@
             toDelete.items = []
         }else {
             const result = await res.json()
-            console.log(result.deletedId)
-            console.log(result)
             if(result.deletedId.length !== 0) {
-                datas = datas.filter(data => !result.deleteId.includes(data.id))
+                datas = datas.filter(data => !result.deletedId.includes(data.id))
             }
             this.errorName = result.name
             this.error = result.errorMsg
