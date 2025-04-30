@@ -1,4 +1,4 @@
-@props(['url'])
+@aware(['url'])
 <div x-data="{
     url: new URL('{{$url}}'),
     searchTxt: '',

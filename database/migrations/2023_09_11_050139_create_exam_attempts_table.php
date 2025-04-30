@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('exam_attempts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('exam_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('exam_id')->constrained()->cascadeOnDelete();
             $table->smallInteger('score')->default(0);
             $table->decimal('percent', 4, 1)->default(0);
             $table->smallInteger('grade')->default(60);

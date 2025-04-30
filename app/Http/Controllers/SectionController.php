@@ -107,15 +107,37 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
+        if ($section->users()->exists()) {
+            return response()->json([
+                'name' => $section->name,
+                'errorMsg' => " has Students."
+            ], 409);
+        }
+
         $section->delete();
 
-        return response(200);
+        return response()->noContent();
     }
 
     public function destroyAll(Request $request)
     {
-        Section::destroy($request->items);
+        $secWithStud = Section::whereIn('id', $request->items)
+            ->has('users')
+            ->pluck('name', 'id');
 
-        return response(200);
+        $canDelete = array_diff($request->items, $secWithStud->keys()->toArray());
+
+        Section::whereIn('id', $canDelete)->delete();
+
+        if (!empty($secWithStud)) {
+            $name = implode(", ", $secWithStud->values()->toArray());
+            return response()->json([
+                'name' => $name,
+                'errorMsg' => " have Students.",
+                'deletedId' => array_values($canDelete)
+            ], 409);
+        }
+
+        return response()->noContent();
     }
 }

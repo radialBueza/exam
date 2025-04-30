@@ -409,15 +409,38 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        if ($user->exams()->exists()) {
+            return response()->json([
+                'name' => $user->name,
+                'errorMsg' => " has Exams."
+            ], 409);
+        }
 
-        return response(200);
+        $user->delete();
+        
+        return response()->noContent();
+
     }
 
     public function destroyAll(Request $request)
     {
-        User::destroy($request->items);
+        $userWithExam = Section::whereIn('id', $request->items)
+            ->has('exams')
+            ->pluck('name', 'id');
 
-        return response(200);
+        $canDelete = array_diff($request->items, $userWithExam->keys()->toArray());
+
+        User::whereIn('id', $canDelete)->delete();
+
+        if (!empty($userWithExam)) {
+            $name = implode(", ", $userWithExam->values()->toArray());
+            return response()->json([
+                'name' => $name,
+                'errorMsg' => " have Exams.",
+                'deletedId' => array_values($canDelete)
+            ], 409);
+        }
+
+        return response()->noContent();
     }
 }

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('subject_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('grade_level_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('subject_id')->constrained();
+            $table->foreignId('grade_level_id')->nullable();
             $table->text('description');
             $table->integer('num_of_questions');
             $table->boolean('is_active')->default(false);

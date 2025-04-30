@@ -66,22 +66,30 @@
         this.openOneDel = true
     },
 }">
-    @isset($head)
-        {{$head}}
-    @endisset
     <x-mine.bg-container>
+        @isset($head)
+            {{$head}}
+        @endisset
         <x-mine.card-container class="p-5 sm:p-9">
             <x-mine.cdp/>
             <x-mine.search :url="$search"/>
             <x-mine.table>
                 <x-slot name="thead">
+                    <th scope="col" class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.length == datas?.length  && datas.length != 0" @click="selectAll()"></th>
                     {{$thead}}
+                    <th scope="col" class="px-6 py-3"></th>
                 </x-slot>
+                <td class="px-6 py-3"><input type="checkbox" :checked="toDelete.items.includes(data.id)" @click="addDelete(data.id)"></td>
+
                 {{$table}}
                 <x-slot name="action">
-                    {{$action}}
+                    <x-mine.td-action/>
                 </x-slot>
             </x-mine.table>
+            @isset($extra)
+                {{$extra}}
+            @endisset
+            
         </x-mine.card-container>
         <x-mine.modal open="openAdd">
             <x-mine.form-modal :title="$addTitle" :subtitle="$addSub" :form="$addForm" :$inputs :url="$addRoute">

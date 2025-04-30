@@ -135,15 +135,40 @@ class GradeLevelController extends Controller
      */
     public function destroy(GradeLevel $gradeLevel)
     {
+        if ($gradeLevel->sections()->exists() || $gradeLevel->exams()->exists()) {
+            return response()->json([
+                'name' => $gradeLevel->name,
+                'errorMsg' => " has existing Sections or Exams."
+            ], 409);
+        }
+
         $gradeLevel->delete();
 
-        return response(200);
+        return response()->noContent();
     }
 
     public function destroyAll(Request $request)
     {
-        GradeLevel::destroy($request->items);
 
-        return response(200);
+        $gradeWithSec = GradeLevel::whereIn('id', $request->items)
+            ->where(function ($query) {
+                $query->has('sections')
+                    ->orHas('exams');
+            })->pluck('name', 'id');
+
+        $canDelete = array_diff($request->items, $gradeWithSec->keys()->toArray());
+
+        GradeLevel::whereIn('id', $canDelete)->delete();
+
+        if (!empty($gradeWithSec)) {
+            $name = implode(", ", $gradeWithSec->values()->toArray());
+            return response()->json([
+                'name' => $name,
+                'errorMsg' => " have existing Sections or Exams.",
+                'deletedId' => array_values($canDelete)
+            ], 409);
+        }
+
+        return response()->noContent();
     }
 }

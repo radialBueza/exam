@@ -81,15 +81,37 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
+        if ($subject->exams()->exists()) {
+            return response()->json([
+                'name' => $subject->name,
+                'errorMsg' => " has Exams."
+            ], 409);
+        }
+
         $subject->delete();
 
-        return response(200);
+        return response()->noContent();
     }
 
     public function destroyAll(Request $request)
     {
-        Subject::destroy($request->items);
+        $subWithExam = Subject::whereIn('id', $request->items)
+            ->has('users')
+            ->pluck('name', 'id');
 
-        return response(200);
+        $canDelete = array_diff($request->items, $subWithExam->keys()->toArray());
+
+        Subject::whereIn('id', $canDelete)->delete();
+
+        if (!empty($subWithExam)) {
+            $name = implode(", ", $subWithExam->values()->toArray());
+            return response()->json([
+                'name' => $name,
+                'errorMsg' => " have Exams.",
+                'deletedId' => array_values($canDelete)
+            ], 409);
+        }
+
+        return response()->noContent();
     }
 }

@@ -22,8 +22,8 @@ return new class extends Migration
             $table->date('birthday')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->enum('account_type', ['admin', 'teacher', 'advisor', 'student'])->nullable();
-            $table->foreignId('department_id')->nullable()->default(null)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('section_id')->nullable()->default(null)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('department_id')->nullable()->default(null)->constrained();
+            $table->foreignId('section_id')->nullable()->default(null)->constrained();
             $table->boolean('take_survey')->default(false);
             $table->rememberToken();
             $table->timestamps();

@@ -18,7 +18,6 @@
                                         <x-mine.th-cell col="name">
                                             name
                                         </x-mine.th-cell>
-
                                         <x-mine.th-cell col="grade_level_name">
                                             grade level
                                         </x-mine.th-cell>

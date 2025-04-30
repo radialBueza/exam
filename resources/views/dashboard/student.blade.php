@@ -29,7 +29,6 @@
             <x-mine.card-container class="p-5 sm:p-9">
                 <div class="pb-4 mb-4 text-xl font-medium border-b-2">Available Examination</div>
                 <x-mine.table>
-                    <x-mine.clean-table>
                         <x-slot name="thead">
                             <x-mine.th-cell col="name">
                                 name
@@ -48,7 +47,6 @@
                                 <x-mine.button do="start(data.id)" class="text-white whitespace-nowrap border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Go to Exam</x-mine.button>
                             </div>
                         </td>
-                    </x-mine.clean-table>
                 </x-mine.table>
             </x-mine.card-container>
             <x-mine.modal open="openStart" maxWidth="2xl">
