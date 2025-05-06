@@ -20,24 +20,22 @@
             <x-mine.card-container class="p-5 sm:p-9">
                 <div class="pb-4 mb-4 text-xl font-medium border-b-2">Examination Taken</div>
                 <x-mine.table>
-                    <x-mine.clean-table>
-                        <x-slot name="thead">
-                            <x-mine.th-cell col="name">
-                                name
-                            </x-mine.th-cell>
-                            <x-mine.th-cell col="subject_name">
-                                subject
-                            </x-mine.th-cell>
-                            <x-mine.th-cell col="grade_level_name">
-                                Grade Level
-                            </x-mine.th-cell>
-                        </x-slot>
-                        <x-mine.td-cell-primary>
-                            <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
-                        </x-mine.td-cell-primary>
-                        <x-mine.td-cell txt="data.subject_name"/>
-                        <x-mine.td-cell txt="data.grade_level_name"/>
-                    </x-mine.clean-table>
+                    <x-slot name="thead">
+                        <x-mine.th-cell col="name">
+                            name
+                        </x-mine.th-cell>
+                        <x-mine.th-cell col="subject_name">
+                            subject
+                        </x-mine.th-cell>
+                        <x-mine.th-cell col="grade_level_name">
+                            Grade Level
+                        </x-mine.th-cell>
+                    </x-slot>
+                    <x-mine.td-cell-primary>
+                        <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
+                    </x-mine.td-cell-primary>
+                    <x-mine.td-cell txt="data.subject_name"/>
+                    <x-mine.td-cell txt="data.grade_level_name"/>
                 </x-mine.table>
             </x-mine.card-container>
         </x-mine.bg-container>

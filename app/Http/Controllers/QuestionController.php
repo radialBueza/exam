@@ -89,7 +89,7 @@ class QuestionController extends Controller
 
         $question->delete();
 
-        return response(200);
+        return response()->noContent();
     }
 
     public function destroyAll(Request $request)
@@ -119,6 +119,6 @@ class QuestionController extends Controller
 
         Question::destroy($request->items);
 
-        return response(200);
+        return response()->noContent();
     }
 }

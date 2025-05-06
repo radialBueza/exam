@@ -82,7 +82,7 @@
                                 </template>
                                 <x-mine.loading condition="!showForm&&!success"/>
 
-                                <x-mine.success>
+                                <x-mine.success txt="edited">
                                     <x-mine.button do="openRetake = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
                                 </x-mine.success>
                             </div>

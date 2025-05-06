@@ -8,24 +8,62 @@
         <x-mine.card-container class="mb-4 sm:mb-6 p-5 sm:p-9">
             <div x-data="{
                 user: {{Js::from($user)}},
+                openRetake: false,
+                showForm: true,
+                success: false,
+                url: '{{route('retake')}}',
                 async retake() {
-                    const res = await fetch(`{{route('retake')}}/${this.user.id}`, {
+                    this.url += `/${this.user.id}`
+                    const res = await fetch(this.url, {
                         method: 'PUT',
                         headers: {
                             'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
                             'Accept': 'application/json'
                         }
                     })
+                    this.showForm = false
+                    if(res.status == 200) {
+                        this.success = true
+                    }
                 }
             }">
+                @if (Auth::user()->account_type == 'admin')
                 <div class="flex justify-between items-center pb-2 border-b-2">
                     <h2 class="font-semibold text-2xl text-gray-800 leading-tight capitalize" x-text="user.name"></h2>
-                    @if (Auth::user()->account_type == 'admin')
-                    <x-mine.button do="retake()" class="text-slate-600 border border-transparent focus:ring-transparent">
+                    <x-mine.button do="openRetake = true" class="text-slate-600 border border-transparent focus:ring-transparent">
                         Re-Take Survey
                     </x-mine.button>
-                    @endif
+                    <x-mine.modal open="openRetake">
+                        <div x-init="$watch('openRetake', (value) => {
+                            if (value == true) {
+                                showForm = true
+                                success = false
+                            }
+                        })">
+                            <template x-cloak x-if="showForm">
+                                <div>
+                                    <div class="flex flex-col items-center justify-center space-y-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 stroke-red-500">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                        </svg>
+                                        <p class="text-xl font-medium text-red-500">Are you sure you want to make students retake survey?</p>
+                                        <div class="flex items-center justify-between gap-2">
+                                            <x-mine.button do="retake()" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Confirm</x-mine.button>
+                                            <x-mine.button do="openRetake = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Cancel</x-mine.button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <x-mine.loading condition="!showForm&&!success"/>
+
+                            <x-mine.success txt="edited">
+                                <x-mine.button do="openRetake = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
+                            </x-mine.success>
+                        </div>
+                    </x-mine.modal>
                 </div>
+                @endif
+
                 <table class="text-sm mt-2">
                     @if (Auth::user()->account_type == 'admin')
                     <tr>
@@ -100,153 +138,149 @@
                                 <x-mine.search url="{{route('myStudents.show', $user->id)}}"/>
                                 @endif
                                 <x-mine.table>
-                                    <x-mine.clean-table>
-                                        <x-slot name="thead">
-                                            <x-mine.th-cell col="exam_name">
-                                                Exam
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="subject">
-                                                Subject
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="score">
-                                                score
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="percent">
-                                                percent
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="grade">
-                                                grade
-                                            </x-mine.th-cell>
-                                        </x-slot>
-                                        <x-mine.td-cell-primary>
-                                            <a :href="`${index}/${data.id}`" x-text="data.exam_name"></a>
-                                        </x-mine.td-cell-primary>
-                                        <x-mine.td-cell txt="data.subject"/>
-                                        <x-mine.td-cell txt="data.score"/>
-                                        <x-mine.td-cell txt="data.percent"/>
-                                        <x-mine.td-cell txt="data.grade"/>
-                                    </x-mine.clean-table>
+                                    <x-slot name="thead">
+                                        <x-mine.th-cell col="exam_name">
+                                            Exam
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="subject">
+                                            Subject
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="score">
+                                            score
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="percent">
+                                            percent
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="grade">
+                                            grade
+                                        </x-mine.th-cell>
+                                    </x-slot>
+                                    <x-mine.td-cell-primary>
+                                        <a :href="`${index}/${data.id}`" x-text="data.exam_name"></a>
+                                    </x-mine.td-cell-primary>
+                                    <x-mine.td-cell txt="data.subject"/>
+                                    <x-mine.td-cell txt="data.score"/>
+                                    <x-mine.td-cell txt="data.percent"/>
+                                    <x-mine.td-cell txt="data.grade"/>
                                 </x-mine.table>
                     </x-mine.datas>
                 </div>
                 <div x-cloak x-show="pages[1]">
                     <x-mine.datas :datas="$surveys">
-                        <x-mine.table :pageSize="15">
-                            <x-mine.clean-table :paginate="false">
-                                <x-slot name="thead">
-                                    <x-mine.th-cell col="name">
-                                        Name
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="a">
-                                        0 mins/games
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="b">
-                                        &lt; 1 hr/game
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="c">
-                                        &lt; 2 hrs/games
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="d">
-                                        &lt; 3 hrs/games
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="e">
-                                        &lt; 4 hrs/games
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="f">
-                                        &lt; 5 hrs/games
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="g">
-                                        6 hrs/games &lt;
-                                    </x-mine.th-cell>
-                                </x-slot>
-                                <x-mine.td-cell-primary :isLink="false">
-                                    <p x-text="data.name"></p>
-                                </x-mine.td-cell-primary>
-                                <td scope="col" class="px-6 py-3">
-                                    <template x-cloak x-if="!data.a">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                                        </svg>
-                                    </template>
-                                    <template x-cloak x-if="data.a">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                    </template>
-                                </td>
-                                <td scope="col" class="px-6 py-3">
-                                    <template x-cloak x-if="!data.b">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                                        </svg>
-                                    </template>
-                                    <template x-cloak x-if="data.b">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                    </template>
-                                </td>
-                                <td scope="col" class="px-6 py-3">
-                                    <template x-cloak x-if="!data.c">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                                        </svg>
-                                    </template>
-                                    <template x-cloak x-if="data.c">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                    </template>
-                                </td>
-                                <td scope="col" class="px-6 py-3">
-                                    <template x-cloak x-if="!data.d">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                                        </svg>
-                                    </template>
-                                    <template x-cloak x-if="data.d">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                    </template>
-                                </td>
-                                <td scope="col" class="px-6 py-3">
-                                    <template x-cloak x-if="!data.e">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                                        </svg>
-                                    </template>
-                                    <template x-cloak x-if="data.e">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                    </template>
-                                </td>
-                                <td scope="col" class="px-6 py-3">
-                                    <template x-cloak x-if="!data.f">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                                        </svg>
-                                    </template>
-                                    <template x-cloak x-if="data.f">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                    </template>
-                                </td>
-                                <td scope="col" class="px-6 py-3">
-                                    <template x-cloak x-if="!data.g">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                                        </svg>
-                                    </template>
-                                    <template x-cloak x-if="data.g">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                        </svg>
-                                    </template>
-                                </td>
-                            </x-mine.clean-table>
+                        <x-mine.table :pageSize="15" :paginate="true">
+                            <x-slot name="thead">
+                                <x-mine.th-cell col="name">
+                                    Name
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="a">
+                                    0 mins/games
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="b">
+                                    &lt; 1 hr/game
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="c">
+                                    &lt; 2 hrs/games
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="d">
+                                    &lt; 3 hrs/games
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="e">
+                                    &lt; 4 hrs/games
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="f">
+                                    &lt; 5 hrs/games
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="g">
+                                    6 hrs/games &lt;
+                                </x-mine.th-cell>
+                            </x-slot>
+                            <x-mine.td-cell-primary :isLink="false">
+                                <p x-text="data.name"></p>
+                            </x-mine.td-cell-primary>
+                            <td scope="col" class="px-6 py-3">
+                                <template x-cloak x-if="!data.a">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                    </svg>
+                                </template>
+                                <template x-cloak x-if="data.a">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                            </td>
+                            <td scope="col" class="px-6 py-3">
+                                <template x-cloak x-if="!data.b">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                    </svg>
+                                </template>
+                                <template x-cloak x-if="data.b">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                            </td>
+                            <td scope="col" class="px-6 py-3">
+                                <template x-cloak x-if="!data.c">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                    </svg>
+                                </template>
+                                <template x-cloak x-if="data.c">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                            </td>
+                            <td scope="col" class="px-6 py-3">
+                                <template x-cloak x-if="!data.d">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                    </svg>
+                                </template>
+                                <template x-cloak x-if="data.d">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                            </td>
+                            <td scope="col" class="px-6 py-3">
+                                <template x-cloak x-if="!data.e">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                    </svg>
+                                </template>
+                                <template x-cloak x-if="data.e">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                            </td>
+                            <td scope="col" class="px-6 py-3">
+                                <template x-cloak x-if="!data.f">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                    </svg>
+                                </template>
+                                <template x-cloak x-if="data.f">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                            </td>
+                            <td scope="col" class="px-6 py-3">
+                                <template x-cloak x-if="!data.g">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                    </svg>
+                                </template>
+                                <template x-cloak x-if="data.g">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                    </svg>
+                                </template>
+                            </td>
                         </x-mine.table>
                     </x-mine.datas>
                 </div>

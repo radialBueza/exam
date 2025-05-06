@@ -417,14 +417,14 @@ class UserController extends Controller
         }
 
         $user->delete();
-        
+
         return response()->noContent();
 
     }
 
     public function destroyAll(Request $request)
     {
-        $userWithExam = Section::whereIn('id', $request->items)
+        $userWithExam = User::whereIn('id', $request->items)
             ->has('exams')
             ->pluck('name', 'id');
 

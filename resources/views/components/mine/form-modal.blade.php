@@ -14,6 +14,7 @@
     'inputs',
     'open',
     'url',
+    'txt' => 'created',
 ])
 <div x-data="{
     showLoad: false,
@@ -122,7 +123,7 @@
     </template>
     <x-mine.loading condition="showLoad" :isModal="true"/>
 
-    <x-mine.success>
+    <x-mine.success :$txt>
         @if ($open == "openAdd")
             <x-mine.button do="again()" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Add</x-mine.button>
             <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>

@@ -80,32 +80,30 @@
                     <x-mine.datas :$datas index="{{route('exams.all')}}">
                                 <x-mine.search url="{{route('users.show', ['user' => $user->id, 'type' => 'exams'])}}"/>
                                 <x-mine.table>
-                                    <x-mine.clean-table>
-                                        <x-slot name="thead">
-                                            <x-mine.th-cell col="name">
-                                                name
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="grade_level_name">
-                                                grade level
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="subject_name">
-                                                subject
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="description">
-                                                description
-                                            </x-mine.th-cell>
-                                            <x-mine.th-cell col="created_at">
-                                                created
-                                            </x-mine.th-cell>
-                                        </x-slot>
-                                        <x-mine.td-cell-primary>
-                                            <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
-                                        </x-mine.td-cell-primary>
-                                        <x-mine.td-cell txt="data.grade_level_name"/>
-                                        <x-mine.td-cell txt="data.subject_name"/>
-                                        <x-mine.td-cell txt="data.description"/>
-                                        <x-mine.td-cell txt="data.created_at"/>
-                                    </x-mine.clean-table>
+                                    <x-slot name="thead">
+                                        <x-mine.th-cell col="name">
+                                            name
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="grade_level_name">
+                                            grade level
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="subject_name">
+                                            subject
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="description">
+                                            description
+                                        </x-mine.th-cell>
+                                        <x-mine.th-cell col="created_at">
+                                            created
+                                        </x-mine.th-cell>
+                                    </x-slot>
+                                    <x-mine.td-cell-primary>
+                                        <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
+                                    </x-mine.td-cell-primary>
+                                    <x-mine.td-cell txt="data.grade_level_name"/>
+                                    <x-mine.td-cell txt="data.subject_name"/>
+                                    <x-mine.td-cell txt="data.description"/>
+                                    <x-mine.td-cell txt="data.created_at"/>
                                 </x-mine.table>
                     </x-mine.datas>
                 @if ($user->account_type == 'admin' || $user->account_type == 'advisor')
@@ -114,24 +112,22 @@
                     <x-mine.datas :datas="$students" index="{{route('users.all')}}">
                         <x-mine.search url="{{route('users.show', ['user' => $user->id, 'type' => 'students'])}}"/>
                         <x-mine.table>
-                            <x-mine.clean-table>
-                                <x-slot name="thead">
-                                    <x-mine.th-cell col="name">
-                                        Name
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="email">
-                                        E-mail
-                                    </x-mine.th-cell>
-                                    <x-mine.th-cell col="birthday">
-                                        Birthday
-                                    </x-mine.th-cell>
-                                </x-slot>
-                                <x-mine.td-cell-primary :isLink="false">
-                                    <p x-text="data.name"></p>
-                                </x-mine.td-cell-primary>
-                                <td scope="col" class="px-6 py-3" x-text="data.email"></td>
-                                <x-mine.td-cell txt="data.birthday"/>
-                            </x-mine.clean-table>
+                            <x-slot name="thead">
+                                <x-mine.th-cell col="name">
+                                    Name
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="email">
+                                    E-mail
+                                </x-mine.th-cell>
+                                <x-mine.th-cell col="birthday">
+                                    Birthday
+                                </x-mine.th-cell>
+                            </x-slot>
+                            <x-mine.td-cell-primary :isLink="false">
+                                <p x-text="data.name"></p>
+                            </x-mine.td-cell-primary>
+                            <td scope="col" class="px-6 py-3" x-text="data.email"></td>
+                            <x-mine.td-cell txt="data.birthday"/>
                         </x-mine.table>
                     </x-mine.datas>
                     </div>

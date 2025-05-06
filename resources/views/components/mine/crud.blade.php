@@ -89,7 +89,7 @@
             @isset($extra)
                 {{$extra}}
             @endisset
-            
+
         </x-mine.card-container>
         <x-mine.modal open="openAdd">
             <x-mine.form-modal :title="$addTitle" :subtitle="$addSub" :form="$addForm" :$inputs :url="$addRoute">
@@ -110,7 +110,7 @@
             <x-mine.delete-one-modal :delUrl="$dellOneRoute"/>
         </x-mine.modal>
         <x-mine.modal open="openEdit">
-            <x-mine.form-modal :title="$updateTitle" :subtitle="$updateSub" :form="$updateForm" :$inputs :url="$updateRoute">
+            <x-mine.form-modal :title="$updateTitle" :subtitle="$updateSub" :form="$updateForm" :$inputs :url="$updateRoute" txt="edited">
                 {{$upModal}}
                 <x-slot name="buttons">
                     <x-mine.submit-button class="justify-end">

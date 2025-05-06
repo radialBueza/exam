@@ -275,14 +275,14 @@ class ExamController extends Controller
     {
         $exam->delete();
 
-        return response(200);
+        return response()->noContent();
     }
 
     public function destroyAll(Request $request)
     {
         Exam::destroy($request->items);
 
-        return response(200);
+        return response()->noContent();
     }
 
     public function activate(Exam $exam)
@@ -291,6 +291,6 @@ class ExamController extends Controller
 
         $exam->save();
 
-        return response(200);
+        return response();
     }
 }

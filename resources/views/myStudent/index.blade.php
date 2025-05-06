@@ -9,25 +9,23 @@
                 <x-mine.card-container class="p-5 sm:p-9">
                     <x-mine.search url="{{route('myStudents.index')}}"/>
                     <x-mine.table>
-                        <x-mine.clean-table>
-                            <x-slot name="thead">
-                                <x-mine.th-cell col="name">
-                                    Name
-                                </x-mine.th-cell>
-                                <x-mine.th-cell col="email">
-                                    E-mail
-                                </x-mine.th-cell>
-                                <x-mine.th-cell col="birthday">
-                                    Birthday
-                                </x-mine.th-cell>
-                            </x-slot>
+                        <x-slot name="thead">
+                            <x-mine.th-cell col="name">
+                                Name
+                            </x-mine.th-cell>
+                            <x-mine.th-cell col="email">
+                                E-mail
+                            </x-mine.th-cell>
+                            <x-mine.th-cell col="birthday">
+                                Birthday
+                            </x-mine.th-cell>
+                        </x-slot>
 
-                            <x-mine.td-cell-primary>
-                                <a :href="`${index}/${data.id}`" x-text="data.name"></a>
-                            </x-mine.td-cell-primary>
-                            <td scope="col" class="px-6 py-3" x-text="data.email"></td>
-                            <x-mine.td-cell txt="data.birthday"/>
-                        </x-mine.clean-table>
+                        <x-mine.td-cell-primary>
+                            <a :href="`${index}/${data.id}`" x-text="data.name"></a>
+                        </x-mine.td-cell-primary>
+                        <td scope="col" class="px-6 py-3" x-text="data.email"></td>
+                        <x-mine.td-cell txt="data.birthday"/>
                     </x-mine.table>
                 </x-mine.card-container>
             </x-mine.bg-container>

@@ -29,15 +29,15 @@ use App\Http\Controllers\StatisticController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::redirect('/', '/login');
+
+
 // , 'cache.headers:no_store'
-Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', CheckSection::class, CheckSurvey::class])->name('dashboard');
+Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', CheckSurvey::class])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -86,12 +86,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('can:student')->group(function(){
         //get student's section
-        Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
-        Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection')->middleware('can:pickSection,user');
+        // Route::get('/student/picksection', [PickSection::class, 'index'])->name('pickSection');
+        // Route::put('/student/picksection/{user}', [PickSection::class, 'setSection'])->name('setSection')->middleware('can:pickSection,user');
         Route::get('/survey', [SurveyController::class, 'create'])->name('survey');
         Route::post('/survey/{user}', [SurveyController::class, 'store'])->name('recordSurvey');
 
-        Route::middleware([CheckSection::class, CheckSurvey::class])->group(function() {
+        Route::middleware(CheckSurvey::class)->group(function() {
             // take exam
             Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware(['cache.headers:no_store', 'can:take-exam,exam']);
             // Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware('cache.headers:no_store');

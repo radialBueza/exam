@@ -76,7 +76,7 @@
         </div>
     </template>
 
-    <x-mine.success>
+    <x-mine.success txt="deleted">
         <x-mine.button do="{{$open}} = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Close</x-mine.button>
     </x-mine.success>
 </div>
