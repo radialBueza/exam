@@ -10,8 +10,10 @@
             toOpen: {},
             start(id) {
                 const getIndex = (el) => el.id == id
-                let index = this.datas.findIndex(getIndex)
-                this.toOpen = this.datas[index]
+                let index = datas.findIndex(getIndex)
+                this.toOpen = datas[index]
+                this.toOpen.hours = String(Math.floor(this.toOpen.time_limit/60)).padStart(2, '0')
+                this.toOpen.minutes = String(this.toOpen.time_limit % 60).padStart(2, '0')
                 this.openStart = true
                 return
             }
@@ -68,7 +70,8 @@
                         <div class="border-b text-sm font-semibold px-1 py-2">Numer of Questions: </div>
                         <div x-text="toOpen.num_of_questions" class="border-b text-sm col-span-2 px-1 py-2"></div>
                         <div class="border-b text-sm font-semibold px-1 py-2">Time Limit: </div>
-                        <div x-text="toOpen.time_limit" class="border-b text-sm col-span-2 px-1 py-2"></div>
+                        {{-- <div x-text="toOpen.time_limit" class="border-b text-sm col-span-2 px-1 py-2"></div> --}}
+                        <div class="border-b text-sm col-span-2 px-1 py-2"><span x-text="toOpen.hours"></span><span>:</span><span x-text="toOpen.minutes"></span></div>
                     </div>
                     <div class="pt-4 flex justify-end">
                         <x-mine.link-button href="{{url('takeExam')}}/${toOpen.id}" class="whitespace-nowrap border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">

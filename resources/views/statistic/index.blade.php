@@ -108,6 +108,10 @@
                             </tr>
                         </tbody>
                     </table>
+                    {{-- interpretation and advice --}}
+                    <div>
+                        
+                    </div>
                 </div>
 
                 {{-- Play Time --}}
