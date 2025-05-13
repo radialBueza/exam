@@ -84,8 +84,8 @@
                             </select>
                         </form>
                     </div>
-                    <div class="w-4/5 mx-auto overflow-auto">
-                        <canvas x-ref="corr"></canvas>
+                    <div class="w-full mx-auto overflow-auto">
+                        <canvas x-ref="corr" class="w-full h-full"></canvas>
                     </div>
                     <table class="w-full mt-2">
                         <thead>
@@ -109,8 +109,16 @@
                         </tbody>
                     </table>
                     {{-- interpretation and advice --}}
-                    <div>
-                        
+                    <div class="flex flex-col space-y-2 pt-2.5 font-light">
+                        <div>
+                            <h3 class="capitalize font-semibold">interpretation</h3>
+                            <p class="indent-4" x-html="result.inter"></p>
+                        </div>
+                        <div>
+                            <h3 class="capitalize font-semibold">Recommended Action</h3>
+                            <p class="indent-4" x-text="result.recom"></p>
+                        </div>
+                        <p class="text-stone-900 border-t-2 text-sm pt-2"><strong>Warning:</strong> The displayed correlations (Pearson’s r and Spearman’s ρ) show links between gaming time and abstract reasoning scores, but they don’t mean that one causes the other. Patterns like bell-shaped trends or outside influences might not be captured. Please interpret the results carefully.</p>
                     </div>
                 </div>
 
@@ -205,6 +213,8 @@
                             ]
                             },
                             options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
                                 plugins: {
                                     legend: {
                                         display:true
@@ -223,8 +233,8 @@
                         })
                     }
                 }">
-                    <div>
-                        <canvas x-ref="avgStdev"></canvas>
+                    <div class="w-full mx-auto overflow-auto">
+                        <canvas x-ref="avgStdev" class="w-full h-full"></canvas>
                     </div>
                     <table class="w-full mt-2">
                         <thead>
@@ -291,6 +301,8 @@
                                 }]
                             },
                             options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
                                 plugins: {
                                     title: {
                                         display: true,
@@ -301,12 +313,12 @@
                         })
                     }
                 }">
-                    <div class="flex">
-                        <div class="w-1/2">
-                            <canvas x-ref="gamer"></canvas>
+                    <div class="flex w-full mx-auto overflow-auto justify-around">
+                        <div class="w-2/3 h-auto aspect-square">
+                            <canvas x-ref="gamer" class="w-full h-full"></canvas>
                         </div>
-                        <div class="w-1/2">
-                            <canvas x-ref="nonGamer"></canvas>
+                        <div class="w-2/3 h-auto aspect-square">
+                            <canvas x-ref="nonGamer" class="w-full h-full"></canvas>
                         </div>
                     </div>
 
@@ -356,8 +368,8 @@
                             </select>
                         </form>
                     </div>
-                    <div class="w-1/2 mx-auto">
-                        <canvas x-ref="freqDough"></canvas>
+                    <div class="w-full mx-auto overflow-auto">
+                        <canvas x-ref="freqDough" class="w-full h-full"></canvas>
                     </div>
                     <table class="w-full mt-2">
                         <thead>

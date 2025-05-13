@@ -112,6 +112,8 @@ function corrChart() {
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             display:false
@@ -142,31 +144,32 @@ function corrChart() {
         },
         // game = game data, abs = abstract test data, length = min length
         getStat(games, abs, length) {
-            let pResult = null;
-            let sResult = null;
-            let pCorr = null;
-            let sCorr = null;
-            let pRej = null;
-            let sRej = null;
             if(length >= 4) {
-                pResult = pcorrtest(games, abs)
-                sResult = spearman(games, abs)
-                pCorr = isNaN(pResult.pcorr)  ? 'Too little variation' : (pResult.pcorr).toFixed(2)
-                sCorr = isNaN(pResult.pcorr)  ? 'Too little variation' : (sResult.pcorr).toFixed(2)
-                pRej = pResult.rejected
-                sRej = sResult.rejected
+                let pResult = pcorrtest(games, abs)
+                let sResult = spearman(games, abs)
+                let pCorr = isNaN(pResult.pcorr)  ? 'Too little variation' : (pResult.pcorr).toFixed(2)
+                let sCorr = isNaN(pResult.pcorr)  ? 'Too little variation' : (sResult.pcorr).toFixed(2)
+                // let pRej = pResult.rejected
+                // let sRej = sResult.rejected
+                let interAndAction =  this.interpretCorrelation(pCorr,sCorr,pResult.rejected,sResult.rejected)
                 return {
                     pCorr: pCorr,
                     sCorr: sCorr,
-                    pRej: pRej,
-                    sRej: sRej
+                    pRej: pResult.rejected,
+                    sRej: sResult.rejected,
+                    inter: interAndAction.interpretation,
+                    recom: interAndAction.action
+                    // inter: 'hello',
+                    // recom: 'hi'
                 };
             }else {
                 return {
                     pCorr: 'Not Enough Data',
                     sCorr: 'Not Enough Data',
                     pRej: 'Not Enough Data',
-                    sRej: 'Not Enough Data'
+                    sRej: 'Not Enough Data',
+                    inter: 'Not Enough Data',
+                    recom: 'Not Enough Data',
                 }
             }
         },
@@ -191,6 +194,33 @@ function corrChart() {
             reg = regression.linear(data).points
             return [xy, reg];
         },
+        interpretCorrelation(pearsonR, spearmanR, pearsonSignificant, spearmanSignificant) {
+            let interpretation = "";
+            let action = "";
+            if (!isNaN(pearsonR) || !isNaN(spearmanR)) {
+
+                if (pearsonR >= 0.6 && pearsonSignificant && spearmanR >= 0.6 && spearmanSignificant) {
+                    interpretation = "There is a strong and reliable positive relationship: <strong class='font-medium'>more gaming is linked to higher abstract reasoning scores</strong>.";
+                    action = "It is okay for students to play video games, as it may enhance abstract reasoning skills. However, gaming should not take away from their main responsibilities like school, chores, and personal well-being.";
+                } else if (pearsonR >= 0.6 && !pearsonSignificant && spearmanR >= 0.4 && spearmanSignificant) {
+                    interpretation = "There may be a trend between gaming and abstract reasoning, but it’s unclear. <strong class='font-medium'>Rankings suggest a moderate connection, but exact values fluctuate too much to confirm a strong pattern</strong>.";
+                    action = "While gaming may have some cognitive benefits, its effects are not fully certain. Students should balance gaming with their studies and other responsibilities to ensure a well-rounded approach to learning.";
+                } else if (pearsonR <= -0.5 && pearsonSignificant && spearmanR <= -0.5 && spearmanSignificant) {
+                    interpretation = "<strong class='font-medium'>Higher gaming hours seem to be associated with lower abstract reasoning scores</strong>. This trend is statistically meaningful.";
+                    action = "Excessive gaming may negatively impact abstract reasoning ability. Students should moderate their gaming time and prioritize academic and cognitive development.";
+                } else {
+                    interpretation = "No meaningful correlation between gaming and abstract reasoning. <strong class='font-medium'>The relationship is weak and unreliable</strong>.";
+                    action = "There is no clear connection between gaming and abstract reasoning scores. Students can enjoy gaming, but they should ensure it does not interfere with their essential daily tasks and learning opportunities.";
+                }
+
+                return { interpretation, action };
+            }else {
+                return {
+                    interpretation: 'There is too little or no variation in data. We can\'t give an interpretion of the data.',
+                    action: 'There are no recommended action.'
+                }
+            }
+        }
     }
 }
 
@@ -283,6 +313,8 @@ function freqChart() {
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         title: {
                             display: true
