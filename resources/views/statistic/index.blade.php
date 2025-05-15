@@ -60,335 +60,105 @@
                     </x-mine.button>
 
                 </div>
-                {{-- correlation --}}
-                <div x-cloak x-show="pages[0][0]" x-data="corrChart()">
+                {{-- correlation--}}
+                <div x-cloak x-show="pages[0][0]" x-data="{
+                        spread: [
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                        ],
+                        updateChart(e) {
+                            this.spread = this.spread.map((_, i) => i === Number(e.value))
+                        },
+                    }">
                     <div class="flex justify-center px-3 py-2 mb-2 text-gray-600 capitalize">
                         <form method="GET">
                             <label for="var" class="sr-only">Pick Variable</label>
                             <select name="varA" id="varA" @change="updateChart($el)" class="rounded-md">
-                                <option value="numGames">Number of Games Played</option>
-                                <option value="mobile">Daily Mobile Playtime</option>
-                                <option value="console">Daily Console Playtime</option>
-                                <option value="pc">Daily Computer Playtime</option>
-                                <option value="shooter">Daily Shooter Game Playtime</option>
-                                <option value="actAdv">Daily Action and Adventure Game Playtime</option>
-                                <option value="sims">Daily Simulation Game Playtime</option>
-                                <option value="moba">Daily MOBA Game Playtime</option>
-                                <option value="sports">Daily Sports Game Playtime</option>
-                                <option value="race">Daily Racing Game Playtime</option>
-                                <option value="strat">Daily Strategy Game Playtime</option>
-                                <option value="batRoy">Daily Battle Royal Game Playtime</option>
-                                <option value="puzzPlat">Daily Puzzle Platform Game Playtime</option>
-                                <option value="fight">Daily Fighting Game Playtime</option>
-                                <option value="board">Daily Online Board Game Playtime</option>
+                                @foreach ($datas as $key => $value)
+                                    <option value="{{$loop->index}}">{{$value}}</option>
+                                @endforeach
                             </select>
                         </form>
                     </div>
-                    <div class="w-full mx-auto overflow-auto">
-                        <canvas x-ref="corr" class="w-full h-full"></canvas>
+                    <div class="w-full flex flex-row justify-end my-2.5">
+                        <x-mine.link-button href="{{route('correlationPdf')}}" class="whitespace-nowrap border-transparent bg-blue-600 focus:ring-blue-600 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700">
+                            Create PDF
+                        </x-mine.link-button>
                     </div>
-                    <table class="w-full mt-2">
-                        <thead>
-                            <tr class="border-b">
-                                <td></td>
-                                <td class="text-center px-6 py-3">Pearson Product-Moment Correlation</td>
-                                <td class="text-center px-6 py-3">Spearman's Rank-Order Correlation</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="text-center px-6 py-3">Correlation</td>
-                                <td class="text-center px-6 py-3" x-text="result.pCorr"></td>
-                                <td class="text-center px-6 py-3" x-text="result.sCorr"></td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="text-center px-6 py-3">Significance</td>
-                                <td class="text-center capitalize px-6 py-3" x-text="result.pRej"></td>
-                                <td class="text-center capitalize px-6 py-3" x-text="result.sRej"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    {{-- interpretation and advice --}}
-                    <div class="flex flex-col space-y-2 pt-2.5 font-light">
-                        <div>
-                            <h3 class="capitalize font-semibold">interpretation</h3>
-                            <p class="indent-4" x-html="result.inter"></p>
-                        </div>
-                        <div>
-                            <h3 class="capitalize font-semibold">Recommended Action</h3>
-                            <p class="indent-4" x-text="result.recom"></p>
-                        </div>
-                        <p class="text-stone-900 border-t-2 text-sm pt-2"><strong>Warning:</strong> The displayed correlations (Pearson’s r and Spearman’s ρ) show links between gaming time and abstract reasoning scores, but they don’t mean that one causes the other. Patterns like bell-shaped trends or outside influences might not be captured. Please interpret the results carefully.</p>
-                    </div>
+                    <x-mine.correlation :$datas />
                 </div>
 
-                {{-- Play Time --}}
-                <div x-cloak x-show="pages[1][0]"x-data="{
-                    {{-- avg: mean, --}}
-                    {{-- std: stdev, --}}
-                    labels: [
-                        'Number of Games Played',
-                        'Mobile Playtime',
-                        'Console Playtime',
-                        'Computer Playtime',
-                        'Shooter Game Playtime',
-                        'Action and Adventure Game Playtime',
-                        'Simulation Game Playtime',
-                        'MOBA Game Playtime',
-                        'Sports Game Playtime',
-                        'Racing Game Playtime',
-                        'Strategy Game Playtime',
-                        'Battle Royal Game Playtime',
-                        'Puzzle Platform Game Playtime',
-                        'Fighting Game Playtime',
-                        'Online Board Game Playtime',
-                        'Abstract Reasoning Exam Grade'
-                    ],
-                    arrayAvgGamer: [],
-                    arrayAvgNonGamer: [],
-                    arrayStdevGamer: [],
-                    arrayStdevNonGamer: [],
-                    gamerLength: gamer.numGames.length,
-                    nonGamerLength: nonGamer.numGames.length,
-                    init() {
-                        for (const name in gamer) {
-                            if(name == 'male' || name == 'female') {
-                                continue
-                            }
-                            if(this.gamerLength <= 1) {
-                                this.arrayAvgGamer.push(0)
-                                this.arrayStdevGamer.push(0)
-                            }else {
-                                this.arrayAvgGamer.push(mean(this.gamerLength,gamer[name],1))
-                                this.arrayStdevGamer.push(stdev(this.gamerLength,1,gamer[name],1))
-                            }
-                        }
-
-                        for (const name in nonGamer) {
-                            if(name == 'male' || name == 'female') {
-                                continue
-                            }
-                            if(this.nonGamerLength <= 1) {
-                                this.arrayAvgNonGamer.push(0)
-                                this.arrayStdevNonGamer.push(0)
-                            }else {
-                                this.arrayAvgNonGamer.push(mean(this.nonGamerLength,nonGamer[name],1))
-                                this.arrayStdevNonGamer.push(stdev(this.nonGamerLength,1,nonGamer[name],1))
-                            }
-
-                        }
-
-
-                        new Chart($refs.avgStdev, {
-                            type: 'bar',
-                            data: {
-                                labels: this.labels,
-                                datasets: [{
-                                    label: 'Gamer\'s Avg.',
-                                    data: this.arrayAvgGamer,
-                                    borderColor: '#ef4444',
-                                    backgroundColor: '#f87171',
-                                    {{-- stack: 'Stack 0', --}}
-                                }, {
-                                    label: 'Gamer\'s Standard Deviation',
-                                    data: this.arrayStdevGamer,
-                                    borderColor: '#d97706',
-                                    backgroundColor: '#f59e0b',
-                                    {{-- stack: 'Stack 0', --}}
-                                },
-                                {
-                                    label: 'Non-Gamer\'s Avg.',
-                                    data: this.arrayAvgNonGamer,
-                                    borderColor: '#0891b2',
-                                    backgroundColor: '#06b6d4',
-                                    {{-- stack: 'Stack 1', --}}
-                                },
-                                {
-                                    label: 'Non-Gamer\'s Standard Deviation',
-                                    data: this.arrayStdevNonGamer,
-                                    borderColor: '#7c3aed',
-                                    backgroundColor: '#8b5cf6',
-                                    {{-- stack: 'Stack 1', --}}
-                                }
-                            ]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        display:true
-                                    },
-                                },
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                        {{-- stacked: true, --}}
-                                    },
-                                    x: {
-                                        {{-- stacked: true, --}}
-                                    }
-                                }
-                            }
-                        })
-                    }
-                }">
-                    <div class="w-full mx-auto overflow-auto">
-                        <canvas x-ref="avgStdev" class="w-full h-full"></canvas>
+                {{-- gamer-vs-non--}}
+                <div x-cloak x-show="pages[1][0]">
+                    <div class="w-full flex flex-row justify-end my-2.5">
+                        <x-mine.link-button href="{{route('gamersVsPdf')}}" class="whitespace-nowrap border-transparent bg-blue-600 focus:ring-blue-600 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700">
+                            Create PDF
+                        </x-mine.link-button>
                     </div>
-                    <table class="w-full mt-2">
-                        <thead>
-                            <tr class="border-b">
-                                <td></td>
-                                <td class="text-center px-6 py-3">Gamers' Avg. Score</td>
-                                <td class="text-center px-6 py-3">Gamers' Standard Deviation</td>
-                                <td class="text-center px-6 py-3">Non-Gamers' Avg. Score</td>
-                                <td class="text-center px-6 py-3">Non-Gamers' Standard Deviation</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template x-cloak x-for="(label, index) in labels">
-                                <tr class="border-b">
-                                    <td class="text-center px-6 py-3" x-text="label"></td>
-                                    <td class="text-center px-6 py-3" x-text="Math.round((arrayAvgGamer[index] + Number.EPSILON) * 100) / 100"></td>
-                                    <td class="text-center px-6 py-3" x-text="Math.round((arrayStdevGamer[index] + Number.EPSILON) * 100) / 100"></td>
-                                    <td class="text-center px-6 py-3" x-text="Math.round((arrayAvgNonGamer[index] + Number.EPSILON) * 100) / 100"></td>
-                                    <td class="text-center px-6 py-3" x-text="Math.round((arrayStdevNonGamer[index] + Number.EPSILON) * 100) / 100"></td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
+                    <x-mine.gamer-vs-non :$datas />
                 </div>
                 {{-- Male vs. Female --}}
-                <div x-cloak x-show="pages[2][0]" x-data="{
-                    init() {
-                        new Chart($refs.gamer, {
-                            type: 'doughnut',
-                            data: {
-                                labels: ['Male', 'Female'],
-                                datasets: [{
-                                    lable: 'Gamer',
-                                    data: [gamer.male, gamer.female],
-                                    backgroundColor: [
-                                        '#2563eb',
-                                        '#f43f5e',
-                                    ],
-                                    hoverOffset: 4
-                                }]
-                            },
-                            options: {
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: 'Gamer'
-                                    }
-                                }
-                            }
-                        })
-
-                        new Chart($refs.nonGamer, {
-                            type: 'doughnut',
-                            data: {
-                                labels: ['Male', 'Female'],
-                                datasets: [{
-                                    lable: 'Non-Gamer',
-                                    data: [nonGamer.male, nonGamer.female],
-                                    backgroundColor: [
-                                        '#2563eb',
-                                        '#f43f5e',
-                                    ],
-                                    hoverOffset: 4
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: 'Non-Gamer'
-                                    }
-                                }
-                            }
-                        })
-                    }
-                }">
-                    <div class="flex w-full mx-auto overflow-auto justify-around">
-                        <div class="w-2/3 h-auto aspect-square">
-                            <canvas x-ref="gamer" class="w-full h-full"></canvas>
-                        </div>
-                        <div class="w-2/3 h-auto aspect-square">
-                            <canvas x-ref="nonGamer" class="w-full h-full"></canvas>
-                        </div>
+                <div x-cloak x-show="pages[2][0]">
+                    <div class="w-full flex flex-row justify-end my-2.5">
+                        <x-mine.link-button href="{{route('maleVsPdf')}}" class="whitespace-nowrap border-transparent bg-blue-600 focus:ring-blue-600 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700">
+                            Create PDF
+                        </x-mine.link-button>
                     </div>
-
-                    <table class="w-full mt-2">
-                        <thead>
-                            <tr class="border-b">
-                                <td></td>
-                                <td class="text-center px-6 py-3">Male</td>
-                                <td class="text-center px-6 py-3">Female</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b">
-                                <td class="text-center px-6 py-3">Gamer</td>
-                                <td class="text-center px-6 py-3" x-text="gamer.male"></td>
-                                <td class="text-center px-6 py-3" x-text="gamer.female"></td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="text-center px-6 py-3">Non-Gamer</td>
-                                <td class="text-center px-6 py-3" x-text="nonGamer.male"></td>
-                                <td class="text-center px-6 py-3" x-text="nonGamer.female"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <x-mine.male-vs-female />
                 </div>
-                {{-- Frequency --}}
-                <div x-cloak x-show="pages[3][0]" x-data="freqChart()">
+                {{-- Frequency freqChart()--}}
+                <div x-cloak x-show="pages[3][0]" x-data="{
+                    spread: [
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                        ],
+                        updateChartFrq(e) {
+                            this.spread = this.spread.map((_, i) => i === Number(e.value))
+                        },
+                }">
                     <div class="flex justify-center px-3 py-2 mb-2 text-gray-600 capitalize">
                         <form method="GET">
+                            {{-- x-model="type" --}}
                             <label for="var" class="sr-only">Pick Variable</label>
-                            <select name="varB" id="varB" @change="updateChartFrq($el)" class="rounded-md" x-model="type">
-                                <option value="numGames">Number of Games Played</option>
-                                <option value="mobile">Daily Mobile Playtime</option>
-                                <option value="console">Daily Console Playtime</option>
-                                <option value="pc">Daily Computer Playtime</option>
-                                <option value="shooter">Daily Shooter Game Playtime</option>
-                                <option value="actAdv">Daily Action and Adventure Game Playtime</option>
-                                <option value="sims">Daily Simulation Game Playtime</option>
-                                <option value="moba">Daily MOBA Game Playtime</option>
-                                <option value="sports">Daily Sports Game Playtime</option>
-                                <option value="race">Daily Racing Game Playtime</option>
-                                <option value="strat">Daily Strategy Game Playtime</option>
-                                <option value="batRoy">Daily Battle Royal Game Playtime</option>
-                                <option value="puzzPlat">Daily Puzzle Platform Game Playtime</option>
-                                <option value="fight">Daily Fighting Game Playtime</option>
-                                <option value="board">Daily Online Board Game Playtime</option>
+                            <select name="varB" id="varB" @change="updateChartFrq($el)" class="rounded-md">
+                                @foreach ($datas as $key => $value)
+                                    <option value="{{$loop->index}}">{{$value}}</option>
+                                @endforeach
                             </select>
                         </form>
                     </div>
-                    <div class="w-full mx-auto overflow-auto">
-                        <canvas x-ref="freqDough" class="w-full h-full"></canvas>
+                    <div class="w-full flex flex-row justify-end my-2.5">
+                        <x-mine.link-button href="{{route('freqPdf')}}" class="whitespace-nowrap border-transparent bg-blue-600 focus:ring-blue-600 hover:bg-blue-500 focus:bg-blue-500 active:bg-blue-700">
+                            Create PDF
+                        </x-mine.link-button>
                     </div>
-                    <table class="w-full mt-2">
-                        <thead>
-                            <tr class="border-b">
-                                <td></td>
-                                <td class="text-center px-6 py-3">Frequency</td>
-                                <td class="text-center px-6 py-3">Percentage</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template x-cloak x-for="(data,index) in header">
-                                <tr class="border-b">
-                                    <td class="text-center px-6 py-3" x-text="data.name"></td>
-                                    <td class="text-center px-6 py-3" x-text="data.f"></td>
-                                    <td class="text-center px-6 py-3" x-text="data.fp"></td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
+                    <x-mine.frequency :$datas />
                 </div>
             </x-mine.card-container>
         </div>

@@ -18,3 +18,68 @@
         scrollbar-width: none;  /* Firefox */
     }
 }
+
+@layer base {
+    @font-face {
+          font-family: 'Figtree';
+          font-style: normal;
+          font-weight: 300;
+          font-stretch: 100%;
+          font-display: swap;
+          src: url('../fonts/figtree/fonts/webfonts/Figtree-Light.woff2') format('woff2');
+        }
+
+        @font-face {
+          font-family: 'Figtree';
+          font-style: normal;
+          font-weight: 400;
+          font-stretch: 100%;
+          font-display: swap;
+          src: url('../fonts/figtree/fonts/webfonts/Figtree-Regular.woff2') format('woff2');
+        }
+
+        @font-face {
+          font-family: 'Figtree';
+          font-style: normal;
+          font-weight: 500;
+          font-stretch: 100%;
+          font-display: swap;
+          src: url('../fonts/figtree/fonts/webfonts/Figtree-Medium.woff2') format('woff2');
+        }
+
+        @font-face {
+          font-family: 'Figtree';
+          font-style: normal;
+          font-weight: 600;
+          font-stretch: 100%;
+          font-display: swap;
+          src: url('../fonts/figtree/fonts/webfonts/Figtree-SemiBold.woff2') format('woff2');
+        }
+
+        @font-face {
+          font-family: 'Figtree';
+          font-style: normal;
+          font-weight: 700;
+          font-stretch: 100%;
+          font-display: swap;
+          src: url('../fonts/figtree/fonts/webfonts/Figtree-Bold.woff2') format('woff2');
+        }
+
+        @font-face {
+          font-family: 'Figtree';
+          font-style: normal;
+          font-weight: 800;
+          font-stretch: 100%;
+          font-display: swap;
+          src: url('../fonts/figtree/fonts/webfonts/Figtree-ExtraBold.woff2') format('woff2');
+        }
+
+        @font-face {
+          font-family: 'Figtree';
+          font-style: normal;
+          font-weight: 800;
+          font-stretch: 100%;
+          font-display: swap;
+          src: url('../fonts/figtree/fonts/webfonts/Figtree-Black.woff2') format('woff2');
+        }
+}

@@ -93,10 +93,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::middleware(CheckSurvey::class)->group(function() {
             // take exam
-            Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware(['cache.headers:no_store', 'can:take-exam,exam']);
+            Route::get('/take-exam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware(['cache.headers:no_store', 'can:take-exam,exam']);
             // Route::get('/takeExam/{exam}', [TakeExam::class, 'index'])->name('exam')->middleware('cache.headers:no_store');
 
-            Route::put('/takeExam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam')->middleware('can:update-attempt,attempt');
+            Route::put('/take-exam/{exam}/{attempt}', [TakeExam::class, 'gradeExam'])->name('gradeExam')->middleware('can:update-attempt,attempt');
 
             // Exam Results
             Route::get('/result', [ExamAttemptController::class, 'all'])->name('examAttempt.all');
@@ -110,8 +110,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::middleware('can:advisor')->group(function() {
-        Route::get('/myStudents', [MyStudentController::class, 'all'])->name('myStudent.all');
-        Route::get('/myStudents/{myStudents}', [MyStudentController::class, 'see'])->name('myStudent.see');
+        Route::get('/my-students', [MyStudentController::class, 'all'])->name('myStudent.all');
+        Route::get('/my-students/{myStudents}', [MyStudentController::class, 'see'])->name('myStudent.see');
         // Route::get('/myStudents/result/{examAttempt}', [ExamAttemptController::class, 'show'])->name('myStudentExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');;
     });
 
@@ -120,6 +120,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/result/{examAttempt}/{where?}', [ExamAttemptController::class, 'result'])->name('examAttempt.result')->middleware('can:view-examAttempt,examAttempt');
 
     Route::get('/stat', [StatisticController::class, 'index'])->name('stat');
+    Route::get('stat/correlation-pdf', [StatisticController::class, 'pdfCorrelation'])->name('correlationPdf');
+    Route::get('stat/gamer-vs-non-gamer-pdf', [StatisticController::class, 'pdfGamerVsNongamer'])->name('gamersVsPdf');
+    Route::get('stat/male-vs-female-pdf', [StatisticController::class, 'pdfMaleVsFemale'])->name('maleVsPdf');
+    Route::get('stat/frequency-pdf', [StatisticController::class, 'pdfFrequency'])->name('freqPdf');
+
+
 });
 
 require __DIR__.'/auth.php';
