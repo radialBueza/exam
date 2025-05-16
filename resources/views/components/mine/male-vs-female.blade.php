@@ -1,9 +1,10 @@
+@props(['pdf' => false])
 <div x-data="maleVsfemale($refs.gamer, $refs.nonGamer, gamer, nonGamer)">
-    <div class="flex w-full mx-auto overflow-auto justify-around">
-        <div class="w-2/3 h-auto aspect-square">
+    <div class="flex @if(!$pdf)flex-col @endif w-full mx-auto @if(!$pdf)overflow-auto @endif justify-around items-center lg:flex-row lg:items-start">
+        <div class="w-2/3 flex items-center justify-center">
             <canvas x-ref="gamer" class="w-full h-full"></canvas>
         </div>
-        <div class="w-2/3 h-auto aspect-square">
+        <div class="w-2/3 flex items-center justify-center">
             <canvas x-ref="nonGamer" class="w-full h-full"></canvas>
         </div>
     </div>

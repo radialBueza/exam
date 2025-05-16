@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Survey;
 use App\Models\Exam;
+use Spatie\Browsershot\Browsershot;
 
 class StatisticController extends Controller
 {
@@ -146,10 +147,6 @@ class StatisticController extends Controller
         // dd($result['gamer']);
         return view('statistic.index',
         [
-            // 'name' => 'Number of Games Played',
-            // 'gamer' => $gamer->toJson(),
-            // 'nonGamer' => $nonGamer->toJson(),
-            // 'all' => $all->toJson()
             'gamer' => $result['gamer']->toJson(),
             'nonGamer' => $result['nonGamer']->toJson(),
             'all' => $result['all']->toJson(),
@@ -159,41 +156,72 @@ class StatisticController extends Controller
 
     public function pdfCorrelation() {
         $result = $this->datas();
-        return view('pdf.correlation', [
-            'gamer' => $result['gamer']->toJson(),
-            'nonGamer' => $result['nonGamer']->toJson(),
+
+        $template = view('pdf.correlation', [
             'all' => $result['all']->toJson(),
             'datas' => $this->datas
-        ]);
+        ])->render();
+
+        return response()->streamDownload(function () use($template){
+            echo Browsershot::html($template)
+            ->setOption('args', ['--disable-web-security'])
+            ->setDelay(3000)
+            ->format('A4')
+            ->margins(2,4,2,4)
+            ->pdf();
+        }, 'correlation.pdf');
     }
 
     public function pdfGamerVsNongamer() {
         $result = $this->datas();
-        return view('pdf.correlation', [
+
+        $template = view('pdf.gamer-vs-non', [
             'gamer' => $result['gamer']->toJson(),
             'nonGamer' => $result['nonGamer']->toJson(),
-            'all' => $result['all']->toJson(),
             'datas' => $this->datas
-        ]);
+        ])->render();
+
+        return response()->streamDownload(function () use($template){
+            echo Browsershot::html($template)
+            ->setOption('args', ['--disable-web-security'])
+            ->setDelay(3000)
+            ->format('A4')
+            ->margins(2,4,2,4)
+            ->pdf();
+        }, 'avg.pdf');
+
     }
 
     public function pdfMaleVsFemale() {
         $result = $this->datas();
-        return view('pdf.correlation', [
+        $template = view('pdf.male-vs-female', [
             'gamer' => $result['gamer']->toJson(),
             'nonGamer' => $result['nonGamer']->toJson(),
-            'all' => $result['all']->toJson(),
             'datas' => $this->datas
-        ]);
+        ])->render();
+        return response()->streamDownload(function () use($template){
+            echo Browsershot::html($template)
+            ->setOption('args', ['--disable-web-security'])
+            ->setDelay(3000)
+            ->format('A4')
+            ->margins(2,4,2,4)
+            ->pdf();
+        }, 'gender.pdf');
     }
 
     public function pdfFrequency() {
         $result = $this->datas();
-        return view('pdf.correlation', [
-            'gamer' => $result['gamer']->toJson(),
-            'nonGamer' => $result['nonGamer']->toJson(),
+        $template = view('pdf.frequency', [
             'all' => $result['all']->toJson(),
             'datas' => $this->datas
-        ]);
+        ])->render();
+        return response()->streamDownload(function () use($template){
+            echo Browsershot::html($template)
+            ->setOption('args', ['--disable-web-security'])
+            ->setDelay(3000)
+            ->format('A4')
+            ->margins(2,4,2,4)
+            ->pdf();
+        }, 'frequency.pdf');
     }
 }

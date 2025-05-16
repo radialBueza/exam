@@ -87,6 +87,8 @@ Alpine.data('corrChart', (canva, data, all)=> ({
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display:false
@@ -111,7 +113,7 @@ Alpine.data('corrChart', (canva, data, all)=> ({
                             text: 'Abstract Reasoning Exam Grade'
                         }
                     }
-                }
+                },
             }
         });
     },

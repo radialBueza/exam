@@ -15,7 +15,9 @@
             gamer: {{$gamer}},
             nonGamer: {{$nonGamer}},
         }">
-            <x-mine.gamer-vs-non/>
+            <h1 class="w-full font-bold my-4 text-left text-lg">Gamer vs. Non-Gamer</h1>
+
+            <x-mine.gamer-vs-non :$datas :pdf="true"/>
         </div>
     </body>
 </html>

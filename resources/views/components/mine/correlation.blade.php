@@ -1,8 +1,9 @@
 @props(['datas', 'pdf'=> false])
 @foreach ($datas as $key => $value)
-    <div x-show="spread[{{$loop->index}}]"class="w-full h-full" x-data="corrChart($refs.corr{{$loop->index}}, { key: '{{$key}}', value: '{{$value}}'}, all)">
-        @if($pdf)<h1 class="w-full mx-auto font-bold my-4 text-center">{{$value}}</h1>@endif
-        <div class="w-full mx-auto overflow-auto">
+<div style="page-break-after: always;">
+    <div @if(!$pdf)x-show="spread[{{$loop->index}}]"class="w-full h-full"@endif x-data="corrChart($refs.corr{{$loop->index}}, { key: '{{$key}}', value: '{{$value}}'}, all)">
+        @if($pdf)<p class="w-full mx-auto font-bold my-4 text-center">{{$value}}</p>@endif
+        <div class="w-full mx-auto @if(!$pdf) overflow-auto @endif">
             <canvas x-ref="corr{{$loop->index}}" class="w-full h-full"></canvas>
         </div>
         <table class="w-full mt-2">
@@ -38,7 +39,5 @@
             <p class="text-stone-900 border-t-2 text-sm pt-2"><strong>Warning:</strong> The displayed correlations (Pearson’s r and Spearman’s ρ) show links between gaming time and abstract reasoning scores, but they don’t mean that one causes the other. Patterns like bell-shaped trends or outside influences might not be captured. Please interpret the results carefully.</p>
         </div>
     </div>
-    @if ($pdf)
-        <div style="page-break-after: always;"></div>
-    @endif
+</div>
 @endforeach

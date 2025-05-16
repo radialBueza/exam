@@ -164,7 +164,7 @@ class ExamTest extends TestCase
 
         $user->take_survey = false;
         $user->save();
-        $response = $this->actingAs($user)->get('/takeExam/3');
+        $response = $this->actingAs($user)->get('/take-exam/3');
 
         $response->assertOk();
     }
@@ -183,7 +183,7 @@ class ExamTest extends TestCase
             'exam_id' => 3
         ]);
 
-        $response =$this->actingAs($user)->put('/takeExam/3/' . $attempt->id);
+        $response =$this->actingAs($user)->put('/take-exam/3/' . $attempt->id);
 
         $response->assertRedirectToRoute('examAttempt.result', ['examAttempt' => $attempt->id, 'where' => 'submit']);
     }

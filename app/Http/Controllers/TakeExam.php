@@ -19,9 +19,9 @@ class TakeExam extends Controller
         if (!$refreshed) {
             $entered = true;
 
-            $attempt = $exam->examAttempts()->where('user_id', Auth::id())->count();
+            $attempt = $exam->examAttempts()->where('user_id', Auth::id())->exists();
 
-            if ($attempt != 0 ) {
+            if ($attempt) {
                 return redirect(RouteServiceProvider::HOME);
             }
 

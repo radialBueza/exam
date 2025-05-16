@@ -15,7 +15,9 @@
             gamer: {{$gamer}},
             nonGamer: {{$nonGamer}},
         }">
-            <x-mine.male-vs-female />
+            <h1 class="w-full font-bold my-4 text-left text-lg">Male vs. Female</h1>
+
+            <x-mine.male-vs-female :pdf="true"/>
         </div>
     </body>
 </html>

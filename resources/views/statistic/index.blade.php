@@ -11,7 +11,7 @@
             all: {{$all}},
             pages: [
                 [true, 'Correlation'],
-                [false, 'Gamer vs Non-Gamer'],
+                [false, 'Gamer vs. Non-Gamer'],
                 [false, 'Male vs. Female'],
                 [false, 'Frequency and Percentage of Answers'],
             ],
@@ -42,7 +42,7 @@
             },
         }">
             <x-mine.card-container class="p-5 sm:p-9">
-                <div class="flex justify-between pb-5">
+                <div class="flex justify-between items-center pb-5 border-b border-slate-300">
                     <x-mine.button do="prev" class="text-black border-2 border-transparent focus:ring-transparent">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                             <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />

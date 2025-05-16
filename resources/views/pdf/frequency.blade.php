@@ -13,25 +13,10 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen" x-data="{
             all: {{$all}},
-            spread: [
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-            ],
         }">
-            <x-mine.male-vs-female :$datas :pdf="true"/>
+            <h1 class="w-full font-bold my-4 text-left text-lg">Frequency</h1>
+
+            <x-mine.frequency :$datas :pdf="true"/>
         </div>
     </body>
 </html>

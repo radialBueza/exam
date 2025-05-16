@@ -74,7 +74,7 @@
                         <div class="border-b text-sm col-span-2 px-1 py-2"><span x-text="toOpen.hours"></span><span>:</span><span x-text="toOpen.minutes"></span></div>
                     </div>
                     <div class="pt-4 flex justify-end">
-                        <x-mine.link-button href="{{url('takeExam')}}/${toOpen.id}" class="whitespace-nowrap border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
+                        <x-mine.link-button href="{{url('take-exam')}}/${toOpen.id}" class="whitespace-nowrap border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">
                             Start Exam
                         </x-mine.link-button>
                     </div>

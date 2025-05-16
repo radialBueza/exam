@@ -1,6 +1,6 @@
-@props(['datas'])
+@props(['datas', 'pdf' => false])
 <div x-data="gamerVsNon($refs.avgStdev, gamer, nonGamer, {{json_encode(array_values($datas))}})">
-    <div class="w-full mx-auto overflow-auto">
+    <div class="w-full mx-auto @if(!$pdf) overflow-auto @endif">
         <canvas x-ref="avgStdev" class="w-full h-full"></canvas>
     </div>
     <table class="w-full mt-2">

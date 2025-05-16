@@ -13,24 +13,8 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen" x-data="{
             all: {{$all}},
-            spread: [
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-            ],
         }">
+            <h1 class="w-full font-bold my-4 text-left text-lg">Correlation</h1>
             <x-mine.correlation :$datas :pdf="true"/>
         </div>
     </body>
