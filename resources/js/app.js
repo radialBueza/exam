@@ -392,7 +392,7 @@ Alpine.data('frequency', (canva, data, all) => ({
     },
     init() {
         this.result = tabulate(all[data.key]);
-        let info = this.createData(this.result, this.type);
+        let info = this.createData(this.result, data.key);
         this.renderChart(info);
     },
     createData(data, type) {
