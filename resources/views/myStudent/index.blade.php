@@ -13,9 +13,9 @@
                             <x-mine.th-cell col="name">
                                 Name
                             </x-mine.th-cell>
-                            <x-mine.th-cell col="email">
+                            {{-- <x-mine.th-cell col="email">
                                 E-mail
-                            </x-mine.th-cell>
+                            </x-mine.th-cell> --}}
                             <x-mine.th-cell col="birthday">
                                 Birthday
                             </x-mine.th-cell>
@@ -24,7 +24,7 @@
                         <x-mine.td-cell-primary>
                             <a :href="`${index}/${data.id}`" x-text="data.name"></a>
                         </x-mine.td-cell-primary>
-                        <td scope="col" class="px-6 py-3" x-text="data.email"></td>
+                        {{-- <td scope="col" class="px-6 py-3" x-text="data.email"></td> --}}
                         <x-mine.td-cell txt="data.birthday"/>
                     </x-mine.table>
                 </x-mine.card-container>

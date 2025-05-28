@@ -10,7 +10,7 @@
                 :addTitle="'Register Account'"
                 :addSub="'Create an account for a student, teacher, or admin.'"
                 :addForm="'addUser'"
-                :inputs="['name', 'email', 'gender', 'birthday', 'account_type', 'department_id', 'section_id']"
+                :inputs="['name', 'gender', 'birthday', 'account_type', 'department_id', 'section_id']"
                 :addRoute="route('users.store')"
                 :dellAllRoute="route('users.destroyAll')"
                 :dellOneRoute="route('users.index')"
@@ -91,7 +91,7 @@
                 </x-slot>
                 <x-slot name="addModal">
                     <x-mine.input title="Name"/>
-                    <x-mine.input name="email" title="email"/>
+                    {{-- <x-mine.input name="email" title="email"/> --}}
                     <x-mine.select-input name="gender" title="Gender" :options="$gender"/>
                     <x-mine.date-input />
                     <div x-data="{
@@ -109,7 +109,7 @@
                 </x-slot>
                 <x-slot name="upModal">
                     <x-mine.input title="Name" class="capitalize" value="toEdit.name"/>
-                    <x-mine.input name="email" title="email" value="toEdit.email"/>
+                    {{-- <x-mine.input name="email" title="email" value="toEdit.email"/> --}}
                     <x-mine.select-input name="gender" title="Gender" :options="$gender" selected="toEdit.gender"/>
                     <x-mine.date-input :edit="true"/>
                     <div x-data="{

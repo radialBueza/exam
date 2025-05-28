@@ -38,14 +38,14 @@
 
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td class="font-semibold px-1 py-0.5">
                             Email:
                         </td>
                         <td x-text="user.email" class="px-1 py-0.5">
 
                         </td>
-                    </tr>
+                    </tr> --}}
                 </table>
             </div>
         </x-mine.card-container>

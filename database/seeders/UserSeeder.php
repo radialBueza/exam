@@ -19,8 +19,9 @@ class UserSeeder extends Seeder
         // 1
         User::create([
             'name' => 'radial moses',
-            'email' => 'bueza90@gmail.com',
-            'email_verified_at' => Carbon::now(),
+            // 'email' => 'bueza90@gmail.com',
+            'username' => 'radial_moses0001',
+            // 'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'gender' => 'male',
             'birthday' => Carbon::create('1997', '12', '12'),
@@ -32,8 +33,9 @@ class UserSeeder extends Seeder
         // 2
         User::create([
             'name' => 'anna marie',
-            'email' => 'mail@mail.com',
-            'email_verified_at' => Carbon::now(),
+            // 'email' => 'mail@mail.com',
+            'username' => 'anna_marie0002',
+            // 'email_verified_at' => Carbon::now(),
             'password' => Hash::make('password'),
             'gender' => 'female',
             'birthday' => Carbon::create('1967', '9', '17'),
@@ -46,8 +48,9 @@ class UserSeeder extends Seeder
         // 3
         User::create([
             'name' => 'leomer bueza',
-            'email' => 'mail1@mail.com',
-            'email_verified_at' => Carbon::now(),
+            // 'email' => 'mail1@mail.com',
+            // 'email_verified_at' => Carbon::now(),
+            'username' => 'leomer_bueza0003',
             'password' => Hash::make('password'),
             'gender' => 'male',
             'birthday' => Carbon::create('1968', '5', '17'),
@@ -60,8 +63,9 @@ class UserSeeder extends Seeder
         // 4
         User::create([
             'name' => 'renin joseph',
-            'email' => 'mail2@mail.com',
-            'email_verified_at' => Carbon::now(),
+            'username' => 'renin_joseph0004',
+            // 'email' => 'mail2@mail.com',
+            // 'email_verified_at' => Carbon::now(),
             'gender' => 'male',
             'password' => Hash::make('password'),
             'birthday' => Carbon::create('1996', '4', '3'),
@@ -72,8 +76,9 @@ class UserSeeder extends Seeder
         // 5
         User::create([
             'name' => 'clark kent',
-            'email' => 'superman@mail.com',
-            'email_verified_at' => Carbon::now(),
+            'username' => 'clark_kent0005',
+            // 'email' => 'superman@mail.com',
+            // 'email_verified_at' => Carbon::now(),
             'password' => Hash::make('1234567890'),
             'gender' => 'male',
             'birthday' => Carbon::create('1997', '12', '12'),
@@ -85,8 +90,9 @@ class UserSeeder extends Seeder
         // 6
         User::create([
             'name' => 'mona lisa',
-            'email' => 'davinci@mail.com',
-            'email_verified_at' => Carbon::now(),
+            'username' => 'mona_lisa0006',
+            // 'email' => 'davinci@mail.com',
+            // 'email_verified_at' => Carbon::now(),
             'password' => Hash::make('1234567890'),
             'gender' => 'female',
             'birthday' => Carbon::create('1503', '12', '12'),
@@ -98,8 +104,9 @@ class UserSeeder extends Seeder
         // 7
         User::create([
             'name' => 'tony stark',
-            'email' => 'ironman@mail.com',
-            'email_verified_at' => Carbon::now(),
+            'username' => 'tony_stark0007',
+            // 'email' => 'ironman@mail.com',
+            // 'email_verified_at' => Carbon::now(),
             'password' => Hash::make('1234567890'),
             'gender' => 'male',
             'birthday' => Carbon::create('1970', '5', '29'),
@@ -111,8 +118,9 @@ class UserSeeder extends Seeder
         // 8
         User::create([
             'name' => 'marie curie',
-            'email' => 'radio@mail.com',
-            'email_verified_at' => Carbon::now(),
+            'username' => 'marie_curie0008',
+            // 'email' => 'radio@mail.com',
+            // 'email_verified_at' => Carbon::now(),
             'password' => Hash::make('1234567890'),
             'gender' => 'female',
             'birthday' => Carbon::create('1867', '11', '7'),

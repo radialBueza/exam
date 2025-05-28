@@ -22,7 +22,7 @@ class MyStudentController extends Controller
         return $request->user()->section->users()->where(function (Builder $builder) use($search) {
             $builder->where('account_type', 'student');
             $builder->where('name', 'like', "%{$search}%");
-            $builder->orWhere('email', 'like', "%{$search}%");
+            // $builder->orWhere('email', 'like', "%{$search}%");
         })->get();
     }
 

@@ -93,10 +93,12 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $password = Str::random();
+        $data = str_replace("-", "/", $request->birthday);
+        $name = str_replace(" ", "_", $request->name);
+        $password = $name . $data;
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
+            // 'email' => $request->email,
             'password' => Hash::make($password),
             'birthday' => $request->birthday,
             'account_type' => $request->account_type,
@@ -106,13 +108,19 @@ class UserController extends Controller
             'gender' => $request->gender
         ]);
 
+        $number = sprintf('%04d', $user->id);
+        $user->username = $name . $number;
+
+        $user->save();
+
+
         // capitalize name
-        $user->name = ucwords($user->name);
+        // $user->name = ucwords($user->name);
 
         // Add name of user to email
-        Mail::to($user)->send(new AccountCreated($password, $request->name));
+        // Mail::to($user)->send(new AccountCreated($password, $request->name));
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
         return response()->json([
             'success' => true,
@@ -385,16 +393,16 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->name = $request->name;
-        $user->email = $request->email;
+        // $user->email = $request->email;
         $user->birthday = $request->birthday;
         $user->account_type = $request->account_type;
         $user->department_id = $request->department_id;
         $user->section_id = $request->section_id;
         $user->take_survey = $request->take_survey;
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
+        // if ($user->isDirty('email')) {
+        //     $user->email_verified_at = null;
+        // }
 
         $user->save();
 

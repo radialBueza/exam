@@ -39,7 +39,7 @@ Route::redirect('/', '/login');
 // , 'cache.headers:no_store'
 Route::get('/dashboard', [Dashboard::class, 'index'])->middleware(['auth', 'verified', CheckSurvey::class])->name('dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::middleware(['can:admin', 'cache.headers:no_store'])->group(function() {
