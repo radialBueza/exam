@@ -451,4 +451,21 @@ class UserController extends Controller
 
         return response()->noContent();
     }
+
+    public function resetUser(User $user) {
+        $data = str_replace("-", "/", $user->birthday);
+        $name = str_replace(" ", "_", $user->name);
+        $password = $name . $data;
+        $user->password = Hash::make($password);
+
+        $number = sprintf('%04d', $user->id);
+        $user->username = $name . $number;
+
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'user' => new StudentInfoResource($user),
+        ], 200);
+    }
 }

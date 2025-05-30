@@ -23,6 +23,9 @@
                     <x-mine.th-cell col="name">
                         name
                     </x-mine.th-cell>
+                    <x-mine.th-cell col="username">
+                        Username
+                    </x-mine.th-cell>
                     <x-mine.th-cell col="account_type">
                         Account Type
                     </x-mine.th-cell>
@@ -34,6 +37,7 @@
                     <x-mine.td-cell-primary>
                         <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
                     </x-mine.td-cell-primary>
+                    <x-mine.td-cell :cap="false" txt="data.username"/>
                     <x-mine.td-cell txt="data.account_type"/>
                     <x-mine.td-cell txt="data.created_at"/>
                 </x-slot>
@@ -72,7 +76,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 stroke-red-500">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                                             </svg>
-                                            <p class="text-xl font-medium text-red-500">Are you sure you want to make students retake survey?</p>
+                                            <p class="text-xl font-medium text-red-500 text-center">Are you sure you want to make students retake survey?</p>
                                             <div class="flex items-center justify-between gap-2">
                                                 <x-mine.button do="retake()" class="text-white border border-transparent bg-green-600 focus:ring-green-600 hover:bg-green-500 focus:bg-green-500 active:bg-green-700">Confirm</x-mine.button>
                                                 <x-mine.button do="openRetake = false" class="text-white border border-transparent bg-red-600 focus:ring-red-600 hover:bg-red-500 focus:bg-red-500 active:bg-red-700">Cancel</x-mine.button>
@@ -105,6 +109,10 @@
                         <template x-if="accountType == 'admin' || accountType == 'advisor' || accountType == 'student'">
                             <x-mine.select-input name="section_id" title="Section" :options="$sections"/>
                         </template>
+
+                        {{-- <div> --}}
+                        <p class="text-xs text-slate-500"><strong class="font-medium">Note:</strong> generated password will be of the format: <em>name_nameYYYY/MM/DD</em> </p>
+                        {{-- </div> --}}
                     </div>
                 </x-slot>
                 <x-slot name="upModal">

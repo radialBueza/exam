@@ -33,7 +33,7 @@ class SurveyFactory extends Factory
             'hrs_play_puzzle_plat' => rand(0,6),
             'hrs_play_fighting' => rand(0,6),
             'hrs_play_board' => rand(0,6),
-            'is_gamer' => rand(0,6)
+            'is_gamer' => rand(0,1) == 1
         ];
     }
 }

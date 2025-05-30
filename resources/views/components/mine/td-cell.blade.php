@@ -1,5 +1,13 @@
-@props(['txt'])
+@props(['txt', 'cap' => true])
 
-<td scope="col" class="px-6 py-3 capitalize" x-text="{{$txt}}">
+@php
+    if ($cap) {
+        $class = "px-6 py-3 capitalize";
+    }else {
+        $class = "px-6 py-3";
+    }
+@endphp
+
+<td scope="col" class="{{$class}}" x-text="{{$txt}}">
 
 </td>

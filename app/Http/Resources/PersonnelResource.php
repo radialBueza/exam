@@ -22,6 +22,7 @@ class PersonnelResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'username' => $this->username,
             'account_type' => $this->account_type,
             // 'email' => $this->email,
             // 'gender' => $this->gender == 1 ? 'Male' : 'Female,

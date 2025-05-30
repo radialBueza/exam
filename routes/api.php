@@ -57,7 +57,8 @@ Route::middleware('auth:sanctum')->group(function (){
         Route::get('/users/{user}/{type?}', [UserController::class, 'show'])->name('users.show');
         Route::delete('/users', [UserController::class, 'destroyAll'])->name('users.destroyAll');
         Route::put('/retakeSurvey', [SurveyController::class, 'retake'])->name('retake');
-        Route::put('/retakeSurvey/{user}', [SurveyController::class, 'retakeOne']);
+        Route::put('/retakeSurvey/{user}', [SurveyController::class, 'retakeOne'])->name('retakeOne');
+        Route::put('/reset-user/{user}', [UserController::class, 'resetUser'])->name('user.reset');
     });
         Route::apiResource('exams', ExamController::class);
         Route::delete('/exams', [ExamController::class, 'destroyAll'])->name('exams.destroyAll');

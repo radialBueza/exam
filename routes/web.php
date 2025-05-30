@@ -66,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    Route::middleware('cache.headers:no_store')->group(function () {
+    // Route::middleware('cache.headers:no_store')->group(function () {
         //exam
         Route::get('/exams', [ExamController::class, 'all'])->name('exams.all')->middleware('can:viewAny-exam');
         Route::get('/exams/{exam}', [ExamController::class, 'see'])->middleware('can:view-exam,exam');
@@ -81,7 +81,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Route::get('/studentResult/', [ExamAttemptController::class, 'all'])->name('testsExamAttempt.all');
         // Route::get('/studentResult/{examAttempt}', [ExamAttemptController::class, 'show'])->name('studentExamAttempt.show')->middleware('can:view-examAttempt,examAttempt');
-    });
+    // });
 
 
     Route::middleware('can:student')->group(function(){

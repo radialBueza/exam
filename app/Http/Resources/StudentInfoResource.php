@@ -25,6 +25,7 @@ class StudentInfoResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'account_type' => $this->account_type,
+            'username' => $this->username,
             // 'email' => $this->email,
             // 'gender' => $this->gender == 1 ? 'Male' : 'Female,
             'birthday' => $this->birthday->format('M/d/Y'),
