@@ -147,31 +147,31 @@
                                         <img src="{{asset("storage/{$question->question_file}")}}" alt="question" class="inline-block">
                                     @endisset
                                 </div>
-                                <div class="grid grid-cols-2 w-3/4 mx-auto">
+                                <div class="grid grid-cols-2 w-full mx-auto">
                                     <div class="px-4">
                                         <input type="radio" name="{{$question->id}}" id="{{$question->id}}_option_a" value="a" @click="answer()">
-                                        <label for="{{$question->id}}_option_a" class="whitespace-nowrap">a. {{Str::ucfirst($question->a)}}</label>
+                                        <label for="{{$question->id}}_option_a">a. {{Str::ucfirst($question->a)}}</label>
                                         @isset($question->a_file)
                                             <img src="{{asset("storage/{$question->a_file}")}}" alt="option a" class="inline-block">
                                         @endisset
                                     </div>
                                     <div class="px-4">
                                         <input type="radio" name="{{$question->id}}" id="{{$question->id}}}_option_c" value="c" @click="answer()">
-                                        <label for="{{$question->id}}_option_c" class="whitespace-nowrap">c. {{Str::ucfirst($question->c)}}</label>
+                                        <label for="{{$question->id}}_option_c">c. {{Str::ucfirst($question->c)}}</label>
                                         @isset($question->c_file)
                                             <img src="{{asset("storage/{$question->c_file}")}}" alt="option c" class="inline-block">
                                         @endisset
                                     </div>
                                     <div class="px-4">
                                         <input type="radio" name="{{$question->id}}" id="{{$question->id}}_option_b" value="b" @click="answer()">
-                                        <label for="{{$question->id}}_option_b" class="whitespace-nowrap">b. {{Str::ucfirst($question->b)}}</label>
+                                        <label for="{{$question->id}}_option_b">b. {{Str::ucfirst($question->b)}}</label>
                                         @isset($question->b_file)
                                             <img src="{{asset("storage/{$question->b_file}")}}" alt="option b" class="inline-block">
                                         @endisset
                                     </div>
                                     <div class="px-4">
                                         <input type="radio" name="{{$question->id}}" id="{{$question->id}}_option_d" value="d" @click="answer()">
-                                        <label for="{{$question->id}}_option_d" class="whitespace-nowrap">d. {{Str::ucfirst($question->d)}}</label>
+                                        <label for="{{$question->id}}_option_d">d. {{Str::ucfirst($question->d)}}</label>
                                         @isset($question->d_file)
                                             <img src="{{asset("storage/{$question->d_file}")}}" alt="option d" class="inline-block">
                                         @endisset
