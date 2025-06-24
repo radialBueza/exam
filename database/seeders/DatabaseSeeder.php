@@ -21,8 +21,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ExamSeeder::class,
             QuestionSeeder::class,
-            SurveySeeder::class,
-            ExamAttemptSeeder::class
         ]);
     }
 }

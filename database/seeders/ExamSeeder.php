@@ -18,7 +18,7 @@ class ExamSeeder extends Seeder
          * ID:1
          */
         Exam::create([
-            'user_id' => 3,
+            'user_id' => 1,
             'subject_id' => 2,
             'grade_level_id' => 4,
             'name' => 'Pag Tatasa sa Unag Kwarter',
@@ -33,7 +33,7 @@ class ExamSeeder extends Seeder
          * ID:2
          */
         Exam::create([
-            'user_id' => 4,
+            'user_id' => 1,
             'subject_id' => 3,
             'grade_level_id' => 4,
             'name' => 'First Quarterly Assessment',

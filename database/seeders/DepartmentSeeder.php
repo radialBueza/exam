@@ -15,11 +15,17 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         Department::create(
-            ['name' => 'high school'],
+            ['name' => 'senior high school'],
         );
+
+        Department::create(
+            ['name' => 'junior high school'],
+        );
+
         Department::create(
             ['name' => 'elementary'],
         );
+        
         Department::create(
             ['name' => 'preschool']
         );

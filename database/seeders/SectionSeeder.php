@@ -14,46 +14,211 @@ class SectionSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1
         Section::create([
             'grade_level_id' => 1,
-            'name' => 'dalton'
+            'name' => 'faith'
         ]);
 
-        // 2
         Section::create([
             'grade_level_id' => 1,
-            'name' => 'einstein'
+            'name' => 'humility'
         ]);
 
-        // 3
         Section::create([
-            'grade_level_id' => 5,
+            'grade_level_id' => 1,
+            'name' => 'wisdom'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 2,
+            'name' => 'love'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 2,
+            'name' => 'fortitude'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 2,
+            'name' => 'justice'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 3,
             'name' => 'hope'
         ]);
 
-        // 4
+        Section::create([
+            'grade_level_id' => 3,
+            'name' => 'piety'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 3,
+            'name' => 'prosperous'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 4,
+            'name' => 'efficiency'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 4,
+            'name' => 'prosperity'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 5,
+            'name' => 'loyalty'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 5,
+            'name' => 'perserverance'
+        ]);
+
         Section::create([
             'grade_level_id' => 6,
-            'name' => 'kindess'
+            'name' => 'courtesy'
         ]);
 
-        // 5
         Section::create([
-            'grade_level_id' => 4,
-            'name' => 'Galileo'
+            'grade_level_id' => 6,
+            'name' => 'generosity'
         ]);
 
-        // 6
         Section::create([
-            'grade_level_id' => 4,
-            'name' => 'Copernicus'
+            'grade_level_id' => 6,
+            'name' => 'optimistic '
         ]);
 
-        // 7
+
         Section::create([
-            'grade_level_id' => 4,
-            'name' => 'Newton'
+            'grade_level_id' => 7,
+            'name' => 'cattleya'
         ]);
+
+        Section::create([
+            'grade_level_id' => 7,
+            'name' => 'cymbidium'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 7,
+            'name' => 'humanity'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 7,
+            'name' => 'miltonia'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 8,
+            'name' => 'biodiversity'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 8,
+            'name' => 'hyacinth'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 8,
+            'name' => 'lotus'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 9,
+            'name' => 'carnation'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 9,
+            'name' => 'heavenly bodies'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 9,
+            'name' => 'hibiscus'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 9,
+            'name' => 'tulip'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 10,
+            'name' => 'hebrews'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 10,
+            'name' => 'levites'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 10,
+            'name' => 'malachi'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 11,
+            'name' => 'colossians'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 11,
+            'name' => 'philippians'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 11,
+            'name' => 'thessalonians'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 11,
+            'name' => 'firmament'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 12,
+            'name' => 'galatians'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 12,
+            'name' => 'ephesians'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 12,
+            'name' => 'corinthians'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 12,
+            'name' => 'light'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 13,
+            'name' => 'eleazar'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 13,
+            'name' => 'eliud'
+        ]);
+
+        Section::create([
+            'grade_level_id' => 13,
+            'name' => 'emmanuel'
+        ]);
+
     }
 }
