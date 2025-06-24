@@ -25,7 +25,7 @@ class ExamSeeder extends Seeder
             'description' => 'Exam para sa 1st Kwarter ng Grade 10.',
             'num_of_questions' => 10,
             'time_limit' => 30,
-            'is_active' => true
+            'is_active' => false
         ]);
 
         /**
@@ -40,7 +40,7 @@ class ExamSeeder extends Seeder
             'description' => 'This exam focuses on geography.',
             'num_of_questions' => 10,
             'time_limit' => 30,
-            'is_active' => true
+            'is_active' => false
         ]);
 
         /**
