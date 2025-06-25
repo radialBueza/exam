@@ -1,0 +1,40 @@
+name: Deploy Laravel App to VPS
+
+on:
+  push:
+    branches:
+      - main  # Or your main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          port: 22
+          script: |
+            cd /var/www/laravel-site
+
+            # Reset any local changes and pull the latest code
+            git reset --hard
+            git pull origin main
+
+            # Install PHP dependencies
+            composer install --no-dev --optimize-autoloader
+
+            # Install JS dependencies and build assets
+            npm install
+            npm run build
+
+            # Laravel caches
+            php artisan migrate --force
+            php artisan optimize
+
+            # File permissions
+            chown -R www-data:www-data .
+            chmod -R 755 .
