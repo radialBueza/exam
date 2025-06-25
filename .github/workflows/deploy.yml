@@ -31,7 +31,6 @@ jobs:
             php artisan migrate --force
             php artisan optimize
 
-            # File permissions
             chown -R www-data:www-data .
             chmod -R 755 .
 
