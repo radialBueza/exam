@@ -20,21 +20,19 @@ jobs:
           script: |
             cd /var/www/laravel-site
 
-            # Reset any local changes and pull the latest code
             git reset --hard
             git pull origin main
 
-            # Install PHP dependencies
             composer install --no-dev --optimize-autoloader
 
-            # Install JS dependencies and build assets
             npm install
             npm run build
 
-            # Laravel caches
             php artisan migrate --force
             php artisan optimize
 
             # File permissions
             chown -R www-data:www-data .
             chmod -R 755 .
+
+            sudo systemctl restart php8.2-fpm
