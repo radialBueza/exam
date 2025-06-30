@@ -1,0 +1,216 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-d7a2105e.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-Black.otf": {
+    "file": "assets/Figtree-Black-74c5276a.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-Black.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-BlackItalic.otf": {
+    "file": "assets/Figtree-BlackItalic-3f5e06d2.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-BlackItalic.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-Bold.otf": {
+    "file": "assets/Figtree-Bold-dcf10f66.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-Bold.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-BoldItalic.otf": {
+    "file": "assets/Figtree-BoldItalic-218d5dc3.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-BoldItalic.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-ExtraBold.otf": {
+    "file": "assets/Figtree-ExtraBold-63a4ce74.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-ExtraBold.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-ExtraBoldItalic.otf": {
+    "file": "assets/Figtree-ExtraBoldItalic-bd650ef2.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-ExtraBoldItalic.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-Italic.otf": {
+    "file": "assets/Figtree-Italic-f2676620.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-Italic.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-Light.otf": {
+    "file": "assets/Figtree-Light-c5a34d5d.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-Light.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-LightItalic.otf": {
+    "file": "assets/Figtree-LightItalic-35e185fa.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-LightItalic.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-Medium.otf": {
+    "file": "assets/Figtree-Medium-58d99b14.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-Medium.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-MediumItalic.otf": {
+    "file": "assets/Figtree-MediumItalic-394b83d0.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-MediumItalic.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-Regular.otf": {
+    "file": "assets/Figtree-Regular-fa100a16.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-Regular.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-SemiBold.otf": {
+    "file": "assets/Figtree-SemiBold-fc88d067.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-SemiBold.otf"
+  },
+  "resources/fonts/figtree/fonts/otf/Figtree-SemiBoldItalic.otf": {
+    "file": "assets/Figtree-SemiBoldItalic-29a36b5e.otf",
+    "src": "resources/fonts/figtree/fonts/otf/Figtree-SemiBoldItalic.otf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-Black.ttf": {
+    "file": "assets/Figtree-Black-667d678b.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-Black.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-BlackItalic.ttf": {
+    "file": "assets/Figtree-BlackItalic-b44953e5.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-BlackItalic.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-Bold.ttf": {
+    "file": "assets/Figtree-Bold-2a33fa55.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-Bold.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-BoldItalic.ttf": {
+    "file": "assets/Figtree-BoldItalic-bfc2cd49.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-BoldItalic.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-ExtraBold.ttf": {
+    "file": "assets/Figtree-ExtraBold-31990321.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-ExtraBold.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-ExtraBoldItalic.ttf": {
+    "file": "assets/Figtree-ExtraBoldItalic-a4fdfe13.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-ExtraBoldItalic.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-Italic.ttf": {
+    "file": "assets/Figtree-Italic-5983a032.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-Italic.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-Light.ttf": {
+    "file": "assets/Figtree-Light-1106f431.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-Light.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-LightItalic.ttf": {
+    "file": "assets/Figtree-LightItalic-40a120a2.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-LightItalic.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-Medium.ttf": {
+    "file": "assets/Figtree-Medium-e605259d.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-Medium.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-MediumItalic.ttf": {
+    "file": "assets/Figtree-MediumItalic-e810017a.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-MediumItalic.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-Regular.ttf": {
+    "file": "assets/Figtree-Regular-e6f1cae1.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-Regular.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-SemiBold.ttf": {
+    "file": "assets/Figtree-SemiBold-a63306f1.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-SemiBold.ttf"
+  },
+  "resources/fonts/figtree/fonts/ttf/Figtree-SemiBoldItalic.ttf": {
+    "file": "assets/Figtree-SemiBoldItalic-5c2d5598.ttf",
+    "src": "resources/fonts/figtree/fonts/ttf/Figtree-SemiBoldItalic.ttf"
+  },
+  "resources/fonts/figtree/fonts/variable/Figtree-Italic[wght].ttf": {
+    "file": "assets/Figtree-Italic_wght_-1a7657e2.ttf",
+    "src": "resources/fonts/figtree/fonts/variable/Figtree-Italic[wght].ttf"
+  },
+  "resources/fonts/figtree/fonts/variable/Figtree-Italic[wght].woff2": {
+    "file": "assets/Figtree-Italic_wght_-c31418cf.woff2",
+    "src": "resources/fonts/figtree/fonts/variable/Figtree-Italic[wght].woff2"
+  },
+  "resources/fonts/figtree/fonts/variable/Figtree[wght].ttf": {
+    "file": "assets/Figtree_wght_-6d7fb937.ttf",
+    "src": "resources/fonts/figtree/fonts/variable/Figtree[wght].ttf"
+  },
+  "resources/fonts/figtree/fonts/variable/Figtree[wght].woff2": {
+    "file": "assets/Figtree_wght_-f80864f6.woff2",
+    "src": "resources/fonts/figtree/fonts/variable/Figtree[wght].woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-Black.woff2": {
+    "file": "assets/Figtree-Black-673103de.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-Black.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-BlackItalic.woff2": {
+    "file": "assets/Figtree-BlackItalic-da504ce7.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-BlackItalic.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-Bold.woff2": {
+    "file": "assets/Figtree-Bold-0c10df76.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-Bold.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-BoldItalic.woff2": {
+    "file": "assets/Figtree-BoldItalic-87836796.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-BoldItalic.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-ExtraBold.woff2": {
+    "file": "assets/Figtree-ExtraBold-d5237a9b.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-ExtraBold.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-ExtraBoldItalic.woff2": {
+    "file": "assets/Figtree-ExtraBoldItalic-6381a9c7.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-ExtraBoldItalic.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-Italic.woff2": {
+    "file": "assets/Figtree-Italic-c142fa6e.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-Italic.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-Light.woff2": {
+    "file": "assets/Figtree-Light-520683b8.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-Light.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-LightItalic.woff2": {
+    "file": "assets/Figtree-LightItalic-26bf59ea.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-LightItalic.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-Medium.woff2": {
+    "file": "assets/Figtree-Medium-3c85a056.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-Medium.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-MediumItalic.woff2": {
+    "file": "assets/Figtree-MediumItalic-4e6d4aa2.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-MediumItalic.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-Regular.woff2": {
+    "file": "assets/Figtree-Regular-ad244b6a.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-Regular.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-SemiBold.woff2": {
+    "file": "assets/Figtree-SemiBold-b97670d9.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-SemiBold.woff2"
+  },
+  "resources/fonts/figtree/fonts/webfonts/Figtree-SemiBoldItalic.woff2": {
+    "file": "assets/Figtree-SemiBoldItalic-0836e3a0.woff2",
+    "src": "resources/fonts/figtree/fonts/webfonts/Figtree-SemiBoldItalic.woff2"
+  },
+  "resources/images/giphy (1).gif": {
+    "file": "assets/giphy (1)-6375687d.gif",
+    "src": "resources/images/giphy (1).gif"
+  },
+  "resources/images/giphy (2).gif": {
+    "file": "assets/giphy (2)-78ab9af9.gif",
+    "src": "resources/images/giphy (2).gif"
+  },
+  "resources/images/giphy.gif": {
+    "file": "assets/giphy-be96e67b.gif",
+    "src": "resources/images/giphy.gif"
+  },
+  "resources/images/logo.png": {
+    "file": "assets/logo-6417c65a.png",
+    "src": "resources/images/logo.png"
+  },
+  "resources/images/no-img.png": {
+    "file": "assets/no-img-1022cf21.png",
+    "src": "resources/images/no-img.png"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-be67867d.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}
