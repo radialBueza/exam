@@ -38,7 +38,8 @@
             headers: {
                 'Accept': 'application/json'
             },
-            body: inputForm
+            body: inputForm,
+            credentials: 'include'
         })
         if(res.status == 201 || res.status == 200) {
             const result = await res.json()

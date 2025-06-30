@@ -86,7 +86,8 @@
                                     headers: {
                                         'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
                                         'Accept': 'application/json'
-                                    }
+                                    },
+                                    credentials: 'include'
                                 })
                                 this.retakeForm = false
                                 if(res.status == 200) {
@@ -99,7 +100,8 @@
                                     headers: {
                                         'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
                                         'Accept': 'application/json'
-                                    }
+                                    },
+                                    credentials: 'include'
                                 })
                                 this.resetForm = false
                                 if(res.status == 200) {

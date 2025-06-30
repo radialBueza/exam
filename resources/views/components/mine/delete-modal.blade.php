@@ -17,7 +17,8 @@
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(toDelete)
+            body: JSON.stringify(toDelete),
+            credentials: 'include'
         })
 
         this.showForm = false

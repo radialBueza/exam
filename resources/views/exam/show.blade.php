@@ -29,7 +29,8 @@
                                     headers: {
                                         'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
                                         'Accept': 'application/json'
-                                    }
+                                    },
+                                    credentials: 'include'
                                 })
 
                                 if(res.status == 200) {

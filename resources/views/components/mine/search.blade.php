@@ -6,7 +6,7 @@
         datas = null
         this.url.searchParams.set('search', this.searchTxt)
 
-        const res = await fetch(this.url)
+        const res = await fetch(this.url, {credentials: 'include'})
 
         {{-- console.log(res) --}}
 
