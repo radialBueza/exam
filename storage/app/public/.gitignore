@@ -1,2 +1,7 @@
 *
 !.gitignore
+!answers/
+!questions/
+!answers/**
+!questions/**
+
