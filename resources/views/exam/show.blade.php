@@ -66,14 +66,14 @@
                 </x-slot>
                 <x-slot name="table">
                     <x-mine.td-cell-primary class="max-w-xl text-ellipsis overflow-hidden">
-                        <a :href="`${index}/${data.id}`" x-text="data.question" ></a>
+                        <a :href="`${index}/${data.id}?page=${curPage}`" x-text="data.question" ></a>
                     </x-mine.td-cell-primary>
                     <td class="px-6 py-4">
                         <template x-if="data.question_file === null">
                             <img src="{{ Vite::asset('resources/images/no-img.png')}}" alt="No Image" class="object-contain h-20 max-w-full">
                         </template>
                         <template x-if="data.question_file">
-                            <a :href="`${index}/${data.id}`">
+                            <a :href="`${index}/${data.id}?page=${curPage}`">
                                 <img :src="`{{asset('storage/')}}/${data.question_file}`" alt="Question Image" class="object-contain h-20 max-w-full">
                             </a>
                         </template>

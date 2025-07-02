@@ -4,7 +4,7 @@
     x-data = "{
     {{-- pageSize: 10, --}}
     pageSize: {{$pageSize}},
-    curPage: 1,
+    curPage: parseInt(new URLSearchParams(window.location.search).get('page')) || 1,
 
     get entryStart() {
         {{-- return this.pageSize * this.curPage - 9 --}}
@@ -17,10 +17,20 @@
     },
 
     nextPage() {
-        if((this.curPage * this.pageSize) < datas.length) this.curPage++
+        if((this.curPage * this.pageSize) < datas.length) {
+            this.curPage++;
+            const url = new URL(window.location);
+            url.searchParams.set('page', this.curPage);
+            history.replaceState({}, '', url);
+        }
     },
     prevPage() {
-        if( this.curPage > 1) this.curPage--;
+        if( this.curPage > 1) {
+        this.curPage--;
+        const url = new URL(window.location);
+        url.searchParams.set('page', this.curPage);
+        history.replaceState({}, '', url);
+        }
     },
     get pagedDatas() {
         if(datas) {
@@ -34,7 +44,7 @@
 }">
     <div>
         <template x-cloack x-if="datas">
-            <div class="inline-block text-xs font-light text-slate-400 ml-6"> <span x-text="entryStart"></span> - <span x-text="entryEnd"></span> of <span x-text="datas.length"></span></div>
+            <div class="inline-block text-xs font-light text-slate-400 ml-6">Page <span x-text="curPage"></span> | <span x-text="entryStart"></span> - <span x-text="entryEnd"></span> of <span x-text="datas.length"></span></div>
         </template>
         <div class="overflow-x-auto pb-2">
             <table class="w-full table-auto text-sm text-left text-gray-500 mb-4">

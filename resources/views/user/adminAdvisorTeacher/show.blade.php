@@ -160,7 +160,7 @@
                                         </x-mine.th-cell>
                                     </x-slot>
                                     <x-mine.td-cell-primary>
-                                        <a :href="`${index}/${data.id}`" x-text="data.name" ></a>
+                                        <a :href="`${index}/${data.id}?page=${curPage}`" x-text="data.name" ></a>
                                     </x-mine.td-cell-primary>
                                     <x-mine.td-cell txt="data.grade_level_name"/>
                                     <x-mine.td-cell txt="data.subject_name"/>

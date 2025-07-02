@@ -22,7 +22,7 @@
                         </x-slot>
 
                         <x-mine.td-cell-primary>
-                            <a :href="`${index}/${data.id}`" x-text="data.name"></a>
+                            <a :href="`${index}/${data.id}?page=${curPage}`" x-text="data.name"></a>
                         </x-mine.td-cell-primary>
                         {{-- <td scope="col" class="px-6 py-3" x-text="data.email"></td> --}}
                         <x-mine.td-cell txt="data.birthday"/>

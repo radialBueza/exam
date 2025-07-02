@@ -37,7 +37,7 @@
                             </x-mine.th-cell>
                         </x-slot>
                         <x-mine.td-cell-primary>
-                            <a :href="`${index}/${data.id}`" x-text="data.user_name" ></a>
+                            <a :href="`${index}/${data.id}?page=${curPage}`" x-text="data.user_name" ></a>
                         </x-mine.td-cell-primary>
                         <x-mine.td-cell txt="data.section"/>
                         <x-mine.td-cell txt="data.score"/>
