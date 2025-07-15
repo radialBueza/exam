@@ -78,11 +78,17 @@ class UserController extends Controller
             'name' => 'Female'
         ]);
 
+        $sections = Section::orderBy('grade_level_id', 'asc')->get();
+        $sections->map(function ($section) {
+            $section->name = $section->gradeLevel->name . ' - ' . $section->name;
+            return $section;
+        });
+
         return view('user.index',
         [
             'datas' => User::oldest()->get()->toJson(),
             'options' => Department::all(),
-            'sections' => Section::orderBy('grade_level_id', 'asc')->get(),
+            'sections' => $sections->all(),
             'accountType' => $accountType->all(),
             'gender' => $gender->all()
         ]);
